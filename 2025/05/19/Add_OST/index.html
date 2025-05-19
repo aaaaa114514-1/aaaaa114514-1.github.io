@@ -13,7 +13,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://aaaaa114514-1.github.io/2025/05/17/the_first_step/"/>
+    <link rel="canonical" href="https://aaaaa114514-1.github.io/2025/05/19/add_ost/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -23,14 +23,14 @@
         
         <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="The_First_Step">
-<meta property="og:url" content="https://aaaaa114514-1.github.io/2025/05/17/The_First_Step/index.html">
+<meta property="og:title" content="Add_BGM">
+<meta property="og:url" content="https://aaaaa114514-1.github.io/2025/05/19/Add_OST/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://aaaaa114514-1.github.io/images/redefine-og.webp">
-<meta property="article:published_time" content="2025-05-16T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-05-16T16:35:18.422Z">
+<meta property="article:published_time" content="2025-05-19T07:30:00.000Z">
+<meta property="article:modified_time" content="2025-05-19T07:38:02.046Z">
 <meta property="article:author" content="aaaaa">
 <meta property="article:tag" content="Website_building">
 <meta name="twitter:card" content="summary">
@@ -46,7 +46,7 @@
     
     <title>
         
-            The_First_Step | aaaaa online
+            Add_BGM | aaaaa online
         
     </title>
 
@@ -399,7 +399,7 @@
 		<div class="article-title relative w-full">
 			
 			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">The_First_Step</h1>
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Add_BGM</h1>
 			</div>
 			
 		</div>
@@ -420,15 +420,15 @@
 					<div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2025-05-17</span>
-        <span class="mobile">2025-05-17</span>
+        <span class="desktop">2025-05-19 15:30</span>
+        <span class="mobile">2025-05-19 15:30</span>
         <span class="hover-info">创建</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-05-17 00:35:18</span>
-            <span class="mobile">2025-05-17 00:35:18</span>
+            <span class="desktop">2025-05-19 15:38:02</span>
+            <span class="mobile">2025-05-19 15:38:02</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -450,7 +450,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>142 字</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>153 字</span>
         </span>
     
     
@@ -474,20 +474,27 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<p>个人网页终于建出来了！感谢 <strong>Arahc</strong> 的帮助！  </p>
-<p>友情链接：  <a class="link"   target="_blank" rel="noopener" href="https://arahc.github.io/" >Arahc’s Home - A simple blog site.<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>  </p>
-<p>时间不早了，今天测完网页就睡。  </p>
+			<p>向主页添加了<strong>第一首歌</strong>，然后又添加了4首。  </p>
 <p>记录一下操作：  </p>
 <ul>
-<li><code>$ hexo clean</code> 清除generate的内容;</li>
-<li><code>$ hexo g</code> generate: 生成基于新的内容的 bulider;  </li>
-<li><code>$ hexo s</code> server: 开启本地服务器，用于测试;  <ul>
-<li>(默认在 <a class="link"   target="_blank" rel="noopener" href="http://localhost:4000/" >http://localhost:4000/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 打开本地测试)</li>
+<li><p>打开 <code>aaaaa_online\_config.redefine.yml</code> 找到 <code>plugins/aplayer/audios</code> ，复制一份如下代码：  </p>
+<ul>
+<li><pre><code>artist: 葉月ゆら # audio artist
+url: /music/HAMELN.mp3 # audio url
+cover: /images/cover/HAMELN.png # audio cover url
+lrc: # audio cover lrc
+</code></pre>
+</li>
 </ul>
 </li>
-<li><code>$ hexo d</code> deploy: 部署到网页，发布到公网。</li>
+<li><p>更改作者、曲名；  </p>
+</li>
+<li><p>在 <code>aaaaa_online\node_modules\hexo-theme-redefine\source\music</code> 目录下保存一份 <code>mp3</code> ，在 <code>aaaaa_online\node_modules\hexo-theme-redefine\source\images\cover</code> 目录下保存一份背景图；  </p>
+</li>
+<li><p>上传！</p>
+</li>
 </ul>
-<p>在 <a class="link"   target="_blank" rel="noopener" href="https://github.com/aaaaa114514-1/aaaaa114514-1.github.io" >Github仓库<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 可以看到上传的内容与上传的进度。由于上传<strong>很慢</strong>，所以要本地测试后再上传。  </p>
+<p>这个播放器插件声音有点大，而且没办法调节声音大小，略显不方便。以后找机会换一个能调声音大小的。</p>
 
 		</div>
 
@@ -495,18 +502,18 @@
 		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
 			<div class="article-copyright-info-container">
     <ul>
-        <li><strong>标题:</strong> The_First_Step</li>
+        <li><strong>标题:</strong> Add_BGM</li>
         <li><strong>作者:</strong> aaaaa</li>
         <li><strong>创建于
-                :</strong> 2025-05-17 00:00:00</li>
+                :</strong> 2025-05-19 15:30:00</li>
         
             <li>
                 <strong>更新于
-                    :</strong> 2025-05-17 00:35:18
+                    :</strong> 2025-05-19 15:38:02
             </li>
         
         <li>
-            <strong>链接:</strong> https://redefine.ohevan.com/2025/05/17/The_First_Step/
+            <strong>链接:</strong> https://redefine.ohevan.com/2025/05/19/Add_OST/
         </li>
         <li>
             <strong>
@@ -539,18 +546,18 @@
 		
 		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
 			
-			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="prev" rel="prev" href="/2025/05/19/Add_OST/">
-					<span class="left arrow-icon flex justify-center items-center">
-						<i class="fa-solid fa-chevron-left"></i>
-					</span>
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/05/17/The_First_Step/">
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item">Add_BGM</span>
-						<span class="post-nav-item">上一篇</span>
+						<span class="post-nav-title-item">The_First_Step</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
 					</span>
 				</a>
 			</div>
-			
 			
 		</div>
 		
@@ -564,7 +571,7 @@
 		<div class="post-toc-wrap">
 	<div class="post-toc">
 		<div class="toc-title">目录</div>
-		<div class="page-title">The_First_Step</div>
+		<div class="page-title">Add_BGM</div>
 		
 
 	</div>
