@@ -140,7 +140,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://aaaaa114514-1.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2026-02-02T14:00:00.000Z">
-<meta property="article:modified_time" content="2026-02-03T05:58:03.262Z">
+<meta property="article:modified_time" content="2026-02-03T08:35:04.660Z">
 <meta property="article:author" content="aaaaa">
 <meta property="article:tag" content="0_Start_Learning">
 <meta name="twitter:card" content="summary">
@@ -574,8 +574,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2026-02-03 13:58:03</span>
-            <span class="mobile">2026-02-03 13:58:03</span>
+            <span class="desktop">2026-02-03 16:35:04</span>
+            <span class="mobile">2026-02-03 16:35:04</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -597,12 +597,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.9k 字</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>3.4k 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>7 分钟</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>13 分钟</span>
         </span>
     
     
@@ -643,18 +643,19 @@
 <li><p><a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/getting-started/environment-setup" >Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
 </li>
 </ul>
+<hr>
 <h3 id="Project-0-准备工作"><a href="#Project-0-准备工作" class="headerlink" title="Project 0: 准备工作"></a>Project 0: 准备工作</h3><h4 id="安装与调试"><a href="#安装与调试" class="headerlink" title="安装与调试"></a>安装与调试</h4><p>由于我是<strong>Windows 11</strong>用户，之前听说在Windows上不能安装Docker，但是发现了Docker Desktop过后，Windows上也能轻松使用Docker了。虽然说本质上还是一种<strong>WSL(Windows Subsystem for Linux)</strong>，但是省得我装一个<em>VMWare</em>或者直接在本机上装一个<em>Ubuntu</em>(事实上我都装了，希望后来者可以不用走这条弯路)。具体步骤如下：</p>
 <h5 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a><strong>安装Docker</strong></h5><p>从<a class="link"   target="_blank" rel="noopener" href="https://www.docker.com/get-started" >官网链接<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>下载，非苹果机的Windows用户选择<code>Download for Windows - AMD64</code>，下载后按照提示正常安装即可；安装完成后打开，可能会出现要求安装<strong>WSL</strong>的命令行窗口，按任意键安装，大约需要3-5min完成；</p>
 <h5 id="下载PintOS源代码包"><a href="#下载PintOS源代码包" class="headerlink" title="下载PintOS源代码包"></a><strong>下载PintOS源代码包</strong></h5><p>有两种方法：①按照<a class="link"   target="_blank" rel="noopener" href="https://lion.sist.shanghaitech.edu.cn/Course/CS130/23f/files/pintos.tar.gz" >学校提供的链接<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>下载并解压（需要校内VPN访问），或者②从北大的<em>Github</em>仓库下拉：</p>
   <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:PKU-OS/pintos.git</span><br></pre></td></tr></table></figure></div>
 
-<h5 id="在本地进行系统测试"><a href="#在本地进行系统测试" class="headerlink" title="在本地进行系统测试"></a><strong>在本地进行系统测试</strong></h5><p>打开系统的命令行窗口，完成如下对话：</p>
+<h5 id="在本地进行系统测试"><a href="#在本地进行系统测试" class="headerlink" title="在本地进行系统测试"></a><strong>在本地进行系统测试</strong></h5><p><strong>打开Decker Desktop客户端</strong>，打开系统的命令行窗口，完成如下对话：</p>
 <ul>
 <li><p>将以下输入<strong>路径调整成实际安装路径后</strong>输入：</p>
   <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --<span class="built_in">rm</span> --name pintos --mount <span class="built_in">type</span>=<span class="built_in">bind</span>,<span class="built_in">source</span>=absolute/path/to/pintos/on/your/host/machine,target=/home/PKUOS/pintos pkuflyingpig/pintos bash</span><br></pre></td></tr></table></figure></div>
 
 <p>  然后命令行应该会变成如下格式（具体内容可能不同）：</p>
-<p>  <em>ps. 如果提示<code>fail to connect to the docker API</code>，可以尝试挂梯子使用</em></p>
+<p>  <em>ps. 如果提示<code>fail to connect to the docker API</code>，可以尝试挂梯子使用（先打开Decker Desktop）</em></p>
   <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@9113da5c984f:~#</span><br></pre></td></tr></table></figure></div>
 
 <p>  这说明<strong>一个微型的Ubuntu系统正在你的电脑上运行！</strong></p>
@@ -695,7 +696,7 @@
 </ul>
 <h5 id="完成！"><a href="#完成！" class="headerlink" title="完成！"></a><strong>完成！</strong></h5><p>至此，你的安装和调试过程就已经全部完成了！接下来我们需要了解一下编写代码过程中可能会用到的内容。</p>
 <hr>
-<h4 id="需要了解的内容"><a href="#需要了解的内容" class="headerlink" title="需要了解的内容"></a>需要了解的内容</h4><h5 id="Pintos-目录简介-由Build-and-Run-Pintos翻译而来"><a href="#Pintos-目录简介-由Build-and-Run-Pintos翻译而来" class="headerlink" title="Pintos 目录简介(由Build and Run | Pintos翻译而来)"></a>Pintos 目录简介(由<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/getting-started/pintos-world" >Build and Run | Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>翻译而来)</h5><ul>
+<h4 id="需要了解的内容"><a href="#需要了解的内容" class="headerlink" title="需要了解的内容"></a>需要了解的内容</h4><h5 id="Pintos-目录简介"><a href="#Pintos-目录简介" class="headerlink" title="Pintos 目录简介"></a>Pintos 目录简介</h5><ul>
 <li><code>threads/</code><ul>
 <li><strong>基础内核</strong>的源代码，从<strong>Project 1</strong>开始你将修改此部分。</li>
 </ul>
@@ -741,6 +742,153 @@
 </ul>
 </li>
 </ul>
+<p><em>更详细内容请参阅：<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/getting-started/pintos-world" >Build and Run | Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></em></p>
+<h5 id="Build"><a href="#Build" class="headerlink" title="Build"></a>Build</h5><p>要构建项目，只需要<code>cd</code>进入某个项目目录（如<code>threads/</code>, <code>userprog/</code>, <code>vm/</code>, <code>filesys/</code>等），然后键入指令：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make</span><br></pre></td></tr></table></figure></div>
+<p>等待20~30s即构建完成！</p>
+<p><em>有关构建项目产生的文件具体用途，更详细内容请参阅：<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/getting-started/pintos-world/building-pintos" >Building Pintos | Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></em></p>
+<h5 id="Run"><a href="#Run" class="headerlink" title="Run"></a>Run</h5><p>要执行指令，可以按照以下规则输入指令：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pintos [工具选项] -- [内核参数]</span><br></pre></td></tr></table></figure></div>
+<p>其中，[工具选项] 部分为可选项（可以不写，也可以串接写很多个）：</p>
+<ul>
+<li><code>--bochs</code> 使用Bochs代替默认的Qemu来模拟计算机；Bochs更适合Debug时使用，而Qemu大多数情况下跑得更快</li>
+<li><code>--gdb</code> 用Debug模式运行</li>
+<li><code>-m 128</code> 设置内存大小为128MB</li>
+<li><code>-v</code> 关闭VGA显示，仅输出结果</li>
+<li><code>--bochs -t</code> 使用终端作为VGA显示</li>
+<li><code>-s</code> 禁用输入输出，避免交互，仅输出结果</li>
+</ul>
+<p>[内核参数] 部分可以有如下内容：</p>
+<ul>
+<li><code>run alarm-multiple</code> 指将 <code>run alarm-multiple</code> 作为参数传给PintOS系统，由系统响应这个指令，即运行指定的测试：<code>alarm-multiple</code></li>
+</ul>
+<p>所以总体上一个合法的输入可以是：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pintos -v -- run alarm-multiple</span><br></pre></td></tr></table></figure></div>
+
+<p>要想关闭进程，可以<code>Ctrl + C</code>强制停止。</p>
+<p>另外，获取更全的参数表可以键入：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pintos -h</span><br></pre></td></tr></table></figure></div>
+
+<p><em>更详细内容请参阅：<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/getting-started/pintos-world/running-pintos" >Running Pintos | Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></em></p>
+<h5 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h5><p>现在似乎<strong>只能一次性测试所有数据点</strong>，不过功能上完全覆盖测试单个数据点，只不过测试时间略长一点。测试过程如下：</p>
+<ul>
+<li><p>先完成项目构建，然后进入项目目录：</p>
+  <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> pintos/src/threads/build</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>跑测试：</p>
+  <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make check</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>测试结果会直接显示出来，每个数据点具体的错误信息保存在具体项目目录下，如<code>pintos/src/threads/build/tests/threads</code>等</p>
+</li>
+<li><p>从第二次测试开始，每次测试之前需要先<strong>手动删除该文件夹</strong>，如<code>pintos/src/threads/build/tests/threads</code>等</p>
+</li>
+</ul>
+<p><code>pintos/src/tests</code>下的各个目录分别代表各个项目的测试程序目录，其中存有评测数据生成器和评测机等；可以手动修改部分评测机数据点进行本地测试，不过最终会以原数据点结果计分。</p>
+<p><em>更详细的内容请参阅：<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/getting-started/debug-and-test/testing" >Testing | Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></em></p>
+<h5 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h5><p>支持使用<code>printf()</code>和<code>ASSERT</code>来辅助Debug。</p>
+<p>可以使用<code>Backtrace</code>来Debug，具体操作详见<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/getting-started/debug-and-test/debugging" >Debugging | Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>.</p>
+<p><strong>使用GDB来Debug:</strong></p>
+<ul>
+<li><p>先正常启动Docker，然后在<code>终端1</code>上启动Ubuntu系统；</p>
+</li>
+<li><p>打开<code>终端2</code>，键入：</p>
+  <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it pintos bash</span><br></pre></td></tr></table></figure></div>
+<p>  这样就成功在两个终端上进入同一个Ubuntu容器了。</p>
+</li>
+<li><p>接下来在<code>终端1</code>上先<code>make</code>构建项目，然后进入项目目录（如<code>pintos/src/threads</code>），键入带<code>--gdb</code>选项的运行指令，如：</p>
+  <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pintos --gdb -- run alarm-multiple</span><br></pre></td></tr></table></figure></div>
+<p>  然后<code>终端1</code>会进入gdb模式，显示类似于这样的内容：</p>
+  <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-system-i386 -device isa-debug-exit -drive format=raw,media=disk,index=0,file=/tmp/2yFkc39zD1.dsk -m 4 -net none -nographic -gdb tcp::1234 -S</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>接下来在<code>终端2</code>上进入项目目录中的<code>build</code>文件夹（如<code>pintos/src/threads/build</code>），键入：</p>
+  <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gdb kernel.o</span><br></pre></td></tr></table></figure></div>
+<p>  此时<code>终端2</code>就成功进入gdb模式了，显示类似于这样的内容：</p>
+  <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">GNU gdb (Ubuntu 8.1.1-0ubuntu1) 8.1.1</span><br><span class="line">Copyright (C) 2018 Free Software Foundation, Inc.</span><br><span class="line">License GPLv3+: GNU GPL version 3 or later 	&lt;http://gnu.org/licenses/gpl.html&gt;</span><br><span class="line">This is free software: you are free to change and redistribute 	it.</span><br><span class="line">There is NO WARRANTY, to the extent permitted by law.  Type <span class="string">&quot;show copying&quot;</span></span><br><span class="line">and <span class="string">&quot;show warranty&quot;</span> <span class="keyword">for</span> details.</span><br><span class="line">This GDB was configured as <span class="string">&quot;x86_64-linux-gnu&quot;</span>.</span><br><span class="line">Type <span class="string">&quot;show configuration&quot;</span> <span class="keyword">for</span> configuration details.</span><br><span class="line">For bug reporting instructions, please see:</span><br><span class="line">&lt;http://www.gnu.org/software/gdb/bugs/&gt;.</span><br><span class="line">Find the GDB manual and other documentation resources online at:</span><br><span class="line">&lt;http://www.gnu.org/software/gdb/documentation/&gt;.</span><br><span class="line">For <span class="built_in">help</span>, <span class="built_in">type</span> <span class="string">&quot;help&quot;</span>.</span><br><span class="line">Type <span class="string">&quot;apropos word&quot;</span> to search <span class="keyword">for</span> commands related to <span class="string">&quot;word&quot;</span>...</span><br><span class="line">Reading symbols from kernel.o...done.</span><br><span class="line">(gdb)</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>接下来在<code>终端2</code>中键入：</p>
+  <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">target remote localhost:1234</span><br></pre></td></tr></table></figure></div>
+<p>  此时<code>终端2</code>成功连接上本机端口1234，显示类似于这样的内容：</p>
+  <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Remote debugging using localhost:1234</span><br><span class="line">0x0000fff0 <span class="keyword">in</span> ?? ()</span><br><span class="line">(gdb)</span><br></pre></td></tr></table></figure></div>
+<p>  这样gdb的配置就完成了。</p>
+</li>
+<li><p>接下来就可以在<code>终端2</code>上调试代码了。以下是一些gdb调试指令：</p>
+<ul>
+<li><p><strong>程序控制</strong></p>
+<ul>
+<li><code>c</code> &#x2F; <code>continue</code><br>继续运行程序</li>
+<li><code>si</code><br>单步执行一条汇编指令</li>
+<li><code>ni</code><br>单步执行一条汇编指令（不进入调用）</li>
+<li><code>s</code> &#x2F; <code>step</code><br>单步执行一行源码（进入函数）</li>
+<li><code>n</code> &#x2F; <code>next</code><br>单步执行一行源码（不进入函数）</li>
+<li><code>finish</code><br>运行到当前函数返回</li>
+<li><code>quit</code><br>退出 GDB</li>
+</ul>
+</li>
+<li><p><strong>断点</strong></p>
+<ul>
+<li><code>b &lt;function&gt;</code><br>在函数入口设置断点</li>
+<li><code>b &lt;file&gt;:&lt;line&gt;</code><br>在指定文件行号设置断点</li>
+<li><code>info break</code><br>查看所有断点</li>
+<li><code>disable &lt;n&gt;</code><br>禁用编号为 n 的断点</li>
+<li><code>enable &lt;n&gt;</code><br>启用编号为 n 的断点</li>
+<li><code>delete &lt;n&gt;</code><br>删除编号为 n 的断点</li>
+<li><code>delete</code><br>删除所有断点</li>
+</ul>
+</li>
+<li><p><strong>调用栈 &#x2F; 执行上下文</strong></p>
+<ul>
+<li><code>bt</code><br>显示调用栈（backtrace）</li>
+<li><code>frame &lt;n&gt;</code><br>切换到第 n 层栈帧</li>
+<li><code>info frame</code><br>查看当前栈帧信息</li>
+</ul>
+</li>
+<li><p><strong>变量 &#x2F; 表达式</strong></p>
+<ul>
+<li><code>p &lt;expr&gt;</code><br>打印变量或表达式</li>
+<li><code>p/x &lt;expr&gt;</code><br>以十六进制打印</li>
+<li><code>set var &lt;var&gt;=&lt;value&gt;</code><br>修改变量值</li>
+<li><code>info locals</code><br>查看当前函数的局部变量</li>
+<li><code>info args</code><br>查看当前函数参数</li>
+</ul>
+</li>
+<li><p><strong>寄存器</strong></p>
+<ul>
+<li><code>info registers</code><br>查看所有寄存器</li>
+<li><code>info registers eip esp ebp</code><br>查看指定寄存器</li>
+<li><code>p $eip</code><br>打印寄存器值</li>
+</ul>
+</li>
+<li><p><strong>内存 &#x2F; 指令查看</strong></p>
+<ul>
+<li><code>x/10i $eip</code><br>查看当前指令地址开始的 10 条汇编</li>
+<li><code>x/16x &lt;addr&gt;</code><br>以十六进制查看内存</li>
+<li><code>x/4w &lt;addr&gt;</code><br>以 word 形式查看内存</li>
+<li><code>disassemble &lt;function&gt;</code><br>反汇编函数</li>
+</ul>
+</li>
+<li><p><strong>源码查看</strong></p>
+<ul>
+<li><code>list</code><br>显示当前源码附近</li>
+<li><code>list &lt;function&gt;</code><br>显示函数源码</li>
+<li><code>list &lt;file&gt;:&lt;line&gt;</code><br>显示指定位置源码</li>
+</ul>
+</li>
+<li><p><strong>线程</strong></p>
+<ul>
+<li><code>info threads</code><br>查看所有线程</li>
+<li><code>thread &lt;n&gt;</code><br>切换到指定线程</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>终端2</code>退出：键入<code>quit</code>或按下<code>Ctrl + D</code>，并确认退出</p>
+</li>
+<li><p><code>终端1</code>退出：可以先按下<code>Ctrl + A</code>，松开后再按下<code>X</code>关闭进程</p>
+</li>
+</ul>
+<p><em>更详细的内容请参阅：<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/getting-started/debug-and-test/debugging" >Debugging | Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></em></p>
+<hr>
+<h3 id="Project-1-Threads-进程"><a href="#Project-1-Threads-进程" class="headerlink" title="Project 1: Threads | 进程"></a>Project 1: Threads | 进程</h3><p>[待续]</p>
 
 		</div>
 
@@ -755,7 +903,7 @@
         
             <li>
                 <strong>更新于
-                    :</strong> 2026-02-03 13:58:03
+                    :</strong> 2026-02-03 16:35:04
             </li>
         
         <li>
@@ -818,7 +966,7 @@
 	<div class="post-toc">
 		<div class="toc-title">目录</div>
 		<div class="page-title">零基础速通：CS130 操作系统I</div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CS130-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI"><span class="nav-text">CS130: 操作系统I</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA%E9%83%A8%E5%88%86"><span class="nav-text">理论部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Project-%E5%9F%BA%E4%BA%8EPintOS%E7%9A%84%E6%89%8B%E6%90%93%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%81"><span class="nav-text">Project: 基于PintOS的手搓操作系统！</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Project-0-%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-text">Project 0: 准备工作</span></a></li></ol></li></ol></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CS130-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI"><span class="nav-text">CS130: 操作系统I</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA%E9%83%A8%E5%88%86"><span class="nav-text">理论部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Project-%E5%9F%BA%E4%BA%8EPintOS%E7%9A%84%E6%89%8B%E6%90%93%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%81"><span class="nav-text">Project: 基于PintOS的手搓操作系统！</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Project-0-%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-text">Project 0: 准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Project-1-Threads-%E8%BF%9B%E7%A8%8B"><span class="nav-text">Project 1: Threads | 进程</span></a></li></ol></li></ol></li></ol>
 
 	</div>
 </div>
@@ -849,7 +997,7 @@
                     </span>
                     
                         <span>
-                            共 10.1k 字
+                            共 11.6k 字
                         </span>
                     
                 </p>
