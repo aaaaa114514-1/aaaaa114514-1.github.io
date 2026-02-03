@@ -140,7 +140,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://aaaaa114514-1.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2026-02-02T14:00:00.000Z">
-<meta property="article:modified_time" content="2026-02-03T05:25:05.602Z">
+<meta property="article:modified_time" content="2026-02-03T05:58:03.262Z">
 <meta property="article:author" content="aaaaa">
 <meta property="article:tag" content="0_Start_Learning">
 <meta name="twitter:card" content="summary">
@@ -574,8 +574,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2026-02-03 13:25:05</span>
-            <span class="mobile">2026-02-03 13:25:05</span>
+            <span class="desktop">2026-02-03 13:58:03</span>
+            <span class="mobile">2026-02-03 13:58:03</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -640,17 +640,15 @@
 <ul>
 <li><p><a class="link"   target="_blank" rel="noopener" href="https://lion.sist.shanghaitech.edu.cn/Course/CS130/23f/" >CS130 - Operating Systems<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> （需要校内VPN访问）</p>
 </li>
-<li><p><a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/getting-started/environment-setup" >Environment Setup | Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<li><p><a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/getting-started/environment-setup" >Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
 </li>
 </ul>
 <h3 id="Project-0-准备工作"><a href="#Project-0-准备工作" class="headerlink" title="Project 0: 准备工作"></a>Project 0: 准备工作</h3><h4 id="安装与调试"><a href="#安装与调试" class="headerlink" title="安装与调试"></a>安装与调试</h4><p>由于我是<strong>Windows 11</strong>用户，之前听说在Windows上不能安装Docker，但是发现了Docker Desktop过后，Windows上也能轻松使用Docker了。虽然说本质上还是一种<strong>WSL(Windows Subsystem for Linux)</strong>，但是省得我装一个<em>VMWare</em>或者直接在本机上装一个<em>Ubuntu</em>(事实上我都装了，希望后来者可以不用走这条弯路)。具体步骤如下：</p>
-<ul>
-<li><p><strong>安装Docker</strong>: 从<a class="link"   target="_blank" rel="noopener" href="https://www.docker.com/get-started" >官网链接<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>下载，非苹果机的Windows用户选择<code>Download for Windows - AMD64</code>，下载后按照提示正常安装即可；安装完成后打开，可能会出现要求安装<strong>WSL</strong>的命令行窗口，按任意键安装，大约需要3-5min完成；</p>
-</li>
-<li><p><strong>下载PintOS源代码包</strong>：有两种方法：①按照<a class="link"   target="_blank" rel="noopener" href="https://lion.sist.shanghaitech.edu.cn/Course/CS130/23f/files/pintos.tar.gz" >学校提供的链接<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>下载并解压（需要校内VPN访问），或者②从北大的<em>Github</em>仓库下拉：</p>
-<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:PKU-OS/pintos.git</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p><strong>在本地进行系统测试</strong>：打开系统的命令行窗口，完成如下对话：</p>
+<h5 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a><strong>安装Docker</strong></h5><p>从<a class="link"   target="_blank" rel="noopener" href="https://www.docker.com/get-started" >官网链接<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>下载，非苹果机的Windows用户选择<code>Download for Windows - AMD64</code>，下载后按照提示正常安装即可；安装完成后打开，可能会出现要求安装<strong>WSL</strong>的命令行窗口，按任意键安装，大约需要3-5min完成；</p>
+<h5 id="下载PintOS源代码包"><a href="#下载PintOS源代码包" class="headerlink" title="下载PintOS源代码包"></a><strong>下载PintOS源代码包</strong></h5><p>有两种方法：①按照<a class="link"   target="_blank" rel="noopener" href="https://lion.sist.shanghaitech.edu.cn/Course/CS130/23f/files/pintos.tar.gz" >学校提供的链接<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>下载并解压（需要校内VPN访问），或者②从北大的<em>Github</em>仓库下拉：</p>
+  <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:PKU-OS/pintos.git</span><br></pre></td></tr></table></figure></div>
+
+<h5 id="在本地进行系统测试"><a href="#在本地进行系统测试" class="headerlink" title="在本地进行系统测试"></a><strong>在本地进行系统测试</strong></h5><p>打开系统的命令行窗口，完成如下对话：</p>
 <ul>
 <li><p>将以下输入<strong>路径调整成实际安装路径后</strong>输入：</p>
   <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --<span class="built_in">rm</span> --name pintos --mount <span class="built_in">type</span>=<span class="built_in">bind</span>,<span class="built_in">source</span>=absolute/path/to/pintos/on/your/host/machine,target=/home/PKUOS/pintos pkuflyingpig/pintos bash</span><br></pre></td></tr></table></figure></div>
@@ -675,17 +673,18 @@
 </li>
 <li><p>以上对话如果均正常，那么接下来可以尝试启动系统了，键入：</p>
   <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> pintos/src/threads/</span><br><span class="line">make</span><br><span class="line"><span class="built_in">cd</span> build</span><br><span class="line">pintos --</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
 <p>  如果回话的最后几行类似于：</p>
   <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Pintos hda1</span><br><span class="line">Loading............</span><br><span class="line">Kernel <span class="built_in">command</span> line:</span><br><span class="line">Pintos booting with 3,968 kB RAM...</span><br><span class="line">367 pages available <span class="keyword">in</span> kernel pool.</span><br><span class="line">367 pages available <span class="keyword">in</span> user pool.</span><br><span class="line">Calibrating timer...  32,716,800 loops/s.</span><br><span class="line">Boot complete.</span><br></pre></td></tr></table></figure></div>
+
 <p>  那就说明<strong>你的PintOS系统在本地成功运行了！</strong></p>
 </li>
 <li><p>注：此时可以按<code>Ctrl + C</code>关闭PintOS系统，然后按<code>Ctrl + D</code>退出微型的Ubuntu系统。</p>
 </li>
 <li><p>目前已经完成的架构，是在Windows上通过WSL和Docker建立了一个Ubuntu容器(Container)，然后在这个Ubuntu容器内部通过QEMU模拟了一台x86计算机的硬件结构，然后在这台模拟的计算机上运行了PintOS系统，这个结构画出来就是这样的：</p>
-  <div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Host OS（Windows / macOS / Linux）</span><br><span class="line">└── Docker</span><br><span class="line">	└── Ubuntu Linux（容器里的用户态 Linux）</span><br><span class="line">		└── QEMU（一个普通用户程序）</span><br><span class="line">			└── 模拟的 32-bit x86 计算机（CPU, 内存, 磁盘等硬件）</span><br><span class="line">				└── PintOS（操作系统）</span><br></pre></td></tr></table></figure></div></li>
+  <div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Host OS（Windows / macOS / Linux）</span><br><span class="line">└── Docker</span><br><span class="line">    └── Ubuntu Linux（容器里的用户态 Linux）</span><br><span class="line">        └── QEMU（一个普通用户程序）</span><br><span class="line">            └── 模拟的 32-bit x86 计算机（CPU, 内存, 磁盘等硬件）</span><br><span class="line">                └── PintOS（操作系统）</span><br></pre></td></tr></table></figure></div></li>
 </ul>
-</li>
-<li><p><strong>在本地进行程序测试</strong>：尝试运行<strong>Project 1</strong>的本地test</p>
+<h5 id="在本地进行程序测试"><a href="#在本地进行程序测试" class="headerlink" title="在本地进行程序测试"></a><strong>在本地进行程序测试</strong></h5><p>尝试运行<strong>Project 1</strong>的本地test：</p>
 <ul>
 <li>打开任意终端，启动Ubuntu系统：  <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --<span class="built_in">rm</span> --name pintos --mount <span class="built_in">type</span>=<span class="built_in">bind</span>,<span class="built_in">source</span>=absolute/path/to/pintos/on/your/host/machine,target=/home/PKUOS/pintos pkuflyingpig/pintos bash</span><br></pre></td></tr></table></figure></div>
   <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@9113da5c984f:~#</span><br></pre></td></tr></table></figure></div></li>
@@ -694,11 +693,9 @@
 <li>开始测试：  <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make check</span><br></pre></td></tr></table></figure></div>
   测试大约需要20~30s，看到输出结果最后类似于以下，说明你到目前为止的操作没有问题：  <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">pass tests/threads/alarm-single</span><br><span class="line">pass tests/threads/alarm-multiple</span><br><span class="line">pass tests/threads/alarm-simultaneous</span><br><span class="line">FAIL tests/threads/alarm-priority</span><br><span class="line">pass tests/threads/alarm-zero</span><br><span class="line">pass tests/threads/alarm-negative</span><br><span class="line">FAIL tests/threads/priority-change</span><br><span class="line">FAIL tests/threads/priority-donate-one</span><br><span class="line">FAIL tests/threads/priority-donate-multiple</span><br><span class="line">FAIL tests/threads/priority-donate-multiple2</span><br><span class="line">FAIL tests/threads/priority-donate-nest</span><br><span class="line">FAIL tests/threads/priority-donate-sema</span><br><span class="line">FAIL tests/threads/priority-donate-lower</span><br><span class="line">FAIL tests/threads/priority-fifo</span><br><span class="line">FAIL tests/threads/priority-preempt</span><br><span class="line">FAIL tests/threads/priority-sema</span><br><span class="line">FAIL tests/threads/priority-condvar</span><br><span class="line">FAIL tests/threads/priority-donate-chain</span><br><span class="line">FAIL tests/threads/mlfqs-load-1</span><br><span class="line">FAIL tests/threads/mlfqs-load-60</span><br><span class="line">FAIL tests/threads/mlfqs-load-avg</span><br><span class="line">FAIL tests/threads/mlfqs-recent-1</span><br><span class="line">pass tests/threads/mlfqs-fair-2</span><br><span class="line">pass tests/threads/mlfqs-fair-20</span><br><span class="line">FAIL tests/threads/mlfqs-nice-2</span><br><span class="line">FAIL tests/threads/mlfqs-nice-10</span><br><span class="line">FAIL tests/threads/mlfqs-block</span><br><span class="line">20 of 27 tests failed.</span><br><span class="line">../../tests/Make.tests:26: recipe <span class="keyword">for</span> target <span class="string">&#x27;check&#x27;</span> failed</span><br><span class="line">make: *** [check] Error 1</span><br></pre></td></tr></table></figure></div></li>
 </ul>
-</li>
-<li><p><strong>至此，你的安装和调试过程就已经全部完成了</strong>！接下来我们需要了解一下编写代码过程中可能会用到的内容。</p>
-</li>
-</ul>
-<h4 id="Pintos-目录简介-由-Environment-Setup-Pintos-Build-and-Run-Pintos-翻译而来"><a href="#Pintos-目录简介-由-Environment-Setup-Pintos-Build-and-Run-Pintos-翻译而来" class="headerlink" title="Pintos 目录简介(由[Environment Setup | Pintos](Build and Run | Pintos)翻译而来)"></a>Pintos 目录简介(由[Environment Setup | Pintos](<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/getting-started/pintos-world" >Build and Run | Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>)翻译而来)</h4><ul>
+<h5 id="完成！"><a href="#完成！" class="headerlink" title="完成！"></a><strong>完成！</strong></h5><p>至此，你的安装和调试过程就已经全部完成了！接下来我们需要了解一下编写代码过程中可能会用到的内容。</p>
+<hr>
+<h4 id="需要了解的内容"><a href="#需要了解的内容" class="headerlink" title="需要了解的内容"></a>需要了解的内容</h4><h5 id="Pintos-目录简介-由Build-and-Run-Pintos翻译而来"><a href="#Pintos-目录简介-由Build-and-Run-Pintos翻译而来" class="headerlink" title="Pintos 目录简介(由Build and Run | Pintos翻译而来)"></a>Pintos 目录简介(由<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/getting-started/pintos-world" >Build and Run | Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>翻译而来)</h5><ul>
 <li><code>threads/</code><ul>
 <li><strong>基础内核</strong>的源代码，从<strong>Project 1</strong>开始你将修改此部分。</li>
 </ul>
@@ -739,7 +736,7 @@
 <li>从<strong>项目2</strong>开始使用的示例用户程序。</li>
 </ul>
 </li>
-<li><code>misc/&quot; 与 &quot;utils/</code><ul>
+<li><code>misc/</code>和<code>utils/</code><ul>
 <li>如果你尝试在自己的机器上使用Pintos，这些文件可能会派上用场。否则，你可以忽略它们。</li>
 </ul>
 </li>
@@ -758,7 +755,7 @@
         
             <li>
                 <strong>更新于
-                    :</strong> 2026-02-03 13:25:05
+                    :</strong> 2026-02-03 13:58:03
             </li>
         
         <li>
