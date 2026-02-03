@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://aaaaa114514-1.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2026-02-02T14:00:00.000Z">
-<meta property="article:modified_time" content="2026-02-02T15:14:04.919Z">
+<meta property="article:modified_time" content="2026-02-03T03:11:37.366Z">
 <meta property="article:author" content="aaaaa">
 <meta property="article:tag" content="0_Start_Learning">
 <meta name="twitter:card" content="summary">
@@ -464,8 +464,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2026-02-02 23:14:04</span>
-            <span class="mobile">2026-02-02 23:14:04</span>
+            <span class="desktop">2026-02-03 11:11:37</span>
+            <span class="mobile">2026-02-03 11:11:37</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -487,12 +487,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>949 字</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.1k 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>3 分钟</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>4 分钟</span>
         </span>
     
     
@@ -535,9 +535,9 @@
 </ul>
 <h3 id="Project-0-准备工作"><a href="#Project-0-准备工作" class="headerlink" title="Project 0: 准备工作"></a>Project 0: 准备工作</h3><p>由于我是<strong>Windows 11</strong>用户，之前听说在Windows上不能安装Docker，但是发现了Docker Desktop过后，Windows上也能轻松使用Docker了。虽然说本质上还是一种<strong>WSL(Windows Subsystem for Linux)</strong>，但是省得我装一个<em>VMWare</em>或者直接在本机上装一个<em>Ubuntu</em>(事实上我都装了，希望后来者可以不用走这条弯路)。具体步骤如下：</p>
 <ul>
-<li><p><strong>安装Docker</strong>: 从<a target="_blank" rel="noopener" href="https://www.docker.com/get-started"><strong>官网链接</strong></a>下载，非苹果机的Windows用户选择<code>Download for Windows - AMD64</code>，下载后按照提示正常安装即可；安装完成后打开，可能会出现要求安装<strong>WSL</strong>的命令行窗口，按任意键安装，大约需要3-5min完成；</p>
+<li><p><strong>安装Docker</strong>: 从<a class="link"   target="_blank" rel="noopener" href="https://www.docker.com/get-started" >官网链接<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>下载，非苹果机的Windows用户选择<code>Download for Windows - AMD64</code>，下载后按照提示正常安装即可；安装完成后打开，可能会出现要求安装<strong>WSL</strong>的命令行窗口，按任意键安装，大约需要3-5min完成；</p>
 </li>
-<li><p><strong>下载PintOS源代码包</strong>：有两种方法：①按照<a target="_blank" rel="noopener" href="https://lion.sist.shanghaitech.edu.cn/Course/CS130/23f/files/pintos.tar.gz"><strong>学校提供的链接</strong></a>下载并解压（需要校内VPN访问），或者②从北大的<em>Github</em>仓库下拉：</p>
+<li><p><strong>下载PintOS源代码包</strong>：有两种方法：①按照<a class="link"   target="_blank" rel="noopener" href="https://lion.sist.shanghaitech.edu.cn/Course/CS130/23f/files/pintos.tar.gz" >学校提供的链接<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>下载并解压（需要校内VPN访问），或者②从北大的<em>Github</em>仓库下拉：</p>
 <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:PKU-OS/pintos.git</span><br></pre></td></tr></table></figure></div>
 </li>
 <li><p><strong>在本地进行第一次测试</strong>：打开系统的命令行窗口，完成如下对话：</p>
@@ -563,11 +563,13 @@
 <li><p>以上对话如果均正常，那么接下来可以尝试启动系统了，键入：</p>
   <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> pintos/src/threads/</span><br><span class="line">make</span><br><span class="line"><span class="built_in">cd</span> build</span><br><span class="line">pintos --</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
 <p>  如果回话的最后几行类似于：</p>
-  <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">  	Pintos hda1</span><br><span class="line">  	Loading............</span><br><span class="line">Kernel <span class="built_in">command</span> line:</span><br><span class="line">Pintos booting with 3,968 kB RAM...</span><br><span class="line">367 pages available <span class="keyword">in</span> kernel pool.</span><br><span class="line">367 pages available <span class="keyword">in</span> user pool.</span><br><span class="line">Calibrating timer...  32,716,800 loops/s.</span><br><span class="line">Boot complete.</span><br></pre></td></tr></table></figure></div>
+  <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Pintos hda1</span><br><span class="line">Loading............</span><br><span class="line">Kernel <span class="built_in">command</span> line:</span><br><span class="line">Pintos booting with 3,968 kB RAM...</span><br><span class="line">367 pages available <span class="keyword">in</span> kernel pool.</span><br><span class="line">367 pages available <span class="keyword">in</span> user pool.</span><br><span class="line">Calibrating timer...  32,716,800 loops/s.</span><br><span class="line">Boot complete.</span><br></pre></td></tr></table></figure></div>
 <p>  那就说明<strong>你的PintOS系统在本地成功运行了！</strong></p>
 </li>
 <li><p>注：此时可以按<code>Ctrl + C</code>关闭PintOS系统，然后按<code>Ctrl + D</code>退出微型的Ubuntu系统。</p>
 </li>
+<li><p>目前已经完成的架构，是在Windows上通过WSL和Docker建立了一个Ubuntu容器(Container)，然后在这个Ubuntu容器内部通过QEMU模拟了一台x86计算机的硬件结构，然后在这台模拟的计算机上运行了PintOS系统，这个结构画出来就是这样的：</p>
+  <div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Host OS（Windows / macOS / Linux）</span><br><span class="line">└── Docker</span><br><span class="line">	└── Ubuntu Linux（容器里的用户态 Linux）</span><br><span class="line">		└── QEMU（一个普通用户程序）</span><br><span class="line">			└── 模拟的 32-bit x86 计算机（CPU, 内存, 磁盘等硬件）</span><br><span class="line">				└── PintOS（操作系统）</span><br></pre></td></tr></table></figure></div></li>
 </ul>
 </li>
 <li><p>[待续]</p>
@@ -587,7 +589,7 @@
         
             <li>
                 <strong>更新于
-                    :</strong> 2026-02-02 23:14:04
+                    :</strong> 2026-02-03 11:11:37
             </li>
         
         <li>
@@ -681,7 +683,7 @@
                     </span>
                     
                         <span>
-                            共 9.2k 字
+                            共 9.3k 字
                         </span>
                     
                 </p>
