@@ -140,7 +140,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://aaaaa114514-1.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2026-02-02T14:00:00.000Z">
-<meta property="article:modified_time" content="2026-02-03T08:49:39.761Z">
+<meta property="article:modified_time" content="2026-02-05T07:47:18.089Z">
 <meta property="article:author" content="aaaaa">
 <meta property="article:tag" content="0_Start_Learning">
 <meta name="twitter:card" content="summary">
@@ -574,8 +574,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2026-02-03 16:49:39</span>
-            <span class="mobile">2026-02-03 16:49:39</span>
+            <span class="desktop">2026-02-05 15:47:18</span>
+            <span class="mobile">2026-02-05 15:47:18</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -597,12 +597,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>3.4k 字</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>3.8k 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>13 分钟</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>15 分钟</span>
         </span>
     
     
@@ -636,11 +636,12 @@
 </ul>
 <p>每个部分基于前一个部分的工作完成，所以还请务必按照顺序！</p>
 <p>学期内的Project是在学校的在线平台上完成，那里已经搭好了VM的环境，需要<strong>ssh</strong>远程过去写代码、跑调试。<strong>但是在假期内学校在线端口无法访问，Project需要通过在本地手动配置环境并部署来完成。接下来介绍的所有过程都基于本地Windows 11系统，从头开始配置环境、部署Project。</strong></p>
-<p><strong>参考教程：</strong></p>
-<ul>
-<li><p><a class="link"   target="_blank" rel="noopener" href="https://lion.sist.shanghaitech.edu.cn/Course/CS130/23f/" >CS130 - Operating Systems<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> （需要校内VPN访问）</p>
+<h4 id="参考教程"><a href="#参考教程" class="headerlink" title="参考教程"></a>参考教程</h4><ul>
+<li><p>校内课程要求：<a class="link"   target="_blank" rel="noopener" href="https://lion.sist.shanghaitech.edu.cn/Course/CS130/23f/" >CS130 - Operating Systems<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> （需要校内VPN访问）</p>
 </li>
-<li><p><a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/getting-started/environment-setup" >Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<li><p>Pintos官方教程：<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/getting-started/environment-setup" >Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+</li>
+<li><p>一份<strong>关键的</strong>非官方代码教程：<a class="link"   target="_blank" rel="noopener" href="https://static1.squarespace.com/static/5b18aa0955b02c1de94e4412/t/5b85fad2f950b7b16b7a2ed6/1535507195196/Pintos+Guide" >Pintos+Guide<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
 </li>
 </ul>
 <hr>
@@ -694,7 +695,27 @@
 <li>开始测试：  <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make check</span><br></pre></td></tr></table></figure></div>
   测试大约需要20~30s，看到输出结果最后类似于以下，说明你到目前为止的操作没有问题：  <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">pass tests/threads/alarm-single</span><br><span class="line">pass tests/threads/alarm-multiple</span><br><span class="line">pass tests/threads/alarm-simultaneous</span><br><span class="line">FAIL tests/threads/alarm-priority</span><br><span class="line">pass tests/threads/alarm-zero</span><br><span class="line">pass tests/threads/alarm-negative</span><br><span class="line">FAIL tests/threads/priority-change</span><br><span class="line">FAIL tests/threads/priority-donate-one</span><br><span class="line">FAIL tests/threads/priority-donate-multiple</span><br><span class="line">FAIL tests/threads/priority-donate-multiple2</span><br><span class="line">FAIL tests/threads/priority-donate-nest</span><br><span class="line">FAIL tests/threads/priority-donate-sema</span><br><span class="line">FAIL tests/threads/priority-donate-lower</span><br><span class="line">FAIL tests/threads/priority-fifo</span><br><span class="line">FAIL tests/threads/priority-preempt</span><br><span class="line">FAIL tests/threads/priority-sema</span><br><span class="line">FAIL tests/threads/priority-condvar</span><br><span class="line">FAIL tests/threads/priority-donate-chain</span><br><span class="line">FAIL tests/threads/mlfqs-load-1</span><br><span class="line">FAIL tests/threads/mlfqs-load-60</span><br><span class="line">FAIL tests/threads/mlfqs-load-avg</span><br><span class="line">FAIL tests/threads/mlfqs-recent-1</span><br><span class="line">pass tests/threads/mlfqs-fair-2</span><br><span class="line">pass tests/threads/mlfqs-fair-20</span><br><span class="line">FAIL tests/threads/mlfqs-nice-2</span><br><span class="line">FAIL tests/threads/mlfqs-nice-10</span><br><span class="line">FAIL tests/threads/mlfqs-block</span><br><span class="line">20 of 27 tests failed.</span><br><span class="line">../../tests/Make.tests:26: recipe <span class="keyword">for</span> target <span class="string">&#x27;check&#x27;</span> failed</span><br><span class="line">make: *** [check] Error 1</span><br></pre></td></tr></table></figure></div></li>
 </ul>
-<h5 id="完成！"><a href="#完成！" class="headerlink" title="完成！"></a><strong>完成！</strong></h5><p>至此，你的安装和调试过程就已经全部完成了！接下来我们需要了解一下编写代码过程中可能会用到的内容。</p>
+<h5 id="完成！"><a href="#完成！" class="headerlink" title="完成！"></a><strong>完成！</strong></h5><p>至此，你的安装和调试过程就已经全部完成了！</p>
+<hr>
+<h4 id="建库与合作"><a href="#建库与合作" class="headerlink" title="建库与合作"></a>建库与合作</h4><p>由于项目很大很难，所以强烈建议用<em>Github</em>完成：这样一方面完成了团队合作，另一方面也做了版本控制。仓库需要一定的管理，否则极容易发生混乱。建议的管理方式如下：</p>
+<ul>
+<li>初始仓库内仅有原始的PintOS源代码，存在<code>main</code>分支下，以后<strong>不再修改</strong>；</li>
+<li>每次开始一个新的Project时，继承上一个project的分支，建立新的分支，然后在<strong>新的分支内完成代码编写</strong>；</li>
+<li>待上一个Project代码稳定后，<strong>保证代码不再修改后</strong>再建立新的分支，开始下一个Project。</li>
+</ul>
+<p><strong>记得频繁Commit</strong>！这样可以有效减少合作冲突！</p>
+<p>由于笔者记不太住Git命令，所以在此附上常用的命令：</p>
+<ul>
+<li><code>git status</code> 查看仓库状态</li>
+<li><code>git branch</code> 查看当前在哪个分支下</li>
+<li><code>git checkout proj1_threads</code> 进入本地仓库已有的分支<code>proj1_threads</code></li>
+<li><code>git checkout -b proj1_threads</code> 复制当前分支所有内容进入新分支<code>proj1_threads</code>，并进入新分支</li>
+<li><code>git pull</code> 拉取当前分支下所有内容</li>
+<li><code>git add .</code> 添加本地目录下所有文件进入暂存区</li>
+<li><code>git commit -m &quot;comments&quot; -m &quot;description&quot;</code> 提交暂存区内容到本地仓库（引号是命令的一部分）</li>
+<li><code>git push -u origin proj1_threads</code> 将本地仓库当前分支内容推送到远端仓库新建分支<code>proj1_threads</code>（请保证<strong>本地仓库</strong>与<strong>远端仓库</strong>名称一致！）</li>
+<li><code>git push</code> 将本地仓库当前分支内容推送到远端仓库对应的分支上</li>
+</ul>
 <hr>
 <h4 id="需要了解的内容"><a href="#需要了解的内容" class="headerlink" title="需要了解的内容"></a>需要了解的内容</h4><h5 id="Pintos-目录简介"><a href="#Pintos-目录简介" class="headerlink" title="Pintos 目录简介"></a>Pintos 目录简介</h5><ul>
 <li><code>threads/</code><ul>
@@ -908,7 +929,7 @@
         
             <li>
                 <strong>更新于
-                    :</strong> 2026-02-03 16:49:39
+                    :</strong> 2026-02-05 15:47:18
             </li>
         
         <li>
@@ -1002,7 +1023,7 @@
                     </span>
                     
                         <span>
-                            共 11.7k 字
+                            共 12.1k 字
                         </span>
                     
                 </p>
