@@ -133,14 +133,14 @@
         
         <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CS130 操作系统I Project 1 Threads | 进程">
+<meta property="og:title" content="CS130 操作系统I Project 1 Threads | 线程">
 <meta property="og:url" content="https://aaaaa114514-1.github.io/2026/02/05/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%EF%BC%9ACS130%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI_4/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://aaaaa114514-1.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2026-02-05T14:00:00.000Z">
-<meta property="article:modified_time" content="2026-02-05T12:29:31.403Z">
+<meta property="article:modified_time" content="2026-02-06T15:05:20.110Z">
 <meta property="article:author" content="aaaaa">
 <meta property="article:tag" content="0_Start_Learning">
 <meta name="twitter:card" content="summary">
@@ -156,7 +156,7 @@
     
     <title>
         
-            CS130 操作系统I Project 1 Threads | 进程 | aaaaa online
+            CS130 操作系统I Project 1 Threads | 线程 | aaaaa online
         
     </title>
 
@@ -583,7 +583,7 @@
 		<div class="article-title relative w-full">
 			
 			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">CS130 操作系统I Project 1 Threads | 进程</h1>
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">CS130 操作系统I Project 1 Threads | 线程</h1>
 			</div>
 			
 		</div>
@@ -611,8 +611,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2026-02-05 20:29:31</span>
-            <span class="mobile">2026-02-05 20:29:31</span>
+            <span class="desktop">2026-02-06 23:05:20</span>
+            <span class="mobile">2026-02-06 23:05:20</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -660,12 +660,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>6 字</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.5k 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>1 分钟</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>5 分钟</span>
         </span>
     
     
@@ -684,7 +684,202 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<p>[待续]</p>
+			<p><strong>Project 1</strong> 是关于<code>Threads</code>，也就是线程的。这是整个PintOS学习之旅的第一站！</p>
+<p>首先，<strong>下载</strong><a class="link"   target="_blank" rel="noopener" href="http://web.stanford.edu/~ouster/cgi-bin/cs140-spring20/pintos/threads.tmpl" >设计文档模板<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>，按照模板填写。有时候，模板真的能提供不少动力和思路。<del>（当然是为了交作业）</del></p>
+<p>如果你第一次不知道怎么填，可以参考<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/appendix/project-documentation" >这个<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。</p>
+<p>接下来我们正式开始代码工作！</p>
+<hr>
+<h1 id="文件介绍"><a href="#文件介绍" class="headerlink" title="文件介绍"></a>文件介绍</h1><h2 id="threads目录下的文件"><a href="#threads目录下的文件" class="headerlink" title="threads目录下的文件"></a>threads目录下的文件</h2><p>接下来<code>pintos/src/threads</code>路径下的24个代码文件（除去<code>.gitignore</code> <code>Makefile</code> <code>Make.vars</code>等仓库和作业配置文件）会大致按照<strong>代码的调用顺序</strong>一一介绍：</p>
+<ul>
+<li><p><code>loader.S</code> <code>loader.h</code></p>
+<ul>
+<li>这是一个只有512字节的内核加载器程序，由BIOS加载，负责在磁盘上定位操作系统内核，然后把这个内核加载到内存里，并跳转执行内核<code>start.S</code>中的<code>start()</code>函数。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><p><code>kernel.Ids.S</code></p>
+<ul>
+<li>连接内核的链接程序。</li>
+<li>设置了内核的加载地址，安排<code>start.S</code>在内核镜像最前端附近。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><p><code>start.S</code></p>
+<ul>
+<li>为32位操作系统的运行提供基础环境。</li>
+<li>这不属于加载器，而是内核的一部分。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><p><code>init.c</code> <code>init.h</code></p>
+<ul>
+<li>内核初始化程序，其中<code>main()</code>函数（或<code>pintos_init()</code>函数）是整个内核的主函数。</li>
+<li>需要至少<strong>理解初始化过程每一步初始化了什么</strong>，<strong>可能需要增加自定义的初始化代码</strong>。</li>
+</ul>
+</li>
+<li><p><code>thread.c</code> <code>thread.h</code></p>
+<ul>
+<li>线程相关的主要代码文件。</li>
+<li><code>thread.h</code>文件中关于<code>struct thread</code>的定义很有可能在四个Project中都会修改。</li>
+<li>需要<strong>理解绝大多数代码含义</strong>，需要<strong>大量增添或修改代码</strong>。</li>
+</ul>
+</li>
+<li><p><code>switch.S</code> <code>switch.h</code></p>
+<ul>
+<li>用汇编语言直接控制CPU实现的线程切换。</li>
+<li>这是线程底层实现，不涉及控制何时切换线程。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><p><code>palloc.c</code> <code>palloc.h</code></p>
+<ul>
+<li>这是页分配器(Page ALLOCator)，负责以页（每页是4kB）为单位向系统分配内存（只能是整数页）。</li>
+<li>需要<strong>理解代码目的</strong>，不用修改。</li>
+</ul>
+</li>
+<li><p><code>malloc.c</code> <code>malloc.h</code></p>
+<ul>
+<li>这是内核代码中<code>malloc()</code>函数和<code>free()</code>函数的简单实现。</li>
+<li>需要<strong>理解代码目的</strong>，不用修改。</li>
+</ul>
+</li>
+<li><p><code>interrupt.c</code> <code>interrupt.h</code></p>
+<ul>
+<li>CPU中断的基础处理代码。</li>
+<li>管理中断与分发相关底层内容，不涉及调度策略。</li>
+<li>需要<strong>理解代码目的</strong>，不用修改。</li>
+</ul>
+</li>
+<li><p><code>intr-stubs.S</code> <code>intr-stubs.h</code></p>
+<ul>
+<li>处理中断的底层汇编代码。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><p><code>synch.c</code> <code>synch.h</code></p>
+<ul>
+<li>定义了基本同步<u>原语</u>（primitive, 指从当前考虑的操作系统层面上看，不可继续细分的单元结构）：<ul>
+<li>semaphore | 信号量</li>
+<li>lock | 线程锁</li>
+<li>condition variable | 条件变量</li>
+<li>optimization barrier | 优化屏障</li>
+</ul>
+</li>
+<li><strong>在四个Project中均会用到。</strong></li>
+<li>需要<strong>看懂</strong>，不要修改。</li>
+</ul>
+</li>
+<li><p><code>io.h</code></p>
+<ul>
+<li>输入输出I&#x2F;O端口连接相关函数。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><p><code>vaddr.h</code> <code>pte.h</code></p>
+<ul>
+<li>处理虚拟地址和页表项的相关函数和宏定义。</li>
+<li>在Project 3之前不需要看懂和修改。</li>
+</ul>
+</li>
+<li><p><code>flags.h</code></p>
+<ul>
+<li>标志寄存器的一些标志的宏定义。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+</ul>
+<h2 id="devices目录下的文件"><a href="#devices目录下的文件" class="headerlink" title="devices目录下的文件"></a>devices目录下的文件</h2><p>接下来介绍<code>pintos/src/devices</code>目录下的24个代码文件：</p>
+<ul>
+<li><code>timer.c</code> <code>timer.h</code><ul>
+<li>系统计时器，默认每秒100次中断</li>
+<li>需要<strong>看懂</strong>，需要<strong>修改</strong>。</li>
+</ul>
+</li>
+<li><code>vga.c</code> <code>vga.h</code><ul>
+<li>控制终端的输出，<code>printf()</code>会调用这里的内容。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><code>serial.c</code> <code>serial.h</code><ul>
+<li>串口驱动，与输入输出相关。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><code>block.c</code> <code>block.h</code><ul>
+<li>块设备抽象层。</li>
+<li>将磁盘抽象为块（定长数组）。</li>
+<li>在Project 2之前不需要看懂和修改。</li>
+</ul>
+</li>
+<li><code>ide.c</code> <code>ide.h</code><ul>
+<li>支持IDE硬盘扇区的直接读写。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><code>partition.c</code> <code>partition.h</code><ul>
+<li>硬盘分区相关代码。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><code>kbd.c</code> <code>kbd.h</code><ul>
+<li>键盘驱动，控制键盘的输入。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><code>input.c</code> <code>input.h</code><ul>
+<li>输入层，控制输入队列。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><code>intq.c</code> <code>intq.h</code><ul>
+<li>中断队列，管理线程和中断都能安全访问的循环队列。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><code>rtc.c</code> <code>rtc.h</code><ul>
+<li>读取当前日期和时间。</li>
+<li>默认仅供<code>pintos/src/threads/init.c</code>中随机数生成器的初始种子使用。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><code>speaker.c</code> <code>speaker.h</code><ul>
+<li>蜂鸣器驱动。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><code>pit.c</code> <code>pit.h</code><ul>
+<li>8254可编程定时器的代码。</li>
+<li>仅由<code>timer.c</code>和<code>speaker.c</code>调用的底层代码。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+</ul>
+<h2 id="lib目录下的文件"><a href="#lib目录下的文件" class="headerlink" title="lib目录下的文件"></a>lib目录下的文件</h2><p><code>lib</code>和<code>lib/kernel</code>包含了许多C语言的库函数，以供编程时调用；而<code>lib/user</code>中包含了用户程序可能用到的内容，在Project 2中才会用到。</p>
+<p>具体文件不再一一列举，不过有以下内容需要了解：</p>
+<ul>
+<li><code>&lt;string.h&gt;</code>和<code>&lt;stdio.h&gt;</code>下的部分字符串相关函数由于其安全性问题，被踢出了这次<code>lib</code>的C标准库。详情见<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/appendix/coding-standards#unsafe-string-functions" >此处<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。</li>
+<li><code>kernel/list.c</code> <code>kernel/list.h</code> 可能会在Project 1中使用到。</li>
+</ul>
+<p><em>更详细的内容请参阅：<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/project-description/lab1-threads/background#source-files-in-threads" >Background | Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></em></p>
+<hr>
+<h1 id="任务要求与执行建议"><a href="#任务要求与执行建议" class="headerlink" title="任务要求与执行建议"></a>任务要求与执行建议</h1><h2 id="任务要求"><a href="#任务要求" class="headerlink" title="任务要求"></a>任务要求</h2><ol>
+<li>在<code>devices/timer.c</code>中重构<code>timer_sleep()</code>的实现代码，避免使用忙等待。</li>
+<li><ol>
+<li>实现线程的优先级调度</li>
+<li>实现线程的优先级捐赠和嵌套优先级捐赠</li>
+<li>实现线程检查和修改自己优先级的函数</li>
+</ol>
+</li>
+<li>实现类似4.4BSD调度器的分级反馈队列调度器，以优化作业平均响应时间</li>
+</ol>
+<h2 id="执行建议"><a href="#执行建议" class="headerlink" title="执行建议"></a>执行建议</h2><h3 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h3><ul>
+<li>先完成<strong>任务1</strong>；</li>
+<li>完成<strong>任务2第一部分</strong>在新线程创建时的基本优先级调度；</li>
+<li>完成<strong>任务3</strong>MLFQS所需的定点实数运算例程；</li>
+<li>完成<strong>任务2第一部分</strong>的其它场景下优先级调度；</li>
+<li>完成<strong>任务2</strong>的其它部分和<strong>任务3</strong>。</li>
+</ul>
+<h3 id="需要注意的内容"><a href="#需要注意的内容" class="headerlink" title="需要注意的内容"></a>需要注意的内容</h3><p>[待续]</p>
 <hr>
 <p><a href="https://aaaaa114514-1.github.io/categories/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A/CS130-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI/">回到目录</a></p>
 
@@ -694,14 +889,14 @@
 		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
 			<div class="article-copyright-info-container">
     <ul>
-        <li><strong>标题:</strong> CS130 操作系统I Project 1 Threads | 进程</li>
+        <li><strong>标题:</strong> CS130 操作系统I Project 1 Threads | 线程</li>
         <li><strong>作者:</strong> aaaaa</li>
         <li><strong>创建于
                 :</strong> 2026-02-05 22:00:00</li>
         
             <li>
                 <strong>更新于
-                    :</strong> 2026-02-05 20:29:31
+                    :</strong> 2026-02-06 23:05:20
             </li>
         
         <li>
@@ -763,8 +958,8 @@
 		<div class="post-toc-wrap">
 	<div class="post-toc">
 		<div class="toc-title">目录</div>
-		<div class="page-title">CS130 操作系统I Project 1 Threads | 进程</div>
-		
+		<div class="page-title">CS130 操作系统I Project 1 Threads | 线程</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%BB%8B%E7%BB%8D"><span class="nav-text">文件介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#threads%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6"><span class="nav-text">threads目录下的文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#devices%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6"><span class="nav-text">devices目录下的文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lib%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6"><span class="nav-text">lib目录下的文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E8%A6%81%E6%B1%82%E4%B8%8E%E6%89%A7%E8%A1%8C%E5%BB%BA%E8%AE%AE"><span class="nav-text">任务要求与执行建议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E8%A6%81%E6%B1%82"><span class="nav-text">任务要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%BB%BA%E8%AE%AE"><span class="nav-text">执行建议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="nav-text">执行顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E5%86%85%E5%AE%B9"><span class="nav-text">需要注意的内容</span></a></li></ol></li></ol></li></ol>
 
 	</div>
 </div>
@@ -795,7 +990,7 @@
                     </span>
                     
                         <span>
-                            共 13.3k 字
+                            共 14.8k 字
                         </span>
                     
                 </p>
