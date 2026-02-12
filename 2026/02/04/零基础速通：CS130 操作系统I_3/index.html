@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="aaaaa">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://aaaaa114514-1.github.io/2026/02/04/零基础速通：cs130 操作系统i_3/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS130 操作系统I Project 0 准备工作">
+<meta property="og:url" content="https://aaaaa114514-1.github.io/2026/02/04/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%EF%BC%9ACS130%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI_3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://aaaaa114514-1.github.io/images/redefine-og.webp">
+<meta property="article:published_time" content="2026-02-04T07:00:00.000Z">
+<meta property="article:modified_time" content="2026-02-06T13:12:09.413Z">
+<meta property="article:author" content="aaaaa">
+<meta property="article:tag" content="0_Start_Learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://aaaaa114514-1.github.io/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/favicon.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+    <meta name="theme-color" content="#3362d6">
+    <link rel="shortcut icon" href="/images/favicon.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            CS130 操作系统I Project 0 准备工作 | aaaaa online
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+        
+<script src="/js/build/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"aaaaa114514-1.github.io","root":"/","language":"zh-CN","path":"search.json"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"all_rights_reserved"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#3362d6","secondary":"#33b4d6","default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":true,"percentage":false},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":true,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/bgp_light.png","dark":"/images/bgp_dark.png"},"title":"aaaaa online","subtitle":{"text":["World is a Visual Novel, but I'm Stuck on the Common Route...","World is a Visual Novel, Where's My Heroine DLC?","World is a Visual Novel, but the H-Scenes are Censored...","World is a Visual Novel, but Fast Forward Ctrl is banned","World is a Visual Novel, Wonderful Memories To Be Continued..."],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":60,"backing_speed":45,"starting_delay":500,"backing_delay":3000,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/aaaaa114514-1","instagram":null,"zhihu":null,"twitter":null,"email":null,"bilibili":"https://space.bilibili.com/514710526"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"BabyBlue","artist":"柊優花","url":"/music/BabyBlue .mp3","cover":"/images/cover/BabyBlue .jpg","lrc":"/lyrics/BabyBlue .lrc"},{"name":"トリックハート (feat. 重音テト)","artist":"MIMI / 重音テト","url":"/music/トリックハート (feat. 重音テト) .mp3","cover":"/images/cover/トリックハート (feat. 重音テト) .jpg","lrc":"/lyrics/トリックハート (feat. 重音テト) .lrc"},{"name":"bloom","artist":"三木谷奈々","url":"/music/bloom .mp3","cover":"/images/cover/bloom .jpg","lrc":"/lyrics/bloom .lrc"},{"name":"コイノシルシ from Kanon","artist":"東山奈央","url":"/music/コイノシルシ from Kanon .mp3","cover":"/images/cover/コイノシルシ from Kanon .jpg","lrc":"/lyrics/コイノシルシ from Kanon .lrc"},{"name":"モノクローム","artist":"戸松遥","url":"/music/モノクローム .mp3","cover":"/images/cover/モノクローム .jpg","lrc":"/lyrics/モノクローム .lrc"},{"name":"樱花海岸","artist":"琥珀琴师","url":"/music/樱花海岸.mp3","cover":"/images/cover/樱花海岸.jpg","lrc":"/lyrics/樱花海岸.lrc"},{"name":"沐雨","artist":"洛天依/言和","url":"/music/沐雨.mp3","cover":"/images/cover/沐雨.jpg","lrc":"/lyrics/沐雨.lrc"},{"name":"夏の紫苑","artist":"VISUAL ARTS","url":"/music/夏の紫苑.mp3","cover":"/images/cover/夏の紫苑.jpg","lrc":"/lyrics/夏の紫苑.lrc"},{"name":"咸咸的","artist":"uzakin/Soda纯白","url":"/music/咸咸的.mp3","cover":"/images/cover/咸咸的.jpg","lrc":"/lyrics/咸咸的.lrc"},{"name":"HAMELN","artist":"葉月ゆら","url":"/music/HAMELN.mp3","cover":"/images/cover/HAMELN.png","lrc":"/lyrics/HAMELN.lrc"}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#faf097","right":"#0d1e3d","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"categories":{"path":"/categories","icon":"fa-regular fa-folders"},"Friends":{"path":"/friends","icon":"fa-regular fa-link"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":false,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"YYYY-MM-DD","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":10}},"footerStart":"2025/5/17 00:00:00"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        aaaaa online
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({ loop: true })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [20, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
+                easing: "easeOutExpo",
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/favicon.png" class="w-full h-full rounded-xs">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                aaaaa online
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories"
+                                        >
+                                    <i class="fa-regular fa-folders fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/friends"
+                                        >
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    友情链接
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-regular fa-folders fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/friends"
+                        >
+                            <span>
+                                友情链接
+                            </span>
+                            
+                                <i class="fa-regular fa-link fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">9</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">20</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">CS130 操作系统I Project 0 准备工作</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/favicon.png">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">aaaaa</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2026-02-04 15:00</span>
+        <span class="mobile">2026-02-04 15:00</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-02-06 21:12:09</span>
+            <span class="mobile">2026-02-06 21:12:09</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A/">零基础速通</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A/CS130-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI/">CS130 操作系统I</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/0-Start-Learning/">0_Start_Learning</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>4.2k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>16 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="Project-基于PintOS的手搓操作系统！"><a href="#Project-基于PintOS的手搓操作系统！" class="headerlink" title="Project: 基于PintOS的手搓操作系统！"></a>Project: 基于PintOS的手搓操作系统！</h1><p>整个学期的Project分为5个部分：</p>
+<ul>
+<li>Project 0: 准备工作</li>
+<li>Project 1: Threads | 线程</li>
+<li>Project 2: User Programs | 用户程序</li>
+<li>Project 3: Virtual Memory | 虚拟内存</li>
+<li>Project 4: File Systems | 文件系统</li>
+</ul>
+<p>每个部分基于前一个部分的工作完成，所以还请务必按照顺序！</p>
+<p>学期内的Project是在学校的在线平台上完成，那里已经搭好了VM的环境，需要<strong>ssh</strong>远程过去写代码、跑调试。<strong>但是在假期内学校在线端口无法访问，Project需要通过在本地手动配置环境并部署来完成。接下来介绍的所有过程都基于本地Windows 11系统，从头开始配置环境、部署Project。</strong></p>
+<hr>
+<h1 id="Project-0-准备工作"><a href="#Project-0-准备工作" class="headerlink" title="Project 0: 准备工作"></a>Project 0: 准备工作</h1><h2 id="安装与调试"><a href="#安装与调试" class="headerlink" title="安装与调试"></a>安装与调试</h2><p>由于我是<strong>Windows 11</strong>用户，之前听说在Windows上不能安装Docker，但是发现了Docker Desktop过后，Windows上也能轻松使用Docker了。虽然说本质上还是一种<strong>WSL(Windows Subsystem for Linux)</strong>，但是省得我装一个<em>VMWare</em>或者直接在本机上装一个<em>Ubuntu</em>(事实上我都装了，希望后来者可以不用走这条弯路)。具体步骤如下：</p>
+<h3 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a><strong>安装Docker</strong></h3><p>从<a class="link"   target="_blank" rel="noopener" href="https://www.docker.com/get-started" >官网链接<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>下载，非苹果机的Windows用户选择 <code>Download for Windows - AMD64</code>，下载后按照提示正常安装即可；安装完成后打开，可能会出现要求安装<strong>WSL</strong>的命令行窗口，按任意键安装，大约需要3-5min完成；</p>
+<h3 id="下载PintOS源代码包"><a href="#下载PintOS源代码包" class="headerlink" title="下载PintOS源代码包"></a><strong>下载PintOS源代码包</strong></h3><p>有两种方法：①按照<a class="link"   target="_blank" rel="noopener" href="https://lion.sist.shanghaitech.edu.cn/Course/CS130/23f/files/pintos.tar.gz" >学校提供的链接<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>下载并解压（需要校内VPN访问），或者②从北大的<em>Github</em>仓库下拉：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:PKU-OS/pintos.git</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="在本地进行系统测试"><a href="#在本地进行系统测试" class="headerlink" title="在本地进行系统测试"></a><strong>在本地进行系统测试</strong></h3><p><strong>打开Decker Desktop客户端</strong>，打开系统的命令行窗口，完成如下对话：</p>
+<ul>
+<li><p>将以下输入<strong>路径调整成实际安装路径后</strong>输入：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --<span class="built_in">rm</span> --name pintos --mount <span class="built_in">type</span>=<span class="built_in">bind</span>,<span class="built_in">source</span>=absolute/path/to/pintos/on/your/host/machine,target=/home/PKUOS/pintos pkuflyingpig/pintos bash</span><br></pre></td></tr></table></figure></div>
+
+<p>然后命令行应该会变成如下格式（具体内容可能不同）：</p>
+<p><em>ps. 如果提示 <code>fail to connect to the docker API</code>，可以尝试挂梯子使用（先打开Decker Desktop）</em></p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@9113da5c984f:~#</span><br></pre></td></tr></table></figure></div>
+
+<p>这说明<strong>一个微型的Ubuntu系统正在你的电脑上运行！</strong></p>
+</li>
+<li><p>接下来键入：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">pwd</span></span><br></pre></td></tr></table></figure></div>
+
+<p>会有如下回话：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/home/PKUOS</span><br></pre></td></tr></table></figure></div></li>
+<li><p>接下来键入：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span></span><br></pre></td></tr></table></figure></div>
+
+<p>会有如下回话：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pintos  toolchain</span><br></pre></td></tr></table></figure></div></li>
+<li><p>以上对话如果均正常，那么接下来可以尝试启动系统了，键入：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> pintos/src/threads/</span><br><span class="line">make</span><br><span class="line"><span class="built_in">cd</span> build</span><br><span class="line">pintos --</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>如果回话的最后几行类似于：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Pintos hda1</span><br><span class="line">Loading............</span><br><span class="line">Kernel <span class="built_in">command</span> line:</span><br><span class="line">Pintos booting with 3,968 kB RAM...</span><br><span class="line">367 pages available <span class="keyword">in</span> kernel pool.</span><br><span class="line">367 pages available <span class="keyword">in</span> user pool.</span><br><span class="line">Calibrating timer...  32,716,800 loops/s.</span><br><span class="line">Boot complete.</span><br></pre></td></tr></table></figure></div>
+
+<p>那就说明<strong>你的PintOS系统在本地成功运行了！</strong></p>
+</li>
+<li><p>注：此时可以按 <code>Ctrl + C</code>关闭PintOS系统，然后按 <code>Ctrl + D</code>退出微型的Ubuntu系统。</p>
+</li>
+<li><p>目前已经完成的架构，是在Windows上通过WSL和Docker建立了一个Ubuntu容器(Container)，然后在这个Ubuntu容器内部通过QEMU模拟了一台x86计算机的硬件结构，然后在这台模拟的计算机上运行了PintOS系统，这个结构画出来就是这样的：</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Host OS（Windows / macOS / Linux）</span><br><span class="line">└── Docker</span><br><span class="line">    └── Ubuntu Linux（容器里的用户态 Linux）</span><br><span class="line">        └── QEMU（一个普通用户程序）</span><br><span class="line">            └── 模拟的 32-bit x86 计算机（CPU, 内存, 磁盘等硬件）</span><br><span class="line">                └── PintOS（操作系统）</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h3 id="在本地进行程序测试"><a href="#在本地进行程序测试" class="headerlink" title="在本地进行程序测试"></a><strong>在本地进行程序测试</strong></h3><p>尝试运行<strong>Project 1</strong>的本地test：</p>
+<ul>
+<li><p>打开任意终端，启动Ubuntu系统：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --<span class="built_in">rm</span> --name pintos --mount <span class="built_in">type</span>=<span class="built_in">bind</span>,<span class="built_in">source</span>=absolute/path/to/pintos/on/your/host/machine,target=/home/PKUOS/pintos pkuflyingpig/pintos bash</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@9113da5c984f:~#</span><br></pre></td></tr></table></figure></div></li>
+<li><p>进入 <code>pintos/src/threads/build/</code>目录：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> pintos/src/threads/build/</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@4aedfa24dc44:~/pintos/src/threads/build#</span><br></pre></td></tr></table></figure></div></li>
+<li><p>开始测试：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make check</span><br></pre></td></tr></table></figure></div>
+
+<p>测试大约需要20~30s，看到输出结果最后类似于以下，说明你到目前为止的操作没有问题：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">pass tests/threads/alarm-single</span><br><span class="line">pass tests/threads/alarm-multiple</span><br><span class="line">pass tests/threads/alarm-simultaneous</span><br><span class="line">FAIL tests/threads/alarm-priority</span><br><span class="line">pass tests/threads/alarm-zero</span><br><span class="line">pass tests/threads/alarm-negative</span><br><span class="line">FAIL tests/threads/priority-change</span><br><span class="line">FAIL tests/threads/priority-donate-one</span><br><span class="line">FAIL tests/threads/priority-donate-multiple</span><br><span class="line">FAIL tests/threads/priority-donate-multiple2</span><br><span class="line">FAIL tests/threads/priority-donate-nest</span><br><span class="line">FAIL tests/threads/priority-donate-sema</span><br><span class="line">FAIL tests/threads/priority-donate-lower</span><br><span class="line">FAIL tests/threads/priority-fifo</span><br><span class="line">FAIL tests/threads/priority-preempt</span><br><span class="line">FAIL tests/threads/priority-sema</span><br><span class="line">FAIL tests/threads/priority-condvar</span><br><span class="line">FAIL tests/threads/priority-donate-chain</span><br><span class="line">FAIL tests/threads/mlfqs-load-1</span><br><span class="line">FAIL tests/threads/mlfqs-load-60</span><br><span class="line">FAIL tests/threads/mlfqs-load-avg</span><br><span class="line">FAIL tests/threads/mlfqs-recent-1</span><br><span class="line">pass tests/threads/mlfqs-fair-2</span><br><span class="line">pass tests/threads/mlfqs-fair-20</span><br><span class="line">FAIL tests/threads/mlfqs-nice-2</span><br><span class="line">FAIL tests/threads/mlfqs-nice-10</span><br><span class="line">FAIL tests/threads/mlfqs-block</span><br><span class="line">20 of 27 tests failed.</span><br><span class="line">../../tests/Make.tests:26: recipe <span class="keyword">for</span> target <span class="string">&#x27;check&#x27;</span> failed</span><br><span class="line">make: *** [check] Error 1</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h3 id="完成！"><a href="#完成！" class="headerlink" title="完成！"></a><strong>完成！</strong></h3><p>至此，你的安装和调试过程就已经全部完成了！</p>
+<hr>
+<h2 id="建库与合作"><a href="#建库与合作" class="headerlink" title="建库与合作"></a>建库与合作</h2><p>由于项目很大很难，所以强烈建议用<em>Github</em>完成：这样一方面完成了团队合作，另一方面也做了版本控制。仓库需要一定的管理，否则极容易发生混乱。建议的管理方式如下：</p>
+<ul>
+<li>初始仓库内仅有原始的PintOS源代码，存在 <code>main</code>分支下；</li>
+<li>每次开始一个新的Project时，继承上一个project的分支，建立新的分支，然后在<strong>新的分支内完成代码编写</strong>；</li>
+<li>待上一个Project代码稳定后，<strong>保证代码不再修改后</strong>再建立新的分支，开始下一个Project，同时<strong>把旧分支内容合并到<code>main</code>分支，以达到提交目的</strong>；</li>
+<li>项目完成前，<strong><code>clone</code>整个仓库到本地</strong>，测试其中<code>main</code>分支的内容，确保能够通过所有测试点。</li>
+</ul>
+<p><strong>记得频繁Commit</strong>！这样可以有效减少合作冲突！</p>
+<p>由于笔者记不太住Git命令，所以在此附上常用的命令：</p>
+<ul>
+<li><code>git status</code> 查看仓库状态</li>
+<li><code>git branch</code> 查看当前在哪个分支下</li>
+<li><code>git checkout proj1_threads</code> 进入本地仓库已有的分支 <code>proj1_threads</code></li>
+<li><code>git checkout -b proj1_threads</code> 复制当前分支所有内容进入新分支 <code>proj1_threads</code>，并进入新分支</li>
+<li><code>git pull</code> 拉取当前分支下所有内容</li>
+<li><code>git add .</code> 添加本地目录下所有文件进入暂存区</li>
+<li><code>git commit -m &quot;comments&quot; -m &quot;description&quot;</code> 提交暂存区内容到本地仓库（引号是命令的一部分）</li>
+<li><code>git push -u origin proj1_threads</code> 将本地仓库当前分支内容推送到远端仓库新建分支 <code>proj1_threads</code>（请保证<strong>本地仓库</strong>与<strong>远端仓库</strong>名称一致！）</li>
+<li><code>git push</code> 将本地仓库当前分支内容推送到远端仓库对应的分支上</li>
+<li><code>git merge proj1_threads</code> 在本地仓库，把<code>proj1_threads</code>分支的内容合并到当前分支</li>
+</ul>
+<hr>
+<h2 id="评分标准"><a href="#评分标准" class="headerlink" title="评分标准"></a>评分标准</h2><p>以下的评分标准是基于<a class="link"   target="_blank" rel="noopener" href="http://web.stanford.edu/~ouster/cgi-bin/cs140-spring20/pintos/pintos_8.html#SEC138" >Stanford课程代码标准<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>的、针对四个Project的评分标准，也同样是<a class="link"   target="_blank" rel="noopener" href="https://lion.sist.shanghaitech.edu.cn/Course/CS130/23f/proj/sub-howto.html" >往年CS130课程采用的评分标准<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。</p>
+<h3 id="总体标准"><a href="#总体标准" class="headerlink" title="总体标准"></a>总体标准</h3><p>每个项目在百分制下，分为以下得分点：</p>
+<ul>
+<li><strong>40%</strong> - 成功通过源文件中已经给出的所有样例测试点</li>
+<li><strong>10%</strong> - 成功通过未给出的测试用数据点</li>
+<li><strong>10%</strong> - 一份完整的设计文档</li>
+<li><strong>15%</strong> - 代码整洁程度、可读性、注释</li>
+<li><strong>5%</strong> - 符合Git提交要求</li>
+<li><strong>20%</strong> - 线下的Code check</li>
+</ul>
+<p><strong>所有项目不可迟交！</strong></p>
+<p>出分后一周内可以argue得分。</p>
+<h3 id="设计文档"><a href="#设计文档" class="headerlink" title="设计文档"></a>设计文档</h3><ul>
+<li>使用每个项目独立的设计文档模板：<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="http://web.stanford.edu/~ouster/cgi-bin/cs140-spring20/pintos/threads.tmpl" >Project 1: Threads | 线程<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="http://web.stanford.edu/~ouster/cgi-bin/cs140-spring20/pintos/userprog.tmpl" >Project 2: User Programs | 用户程序<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="http://web.stanford.edu/~ouster/cgi-bin/cs140-spring20/pintos/vm.tmpl" >Project 3: Virtual Memory | 虚拟内存<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="http://web.stanford.edu/~ouster/cgi-bin/cs140-spring20/pintos/filesys.tmpl" >Project 4: File Systems | 文件系统<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+</li>
+<li>需要<strong>另外</strong>简要介绍<strong>项目分工情况</strong></li>
+<li>将文本整理成<code>pdf</code>格式，提交<em>Gradescope</em>并署团队所有人的名字</li>
+<li>格式不必严格按照模板，只要便于理解，甚至可以插入图片</li>
+<li>评分为三档制：<strong>10%</strong> &#x2F; <strong>7%</strong> &#x2F; <strong>4%</strong></li>
+</ul>
+<h3 id="代码要求"><a href="#代码要求" class="headerlink" title="代码要求"></a>代码要求</h3><ul>
+<li>建议遵循<a class="link"   target="_blank" rel="noopener" href="http://web.stanford.edu/~ouster/cgi-bin/cs140-spring20/pintos/pintos_8.html#SEC138" >Stanford课程代码标准<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>，也可以有自己的码风</li>
+<li>所有代码码风必须统一</li>
+<li>评分为三档制：<strong>15%</strong> &#x2F; <strong>10%</strong> &#x2F; <strong>5%</strong></li>
+</ul>
+<h3 id="Git提交要求"><a href="#Git提交要求" class="headerlink" title="Git提交要求"></a>Git提交要求</h3><ul>
+<li>禁止使用<code>-f</code>指令强制提交(<code>force push</code>)</li>
+<li>在项目完成前，每两次<code>commit</code>时间间隔不大于7天；项目可以在ddl前任意时间完成</li>
+<li>每个项目的第一次<code>commit</code>时间不晚于上一个项目结束后7天</li>
+<li>Github检查代码时，仅检查<code>main</code>分支下的代码，故每次完成项目时，需将代码从工作分支合并到<code>main</code>分支</li>
+</ul>
+<h3 id="Code-check"><a href="#Code-check" class="headerlink" title="Code check"></a>Code check</h3><ul>
+<li>主要检查代码原创性和对代码的掌握程度</li>
+<li>大约10分钟，一般安排在ddl后一天</li>
+<li>所有团队成员都要到场</li>
+<li>助教会问4个问题，每个问题占 <strong>5%</strong> 分值</li>
+</ul>
+<hr>
+<h2 id="需要了解的内容"><a href="#需要了解的内容" class="headerlink" title="需要了解的内容"></a>需要了解的内容</h2><h3 id="Pintos-目录简介"><a href="#Pintos-目录简介" class="headerlink" title="Pintos 目录简介"></a>Pintos 目录简介</h3><ul>
+<li><code>threads/</code><ul>
+<li><strong>基础内核</strong>的源代码，从<strong>Project 1</strong>开始你将修改此部分。</li>
+</ul>
+</li>
+<li><code>userprog/</code><ul>
+<li><strong>用户程序加载器</strong>的源代码，从<strong>Project 2</strong>开始你将修改此部分。</li>
+</ul>
+</li>
+<li><code>vm/</code><ul>
+<li><strong>一个几乎为空的目录</strong>。你将在<strong>Project 3</strong>中在此实现虚拟内存。</li>
+</ul>
+</li>
+<li><code>filesys/</code><ul>
+<li><strong>基础文件系统</strong>的源代码。从<strong>Project 2</strong>开始你将使用此文件系统，但直到<strong>Project 4</strong>才会修改它。</li>
+</ul>
+</li>
+<li><code>devices/</code><ul>
+<li><strong>I&#x2F;O设备接口</strong>的源代码：键盘、计时器、磁盘等。你将在<strong>Project 1</strong>中修改计时器实现。除此之外，你无需更改此部分。</li>
+</ul>
+</li>
+<li><code>lib/</code><ul>
+<li><strong>标准C库子集的实现</strong>。从此目录编译的代码从<strong>Project 2</strong>开始会同时被编译进Pintos内核及其下运行的用户程序中。在内核代码和用户程序中，均可使用 <code>#include &lt;...&gt;</code>符号包含此目录中的头文件。你基本不需要修改此部分。</li>
+</ul>
+</li>
+<li><code>lib/kernel/</code><ul>
+<li><strong>仅包含在Pintos内核中的C库部分</strong>。同时包含了一些你可以在内核代码中自由使用的数据类型的实现：位图、双向链表和哈希表。在内核中，可以使用 <code>#include &lt;...&gt;</code>符号包含此目录中的头文件。</li>
+</ul>
+</li>
+<li><code>lib/user/</code><ul>
+<li><strong>仅包含在Pintos用户程序中的C库部分</strong>。在用户程序中，可以使用 <code>#include &lt;...&gt;</code>符号包含此目录中的头文件。</li>
+</ul>
+</li>
+<li><code>tests/</code><ul>
+<li><strong>各项目的测试代码</strong>。如果有助于测试你的提交，你可以修改此处的代码。<strong>评分时，在运行测试前会将 <code>tests/</code>目录替换为原始版本。</strong></li>
+</ul>
+</li>
+<li><code>examples/</code><ul>
+<li>从<strong>项目2</strong>开始使用的示例用户程序。</li>
+</ul>
+</li>
+<li><code>misc/</code>和 <code>utils/</code><ul>
+<li>如果你尝试在自己的机器上使用Pintos，这些文件可能会派上用场。否则，你可以忽略它们。</li>
+</ul>
+</li>
+</ul>
+<p><em>更详细内容请参阅：<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/getting-started/pintos-world" >Build and Run | Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></em></p>
+<h3 id="Build"><a href="#Build" class="headerlink" title="Build"></a>Build</h3><p>要构建项目，只需要 <code>cd</code>进入某个项目目录（如 <code>threads/</code>, <code>userprog/</code>, <code>vm/</code>, <code>filesys/</code>等），然后键入指令：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make</span><br></pre></td></tr></table></figure></div>
+
+<p>等待20~30s即构建完成！</p>
+<p><em>有关构建项目产生的文件具体用途，更详细内容请参阅：<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/getting-started/pintos-world/building-pintos" >Building Pintos | Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></em></p>
+<h3 id="Run"><a href="#Run" class="headerlink" title="Run"></a>Run</h3><p>要执行指令，可以按照以下规则输入指令：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pintos [工具选项] -- [内核参数]</span><br></pre></td></tr></table></figure></div>
+
+<p>其中，[工具选项] 部分为可选项（可以不写，也可以串接写很多个）：</p>
+<ul>
+<li><code>--bochs</code> 使用Bochs代替默认的Qemu来模拟计算机；Bochs更适合Debug时使用，而Qemu大多数情况下跑得更快</li>
+<li><code>--gdb</code> 用Debug模式运行</li>
+<li><code>-m 128</code> 设置内存大小为128MB</li>
+<li><code>-v</code> 关闭VGA显示，仅输出结果</li>
+<li><code>--bochs -t</code> 使用终端作为VGA显示</li>
+<li><code>-s</code> 禁用输入输出，避免交互，仅输出结果</li>
+</ul>
+<p>[内核参数] 部分可以有如下内容：</p>
+<ul>
+<li><code>run alarm-multiple</code> 指将 <code>run alarm-multiple</code> 作为参数传给PintOS系统，由系统响应这个指令，即运行指定的测试：<code>alarm-multiple</code></li>
+</ul>
+<p>所以总体上一个合法的输入可以是：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pintos -v -- run alarm-multiple</span><br></pre></td></tr></table></figure></div>
+
+<p>要想关闭进程，可以 <code>Ctrl + C</code>强制停止。</p>
+<p>另外，获取更全的参数表可以键入：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pintos -h</span><br></pre></td></tr></table></figure></div>
+
+<p><em>更详细内容请参阅：<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/getting-started/pintos-world/running-pintos" >Running Pintos | Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></em></p>
+<h3 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h3><p>现在似乎<strong>只能一次性测试所有数据点</strong>，不过功能上完全覆盖测试单个数据点，只不过测试时间略长一点。测试过程如下：</p>
+<ul>
+<li><p>先完成项目构建，然后进入项目目录：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> pintos/src/threads/build</span><br></pre></td></tr></table></figure></div></li>
+<li><p>跑测试：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make check</span><br></pre></td></tr></table></figure></div></li>
+<li><p>测试结果会直接显示出来，每个数据点具体的错误信息保存在具体项目目录下，如 <code>pintos/src/threads/build/tests/threads</code>等</p>
+</li>
+<li><p>从第二次测试开始，每次测试之前需要先<strong>手动删除该文件夹</strong>，如 <code>pintos/src/threads/build/tests/threads</code>等</p>
+</li>
+</ul>
+<p><code>pintos/src/tests</code>下的各个目录分别代表各个项目的测试程序目录，其中存有评测数据生成器和评测机等；可以手动修改部分评测机数据点进行本地测试，不过最终会以原数据点结果计分。</p>
+<p><em>更详细的内容请参阅：<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/getting-started/debug-and-test/testing" >Testing | Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></em></p>
+<h3 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h3><p>支持使用 <code>printf()</code>和 <code>ASSERT</code>来辅助Debug。</p>
+<p>可以使用 <code>Backtrace</code>来Debug，具体操作详见<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/getting-started/debug-and-test/debugging" >Debugging | Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>.</p>
+<p><strong>使用GDB来Debug:</strong></p>
+<ul>
+<li><p>先正常启动Docker，然后在 <code>终端1</code>上启动Ubuntu系统；</p>
+</li>
+<li><p>打开 <code>终端2</code>，键入：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it pintos bash</span><br></pre></td></tr></table></figure></div>
+
+<p>这样就成功在两个终端上进入同一个Ubuntu容器了。</p>
+</li>
+<li><p>接下来在 <code>终端1</code>上先 <code>make</code>构建项目，然后进入项目目录（如 <code>pintos/src/threads</code>），键入带 <code>--gdb</code>选项的运行指令，如：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pintos --gdb -- run alarm-multiple</span><br></pre></td></tr></table></figure></div>
+
+<p>然后 <code>终端1</code>会进入gdb模式，显示类似于这样的内容：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-system-i386 -device isa-debug-exit -drive format=raw,media=disk,index=0,file=/tmp/2yFkc39zD1.dsk -m 4 -net none -nographic -gdb tcp::1234 -S</span><br></pre></td></tr></table></figure></div></li>
+<li><p>接下来在 <code>终端2</code>上进入项目目录中的 <code>build</code>文件夹（如 <code>pintos/src/threads/build</code>），键入：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gdb kernel.o</span><br></pre></td></tr></table></figure></div>
+
+<p>此时 <code>终端2</code>就成功进入gdb模式了，显示类似于这样的内容：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">GNU gdb (Ubuntu 8.1.1-0ubuntu1) 8.1.1</span><br><span class="line">Copyright (C) 2018 Free Software Foundation, Inc.</span><br><span class="line">License GPLv3+: GNU GPL version 3 or later 	&lt;http://gnu.org/licenses/gpl.html&gt;</span><br><span class="line">This is free software: you are free to change and redistribute 	it.</span><br><span class="line">There is NO WARRANTY, to the extent permitted by law.  Type <span class="string">&quot;show copying&quot;</span></span><br><span class="line">and <span class="string">&quot;show warranty&quot;</span> <span class="keyword">for</span> details.</span><br><span class="line">This GDB was configured as <span class="string">&quot;x86_64-linux-gnu&quot;</span>.</span><br><span class="line">Type <span class="string">&quot;show configuration&quot;</span> <span class="keyword">for</span> configuration details.</span><br><span class="line">For bug reporting instructions, please see:</span><br><span class="line">&lt;http://www.gnu.org/software/gdb/bugs/&gt;.</span><br><span class="line">Find the GDB manual and other documentation resources online at:</span><br><span class="line">&lt;http://www.gnu.org/software/gdb/documentation/&gt;.</span><br><span class="line">For <span class="built_in">help</span>, <span class="built_in">type</span> <span class="string">&quot;help&quot;</span>.</span><br><span class="line">Type <span class="string">&quot;apropos word&quot;</span> to search <span class="keyword">for</span> commands related to <span class="string">&quot;word&quot;</span>...</span><br><span class="line">Reading symbols from kernel.o...done.</span><br><span class="line">(gdb)</span><br></pre></td></tr></table></figure></div></li>
+<li><p>接下来在 <code>终端2</code>中键入：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">target remote localhost:1234</span><br></pre></td></tr></table></figure></div>
+
+<p>此时 <code>终端2</code>成功连接上本机端口1234，显示类似于这样的内容：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Remote debugging using localhost:1234</span><br><span class="line">0x0000fff0 <span class="keyword">in</span> ?? ()</span><br><span class="line">(gdb)</span><br></pre></td></tr></table></figure></div>
+
+<p>这样gdb的配置就完成了。</p>
+</li>
+<li><p>接下来就可以在 <code>终端2</code>上调试代码了。以下是一些gdb调试指令：</p>
+<ul>
+<li><p><strong>程序控制</strong></p>
+<ul>
+<li><code>c</code> &#x2F; <code>continue</code><br>继续运行程序</li>
+<li><code>si</code><br>单步执行一条汇编指令</li>
+<li><code>ni</code><br>单步执行一条汇编指令（不进入调用）</li>
+<li><code>s</code> &#x2F; <code>step</code><br>单步执行一行源码（进入函数）</li>
+<li><code>n</code> &#x2F; <code>next</code><br>单步执行一行源码（不进入函数）</li>
+<li><code>finish</code><br>运行到当前函数返回</li>
+<li><code>quit</code><br>退出 GDB</li>
+</ul>
+</li>
+<li><p><strong>断点</strong></p>
+<ul>
+<li><code>b &lt;function&gt;</code><br>在函数入口设置断点</li>
+<li><code>b &lt;file&gt;:&lt;line&gt;</code><br>在指定文件行号设置断点</li>
+<li><code>info break</code><br>查看所有断点</li>
+<li><code>disable &lt;n&gt;</code><br>禁用编号为 n 的断点</li>
+<li><code>enable &lt;n&gt;</code><br>启用编号为 n 的断点</li>
+<li><code>delete &lt;n&gt;</code><br>删除编号为 n 的断点</li>
+<li><code>delete</code><br>删除所有断点</li>
+</ul>
+</li>
+<li><p><strong>调用栈 &#x2F; 执行上下文</strong></p>
+<ul>
+<li><code>bt</code><br>显示调用栈（backtrace）</li>
+<li><code>frame &lt;n&gt;</code><br>切换到第 n 层栈帧</li>
+<li><code>info frame</code><br>查看当前栈帧信息</li>
+</ul>
+</li>
+<li><p><strong>变量 &#x2F; 表达式</strong></p>
+<ul>
+<li><code>p &lt;expr&gt;</code><br>打印变量或表达式</li>
+<li><code>p/x &lt;expr&gt;</code><br>以十六进制打印</li>
+<li><code>set var &lt;var&gt;=&lt;value&gt;</code><br>修改变量值</li>
+<li><code>info locals</code><br>查看当前函数的局部变量</li>
+<li><code>info args</code><br>查看当前函数参数</li>
+</ul>
+</li>
+<li><p><strong>寄存器</strong></p>
+<ul>
+<li><code>info registers</code><br>查看所有寄存器</li>
+<li><code>info registers eip esp ebp</code><br>查看指定寄存器</li>
+<li><code>p $eip</code><br>打印寄存器值</li>
+</ul>
+</li>
+<li><p><strong>内存 &#x2F; 指令查看</strong></p>
+<ul>
+<li><code>x/10i $eip</code><br>查看当前指令地址开始的 10 条汇编</li>
+<li><code>x/16x &lt;addr&gt;</code><br>以十六进制查看内存</li>
+<li><code>x/4w &lt;addr&gt;</code><br>以 word 形式查看内存</li>
+<li><code>disassemble &lt;function&gt;</code><br>反汇编函数</li>
+</ul>
+</li>
+<li><p><strong>源码查看</strong></p>
+<ul>
+<li><code>list</code><br>显示当前源码附近</li>
+<li><code>list &lt;function&gt;</code><br>显示函数源码</li>
+<li><code>list &lt;file&gt;:&lt;line&gt;</code><br>显示指定位置源码</li>
+</ul>
+</li>
+<li><p><strong>线程</strong></p>
+<ul>
+<li><code>info threads</code><br>查看所有线程</li>
+<li><code>thread &lt;n&gt;</code><br>切换到指定线程</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>终端2</code>退出：键入 <code>quit</code>或按下 <code>Ctrl + D</code>，并确认退出</p>
+</li>
+<li><p><code>终端1</code>退出：可以先按下 <code>Ctrl + A</code>，松开后再按下 <code>X</code>关闭进程</p>
+</li>
+</ul>
+<p><em>更详细的内容请参阅：<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/getting-started/debug-and-test/debugging" >Debugging | Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></em></p>
+<h3 id="评分自测"><a href="#评分自测" class="headerlink" title="评分自测"></a>评分自测</h3><p>在Ubuntu系统内、项目目录下（如 <code>pintos/src/threads</code>），在构建、运行结束后，可以键入：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make grade</span><br></pre></td></tr></table></figure></div>
+
+<p>以自动计算当前结果对应的分数和每个测试点的详细得分情况。</p>
+<p><em>更详细的内容请参阅：<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/getting-started/grading" >Grading | Pintos
+<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></em></p>
+<p>至此，<strong>Project 0</strong>，即写代码之前的必要准备就已经全部完成了！准备迎接代码之旅吧！</p>
+<hr>
+<p><a href="https://aaaaa114514-1.github.io/categories/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A/CS130-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI/">回到目录</a></p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> CS130 操作系统I Project 0 准备工作</li>
+        <li><strong>作者:</strong> aaaaa</li>
+        <li><strong>创建于
+                :</strong> 2026-02-04 15:00:00</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2026-02-06 21:12:09
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://redefine.ohevan.com/2026/02/04/零基础速通：CS130 操作系统I_3/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                版权所有 &#169 aaaaa，禁止转载。
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/0-Start-Learning/">#0_Start_Learning</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2026/02/05/%E7%BD%91%E9%A1%B5%E6%9B%B4%E6%96%B0%EF%BC%9A%E6%96%87%E7%AB%A0%E5%88%86%E7%B1%BB/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">网页更新：文章分类</span>
+						<span class="post-nav-item">上一篇</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2026/02/02/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%EF%BC%9ACS130%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI_2/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">CS130 操作系统I 理论部分</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">CS130 操作系统I Project 0 准备工作</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Project-%E5%9F%BA%E4%BA%8EPintOS%E7%9A%84%E6%89%8B%E6%90%93%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%81"><span class="nav-text">Project: 基于PintOS的手搓操作系统！</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Project-0-%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-text">Project 0: 准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%B8%8E%E8%B0%83%E8%AF%95"><span class="nav-text">安装与调试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Docker"><span class="nav-text">安装Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BDPintOS%E6%BA%90%E4%BB%A3%E7%A0%81%E5%8C%85"><span class="nav-text">下载PintOS源代码包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E6%9C%AC%E5%9C%B0%E8%BF%9B%E8%A1%8C%E7%B3%BB%E7%BB%9F%E6%B5%8B%E8%AF%95"><span class="nav-text">在本地进行系统测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E6%9C%AC%E5%9C%B0%E8%BF%9B%E8%A1%8C%E7%A8%8B%E5%BA%8F%E6%B5%8B%E8%AF%95"><span class="nav-text">在本地进行程序测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8C%E6%88%90%EF%BC%81"><span class="nav-text">完成！</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E5%BA%93%E4%B8%8E%E5%90%88%E4%BD%9C"><span class="nav-text">建库与合作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%84%E5%88%86%E6%A0%87%E5%87%86"><span class="nav-text">评分标准</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E4%BD%93%E6%A0%87%E5%87%86"><span class="nav-text">总体标准</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3"><span class="nav-text">设计文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E8%A6%81%E6%B1%82"><span class="nav-text">代码要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git%E6%8F%90%E4%BA%A4%E8%A6%81%E6%B1%82"><span class="nav-text">Git提交要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Code-check"><span class="nav-text">Code check</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9C%80%E8%A6%81%E4%BA%86%E8%A7%A3%E7%9A%84%E5%86%85%E5%AE%B9"><span class="nav-text">需要了解的内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pintos-%E7%9B%AE%E5%BD%95%E7%AE%80%E4%BB%8B"><span class="nav-text">Pintos 目录简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Build"><span class="nav-text">Build</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run"><span class="nav-text">Run</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Test"><span class="nav-text">Test</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Debug"><span class="nav-text">Debug</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%84%E5%88%86%E8%87%AA%E6%B5%8B"><span class="nav-text">评分自测</span></a></li></ol></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2025</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-compact-disc fa-spin"></i>&nbsp;&nbsp;<a href="/">aaaaa</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共撰写了 20 篇文章
+                    </span>
+                    
+                        <span>
+                            共 15.4k 字
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="fa-regular fa-arrow-up"></i>
+		</li>
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="站内搜索您需要的内容..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+	<div id="aplayer"></div>
+
+<script src="/js/build/libs/APlayer.min.js"></script>
+
+
+<script src="/js/build/plugins/aplayer.js"></script>
+
+
+	
+</body>
+
+</html>

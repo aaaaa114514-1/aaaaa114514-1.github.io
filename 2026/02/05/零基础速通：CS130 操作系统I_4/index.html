@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="aaaaa">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://aaaaa114514-1.github.io/2026/02/05/零基础速通：cs130 操作系统i_4/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS130 操作系统I Project 1 Threads | 线程">
+<meta property="og:url" content="https://aaaaa114514-1.github.io/2026/02/05/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%EF%BC%9ACS130%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI_4/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://aaaaa114514-1.github.io/images/redefine-og.webp">
+<meta property="article:published_time" content="2026-02-05T14:00:00.000Z">
+<meta property="article:modified_time" content="2026-02-12T08:58:27.480Z">
+<meta property="article:author" content="aaaaa">
+<meta property="article:tag" content="0_Start_Learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://aaaaa114514-1.github.io/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/favicon.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+    <meta name="theme-color" content="#3362d6">
+    <link rel="shortcut icon" href="/images/favicon.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            CS130 操作系统I Project 1 Threads | 线程 | aaaaa online
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+        
+<script src="/js/build/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"aaaaa114514-1.github.io","root":"/","language":"zh-CN","path":"search.json"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"all_rights_reserved"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#3362d6","secondary":"#33b4d6","default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":true,"percentage":false},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":true,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/bgp_light.png","dark":"/images/bgp_dark.png"},"title":"aaaaa online","subtitle":{"text":["World is a Visual Novel, but I'm Stuck on the Common Route...","World is a Visual Novel, Where's My Heroine DLC?","World is a Visual Novel, but the H-Scenes are Censored...","World is a Visual Novel, but Fast Forward Ctrl is banned","World is a Visual Novel, Wonderful Memories To Be Continued..."],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":60,"backing_speed":45,"starting_delay":500,"backing_delay":3000,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/aaaaa114514-1","instagram":null,"zhihu":null,"twitter":null,"email":null,"bilibili":"https://space.bilibili.com/514710526"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"BabyBlue","artist":"柊優花","url":"/music/BabyBlue .mp3","cover":"/images/cover/BabyBlue .jpg","lrc":"/lyrics/BabyBlue .lrc"},{"name":"トリックハート (feat. 重音テト)","artist":"MIMI / 重音テト","url":"/music/トリックハート (feat. 重音テト) .mp3","cover":"/images/cover/トリックハート (feat. 重音テト) .jpg","lrc":"/lyrics/トリックハート (feat. 重音テト) .lrc"},{"name":"bloom","artist":"三木谷奈々","url":"/music/bloom .mp3","cover":"/images/cover/bloom .jpg","lrc":"/lyrics/bloom .lrc"},{"name":"コイノシルシ from Kanon","artist":"東山奈央","url":"/music/コイノシルシ from Kanon .mp3","cover":"/images/cover/コイノシルシ from Kanon .jpg","lrc":"/lyrics/コイノシルシ from Kanon .lrc"},{"name":"モノクローム","artist":"戸松遥","url":"/music/モノクローム .mp3","cover":"/images/cover/モノクローム .jpg","lrc":"/lyrics/モノクローム .lrc"},{"name":"樱花海岸","artist":"琥珀琴师","url":"/music/樱花海岸.mp3","cover":"/images/cover/樱花海岸.jpg","lrc":"/lyrics/樱花海岸.lrc"},{"name":"沐雨","artist":"洛天依/言和","url":"/music/沐雨.mp3","cover":"/images/cover/沐雨.jpg","lrc":"/lyrics/沐雨.lrc"},{"name":"夏の紫苑","artist":"VISUAL ARTS","url":"/music/夏の紫苑.mp3","cover":"/images/cover/夏の紫苑.jpg","lrc":"/lyrics/夏の紫苑.lrc"},{"name":"咸咸的","artist":"uzakin/Soda纯白","url":"/music/咸咸的.mp3","cover":"/images/cover/咸咸的.jpg","lrc":"/lyrics/咸咸的.lrc"},{"name":"HAMELN","artist":"葉月ゆら","url":"/music/HAMELN.mp3","cover":"/images/cover/HAMELN.png","lrc":"/lyrics/HAMELN.lrc"}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#faf097","right":"#0d1e3d","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"categories":{"path":"/categories","icon":"fa-regular fa-folders"},"Friends":{"path":"/friends","icon":"fa-regular fa-link"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":false,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"YYYY-MM-DD","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":10}},"footerStart":"2025/5/17 00:00:00"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        aaaaa online
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({ loop: true })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [20, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
+                easing: "easeOutExpo",
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/favicon.png" class="w-full h-full rounded-xs">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                aaaaa online
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories"
+                                        >
+                                    <i class="fa-regular fa-folders fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/friends"
+                                        >
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    友情链接
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-regular fa-folders fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/friends"
+                        >
+                            <span>
+                                友情链接
+                            </span>
+                            
+                                <i class="fa-regular fa-link fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">9</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">20</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">CS130 操作系统I Project 1 Threads | 线程</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/favicon.png">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">aaaaa</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2026-02-05 22:00</span>
+        <span class="mobile">2026-02-05 22:00</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-02-12 16:58:27</span>
+            <span class="mobile">2026-02-12 16:58:27</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A/">零基础速通</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A/CS130-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI/">CS130 操作系统I</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/0-Start-Learning/">0_Start_Learning</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>2k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>7 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p><strong>Project 1</strong> 是关于<code>Threads</code>，也就是线程的。这是整个PintOS学习之旅的第一站！</p>
+<p>首先，<strong>下载</strong><a class="link"   target="_blank" rel="noopener" href="http://web.stanford.edu/~ouster/cgi-bin/cs140-spring20/pintos/threads.tmpl" >设计文档模板<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>，按照模板填写。有时候，模板真的能提供不少动力和思路。<del>（当然是为了交作业）</del></p>
+<p>如果你第一次不知道怎么填，可以参考<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/appendix/project-documentation" >这个<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。</p>
+<p>接下来我们正式开始代码工作！</p>
+<hr>
+<h1 id="文件介绍"><a href="#文件介绍" class="headerlink" title="文件介绍"></a>文件介绍</h1><h2 id="threads目录下的文件"><a href="#threads目录下的文件" class="headerlink" title="threads目录下的文件"></a>threads目录下的文件</h2><p>接下来<code>pintos/src/threads</code>路径下的24个代码文件（除去<code>.gitignore</code> <code>Makefile</code> <code>Make.vars</code>等仓库和作业配置文件）会大致按照<strong>代码的调用顺序</strong>一一介绍：</p>
+<ul>
+<li><p><code>loader.S</code> <code>loader.h</code></p>
+<ul>
+<li>这是一个只有512字节的内核加载器程序，由BIOS加载，负责在磁盘上定位操作系统内核，然后把这个内核加载到内存里，并跳转执行内核<code>start.S</code>中的<code>start()</code>函数。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><p><code>kernel.Ids.S</code></p>
+<ul>
+<li>连接内核的链接程序。</li>
+<li>设置了内核的加载地址，安排<code>start.S</code>在内核镜像最前端附近。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><p><code>start.S</code></p>
+<ul>
+<li>为32位操作系统的运行提供基础环境。</li>
+<li>这不属于加载器，而是内核的一部分。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><p><code>init.c</code> <code>init.h</code></p>
+<ul>
+<li>内核初始化程序，其中<code>main()</code>函数（或<code>pintos_init()</code>函数）是整个内核的主函数。</li>
+<li>需要至少<strong>理解初始化过程每一步初始化了什么</strong>，<strong>可能需要增加自定义的初始化代码</strong>。</li>
+</ul>
+</li>
+<li><p><code>thread.c</code> <code>thread.h</code></p>
+<ul>
+<li>线程相关的主要代码文件。</li>
+<li><code>thread.h</code>文件中关于<code>struct thread</code>的定义很有可能在四个Project中都会修改。</li>
+<li>需要<strong>理解绝大多数代码含义</strong>，需要<strong>大量增添或修改代码</strong>。</li>
+</ul>
+</li>
+<li><p><code>switch.S</code> <code>switch.h</code></p>
+<ul>
+<li>用汇编语言直接控制CPU实现的线程切换。</li>
+<li>这是线程底层实现，不涉及控制何时切换线程。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><p><code>palloc.c</code> <code>palloc.h</code></p>
+<ul>
+<li>这是页分配器(Page ALLOCator)，负责以页（每页是4kB）为单位向系统分配内存（只能是整数页）。</li>
+<li>需要<strong>理解代码目的</strong>，不用修改。</li>
+</ul>
+</li>
+<li><p><code>malloc.c</code> <code>malloc.h</code></p>
+<ul>
+<li>这是内核代码中<code>malloc()</code>函数和<code>free()</code>函数的简单实现。</li>
+<li>需要<strong>理解代码目的</strong>，不用修改。</li>
+</ul>
+</li>
+<li><p><code>interrupt.c</code> <code>interrupt.h</code></p>
+<ul>
+<li>CPU中断的基础处理代码。</li>
+<li>管理中断与分发相关底层内容，不涉及调度策略。</li>
+<li>需要<strong>理解代码目的</strong>，不用修改。</li>
+</ul>
+</li>
+<li><p><code>intr-stubs.S</code> <code>intr-stubs.h</code></p>
+<ul>
+<li>处理中断的底层汇编代码。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><p><code>synch.c</code> <code>synch.h</code></p>
+<ul>
+<li>定义了基本同步<u>原语</u>（primitive, 指从当前考虑的操作系统层面上看，不可继续细分的单元结构）：<ul>
+<li>semaphore | 信号量</li>
+<li>lock | 线程锁</li>
+<li>condition variable | 条件变量</li>
+<li>optimization barrier | 优化屏障</li>
+</ul>
+</li>
+<li><strong>在四个Project中均会用到。</strong></li>
+<li>需要<strong>看懂</strong>，需要<strong>修改</strong>。</li>
+</ul>
+</li>
+<li><p><code>io.h</code></p>
+<ul>
+<li>输入输出I&#x2F;O端口连接相关函数。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><p><code>vaddr.h</code> <code>pte.h</code></p>
+<ul>
+<li>处理虚拟地址和页表项的相关函数和宏定义。</li>
+<li>在Project 3之前不需要看懂和修改。</li>
+</ul>
+</li>
+<li><p><code>flags.h</code></p>
+<ul>
+<li>标志寄存器的一些标志的宏定义。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+</ul>
+<h2 id="devices目录下的文件"><a href="#devices目录下的文件" class="headerlink" title="devices目录下的文件"></a>devices目录下的文件</h2><p>接下来介绍<code>pintos/src/devices</code>目录下的24个代码文件：</p>
+<ul>
+<li><code>timer.c</code> <code>timer.h</code><ul>
+<li>系统计时器，默认每秒100次中断</li>
+<li>需要<strong>看懂</strong>，需要<strong>修改</strong>。</li>
+</ul>
+</li>
+<li><code>vga.c</code> <code>vga.h</code><ul>
+<li>控制终端的输出，<code>printf()</code>会调用这里的内容。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><code>serial.c</code> <code>serial.h</code><ul>
+<li>串口驱动，与输入输出相关。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><code>block.c</code> <code>block.h</code><ul>
+<li>块设备抽象层。</li>
+<li>将磁盘抽象为块（定长数组）。</li>
+<li>在Project 2之前不需要看懂和修改。</li>
+</ul>
+</li>
+<li><code>ide.c</code> <code>ide.h</code><ul>
+<li>支持IDE硬盘扇区的直接读写。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><code>partition.c</code> <code>partition.h</code><ul>
+<li>硬盘分区相关代码。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><code>kbd.c</code> <code>kbd.h</code><ul>
+<li>键盘驱动，控制键盘的输入。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><code>input.c</code> <code>input.h</code><ul>
+<li>输入层，控制输入队列。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><code>intq.c</code> <code>intq.h</code><ul>
+<li>中断队列，管理线程和中断都能安全访问的循环队列。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><code>rtc.c</code> <code>rtc.h</code><ul>
+<li>读取当前日期和时间。</li>
+<li>默认仅供<code>pintos/src/threads/init.c</code>中随机数生成器的初始种子使用。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><code>speaker.c</code> <code>speaker.h</code><ul>
+<li>蜂鸣器驱动。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+<li><code>pit.c</code> <code>pit.h</code><ul>
+<li>8254可编程定时器的代码。</li>
+<li>仅由<code>timer.c</code>和<code>speaker.c</code>调用的底层代码。</li>
+<li>不用看懂，不要修改。</li>
+</ul>
+</li>
+</ul>
+<h2 id="lib目录下的文件"><a href="#lib目录下的文件" class="headerlink" title="lib目录下的文件"></a>lib目录下的文件</h2><p><code>lib</code>和<code>lib/kernel</code>包含了许多C语言的库函数，以供编程时调用；而<code>lib/user</code>中包含了用户程序可能用到的内容，在Project 2中才会用到。</p>
+<p>具体文件不再一一列举，不过有以下内容需要了解：</p>
+<ul>
+<li><code>&lt;string.h&gt;</code>和<code>&lt;stdio.h&gt;</code>下的部分字符串相关函数由于其安全性问题，被踢出了这次<code>lib</code>的C标准库。详情见<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/appendix/coding-standards#unsafe-string-functions" >此处<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。</li>
+<li><code>kernel/list.c</code> <code>kernel/list.h</code> 可能会在Project 1中使用到。</li>
+</ul>
+<p><em>更详细的内容请参阅：<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/project-description/lab1-threads/background#source-files-in-threads" >Background | Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></em></p>
+<hr>
+<h1 id="任务要求与执行建议"><a href="#任务要求与执行建议" class="headerlink" title="任务要求与执行建议"></a>任务要求与执行建议</h1><h2 id="任务要求"><a href="#任务要求" class="headerlink" title="任务要求"></a>任务要求</h2><ol>
+<li>在<code>devices/timer.c</code>中重构<code>timer_sleep()</code>的实现代码，避免使用忙等待。</li>
+<li><ol>
+<li>实现线程的优先级调度</li>
+<li>实现线程的优先级捐赠和嵌套优先级捐赠</li>
+<li>实现（补全）线程检查和修改自己优先级的函数</li>
+</ol>
+</li>
+<li>实现类似4.4BSD调度器的分级反馈队列调度器(mlfqs)，以优化作业平均响应时间</li>
+</ol>
+<p><em>详细要求请参考：<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/project-description/lab1-threads/your-tasks" >Your Tasks | Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></em></p>
+<h2 id="执行建议"><a href="#执行建议" class="headerlink" title="执行建议"></a>执行建议</h2><h3 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h3><ul>
+<li><p>先跑测试，结果应该是 <strong>fail 20&#x2F;27</strong>。</p>
+</li>
+<li><p>完成<strong>任务1</strong>；</p>
+<ul>
+<li>涉及修改的文件：<code>devices/timer.c</code></li>
+<li>测试结果仍然是 <strong>fail 20&#x2F;27</strong>，但是速度会变快。</li>
+</ul>
+</li>
+<li><p>完成<strong>任务2</strong>；</p>
+<ul>
+<li>涉及修改的文件：<code>threads/synch.c</code> <code>threads/thread.c</code> <code>threads/thread.h</code></li>
+<li>测试结果为 <strong>fail 7&#x2F;27</strong>，前18个测试点都通过。</li>
+</ul>
+</li>
+<li><p>完成<strong>任务3</strong>MLFQS所需的定点实数运算例程；</p>
+<ul>
+<li>涉及修改的文件：<code>threads/thread.c</code> <code>threads/thread.h</code></li>
+<li>不用跑测试，结果不会有变化，编译通过即可。</li>
+</ul>
+</li>
+<li><p>完成<strong>任务3</strong>。</p>
+<ul>
+<li>涉及修改的文件：<code>threads/thread.c</code> <code>threads/thread.h</code></li>
+<li>测试结果为 <strong>All 27 tests passed.</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="代码量参考值"><a href="#代码量参考值" class="headerlink" title="代码量参考值"></a>代码量参考值</h3><p>这是官方给出的参考值，单位是行。由于代码不同，这显然不能代表唯一正确答案。</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">devices/timer.c       |   42 +++++-</span><br><span class="line">threads/synch.c       |   88 ++++++++++++-</span><br><span class="line">threads/thread.c      |  196 ++++++++++++++++++++++++++----</span><br><span class="line">threads/thread.h      |   23 +++</span><br><span class="line">4 files changed, 320 insertions(+), 29 deletions(-)</span><br></pre></td></tr></table></figure></div>
+
+<p>如果你也想测试一下，可以在pintos容器内依次按照以下执行：</p>
+<ul>
+<li><p>安装<code>diffstat</code>：</p>
+  <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install diffstat</span><br><span class="line">diffstat --version</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>版本比较：</p>
+  <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/pintos</span><br><span class="line">git diff | diffstat</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<p><em>笔者写的代码比官方的标准版本修改多很多，说明笔者代码效率不高。</em></p>
+<h3 id="需要注意的内容"><a href="#需要注意的内容" class="headerlink" title="需要注意的内容"></a>需要注意的内容</h3><ul>
+<li>耐心调试，有看不懂的<del>不想看的</del>可以问AI，这个项目代码应该大部分主流LLM都熟悉。</li>
+<li>保证全程参与<del>，或者全程不参与</del>：Project 1相对独立，代码内部逻辑联系紧密，所以建议合作时时刻保持跟进代码进度<del>，或者干脆抱队友大腿</del>。</li>
+<li>Project 1 <strong>几乎无法一次性完成</strong>，所以需要时间分段。一个合理的时间分段方式是按照任务分开，一次性完成一个任务的代码编写和设计文档撰写。</li>
+<li>完成任务3时，会涉及部分修改任务2的代码；请确保<strong>不要删除</strong>任务2的代码，而是使用关键指示变量<code>thread_mlfqs</code>作为开关控制。</li>
+<li><strong>Project 1 中代码完成的所有内容都不在后面的Project中重复利用。<strong>这意味着Project 2是从</strong>白板PintOS</strong>开始的。</li>
+</ul>
+<hr>
+<p><a href="https://aaaaa114514-1.github.io/categories/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A/CS130-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI/">回到目录</a></p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> CS130 操作系统I Project 1 Threads | 线程</li>
+        <li><strong>作者:</strong> aaaaa</li>
+        <li><strong>创建于
+                :</strong> 2026-02-05 22:00:00</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2026-02-12 16:58:27
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://redefine.ohevan.com/2026/02/05/零基础速通：CS130 操作系统I_4/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                版权所有 &#169 aaaaa，禁止转载。
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/0-Start-Learning/">#0_Start_Learning</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2026/02/12/%E7%BD%91%E9%A1%B5%E6%9B%B4%E6%96%B0%EF%BC%9A%E8%84%9A%E6%9C%AC%E6%8F%90%E4%BA%A4/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">网页更新：脚本提交</span>
+						<span class="post-nav-item">上一篇</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2026/02/05/%E7%BD%91%E9%A1%B5%E6%9B%B4%E6%96%B0%EF%BC%9A%E6%94%B9%E4%B8%BAssh%E8%BF%9E%E6%8E%A5/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">网页更新：改为ssh连接</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">CS130 操作系统I Project 1 Threads | 线程</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%BB%8B%E7%BB%8D"><span class="nav-text">文件介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#threads%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6"><span class="nav-text">threads目录下的文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#devices%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6"><span class="nav-text">devices目录下的文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lib%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6"><span class="nav-text">lib目录下的文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E8%A6%81%E6%B1%82%E4%B8%8E%E6%89%A7%E8%A1%8C%E5%BB%BA%E8%AE%AE"><span class="nav-text">任务要求与执行建议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E8%A6%81%E6%B1%82"><span class="nav-text">任务要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%BB%BA%E8%AE%AE"><span class="nav-text">执行建议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="nav-text">执行顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E9%87%8F%E5%8F%82%E8%80%83%E5%80%BC"><span class="nav-text">代码量参考值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E5%86%85%E5%AE%B9"><span class="nav-text">需要注意的内容</span></a></li></ol></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2025</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-compact-disc fa-spin"></i>&nbsp;&nbsp;<a href="/">aaaaa</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共撰写了 20 篇文章
+                    </span>
+                    
+                        <span>
+                            共 15.4k 字
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="fa-regular fa-arrow-up"></i>
+		</li>
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="站内搜索您需要的内容..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+	<div id="aplayer"></div>
+
+<script src="/js/build/libs/APlayer.min.js"></script>
+
+
+<script src="/js/build/plugins/aplayer.js"></script>
+
+
+	
+</body>
+
+</html>

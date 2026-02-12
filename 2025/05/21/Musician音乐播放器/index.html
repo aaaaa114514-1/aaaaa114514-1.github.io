@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="aaaaa">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://aaaaa114514-1.github.io/2025/05/21/musician音乐播放器/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Musician音乐播放器">
+<meta property="og:url" content="https://aaaaa114514-1.github.io/2025/05/21/Musician%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://aaaaa114514-1.github.io/images/redefine-og.webp">
+<meta property="article:published_time" content="2025-05-21T12:00:00.000Z">
+<meta property="article:modified_time" content="2026-02-05T09:03:49.544Z">
+<meta property="article:author" content="aaaaa">
+<meta property="article:tag" content="Projects">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://aaaaa114514-1.github.io/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/favicon.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+    <meta name="theme-color" content="#3362d6">
+    <link rel="shortcut icon" href="/images/favicon.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Musician音乐播放器 | aaaaa online
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+        
+<script src="/js/build/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"aaaaa114514-1.github.io","root":"/","language":"zh-CN","path":"search.json"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"all_rights_reserved"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#3362d6","secondary":"#33b4d6","default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":true,"percentage":false},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":true,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/bgp_light.png","dark":"/images/bgp_dark.png"},"title":"aaaaa online","subtitle":{"text":["World is a Visual Novel, but I'm Stuck on the Common Route...","World is a Visual Novel, Where's My Heroine DLC?","World is a Visual Novel, but the H-Scenes are Censored...","World is a Visual Novel, but Fast Forward Ctrl is banned","World is a Visual Novel, Wonderful Memories To Be Continued..."],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":60,"backing_speed":45,"starting_delay":500,"backing_delay":3000,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/aaaaa114514-1","instagram":null,"zhihu":null,"twitter":null,"email":null,"bilibili":"https://space.bilibili.com/514710526"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"BabyBlue","artist":"柊優花","url":"/music/BabyBlue .mp3","cover":"/images/cover/BabyBlue .jpg","lrc":"/lyrics/BabyBlue .lrc"},{"name":"トリックハート (feat. 重音テト)","artist":"MIMI / 重音テト","url":"/music/トリックハート (feat. 重音テト) .mp3","cover":"/images/cover/トリックハート (feat. 重音テト) .jpg","lrc":"/lyrics/トリックハート (feat. 重音テト) .lrc"},{"name":"bloom","artist":"三木谷奈々","url":"/music/bloom .mp3","cover":"/images/cover/bloom .jpg","lrc":"/lyrics/bloom .lrc"},{"name":"コイノシルシ from Kanon","artist":"東山奈央","url":"/music/コイノシルシ from Kanon .mp3","cover":"/images/cover/コイノシルシ from Kanon .jpg","lrc":"/lyrics/コイノシルシ from Kanon .lrc"},{"name":"モノクローム","artist":"戸松遥","url":"/music/モノクローム .mp3","cover":"/images/cover/モノクローム .jpg","lrc":"/lyrics/モノクローム .lrc"},{"name":"樱花海岸","artist":"琥珀琴师","url":"/music/樱花海岸.mp3","cover":"/images/cover/樱花海岸.jpg","lrc":"/lyrics/樱花海岸.lrc"},{"name":"沐雨","artist":"洛天依/言和","url":"/music/沐雨.mp3","cover":"/images/cover/沐雨.jpg","lrc":"/lyrics/沐雨.lrc"},{"name":"夏の紫苑","artist":"VISUAL ARTS","url":"/music/夏の紫苑.mp3","cover":"/images/cover/夏の紫苑.jpg","lrc":"/lyrics/夏の紫苑.lrc"},{"name":"咸咸的","artist":"uzakin/Soda纯白","url":"/music/咸咸的.mp3","cover":"/images/cover/咸咸的.jpg","lrc":"/lyrics/咸咸的.lrc"},{"name":"HAMELN","artist":"葉月ゆら","url":"/music/HAMELN.mp3","cover":"/images/cover/HAMELN.png","lrc":"/lyrics/HAMELN.lrc"}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#faf097","right":"#0d1e3d","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"categories":{"path":"/categories","icon":"fa-regular fa-folders"},"Friends":{"path":"/friends","icon":"fa-regular fa-link"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":false,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"YYYY-MM-DD","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":10}},"footerStart":"2025/5/17 00:00:00"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        aaaaa online
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({ loop: true })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [20, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
+                easing: "easeOutExpo",
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/favicon.png" class="w-full h-full rounded-xs">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                aaaaa online
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories"
+                                        >
+                                    <i class="fa-regular fa-folders fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/friends"
+                                        >
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    友情链接
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-regular fa-folders fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/friends"
+                        >
+                            <span>
+                                友情链接
+                            </span>
+                            
+                                <i class="fa-regular fa-link fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">9</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">20</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Musician音乐播放器</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/favicon.png">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">aaaaa</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-05-21 20:00</span>
+        <span class="mobile">2025-05-21 20:00</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-02-05 17:03:49</span>
+            <span class="mobile">2026-02-05 17:03:49</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E9%A1%B9%E7%9B%AE/">项目</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E9%A1%B9%E7%9B%AE/Musician%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/">Musician音乐播放器</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Projects/">Projects</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.5k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>5 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p><strong>仓库放开头:  <a class="link"   target="_blank" rel="noopener" href="https://github.com/aaaaa114514-1/musician" >aaaaa114514-1&#x2F;musician: An individual music player with a little bit more functions.<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></strong></p>
+<p>听音乐是个不错的爱好。</p>
+<p>但是，一放音乐就卡的Windows自带播放器体感极度不舒适；mediaPlayer虽然可以播放音乐，但是它的UI风格实在有点年代感，用着也不太习惯。</p>
+<p>恰好，一年前，在学习网络爬虫的时候，我用python写了个酷狗音乐的爬虫，25年年初的时候翻出来测试，发现已经跟不上版本了；恰好，我在群里听说，网易云的本地文件加密是用的按位 <code>^163</code> 的方法。</p>
+<p>于是，在2025年3月，我决定用python写一个小型Project，用命令行写一个播放器，集成酷狗和网易云下载工具，以解决自己的播放器问题。</p>
+<p>不到一个礼拜，代码的主要部分就完工了。后来在使用过程中陆续发现了一些bug，顺便开发了一些必要的功能，比如说一开始没做的“上一曲”（不知道我当时为什么没设计这么重要的功能），为了睡眠质量而开发的“定时关闭”，以及后来加上的“数据统计 history”等等。</p>
+<p>现在，这个项目已经初具雏形，虽然离趋于完善还有很长的路，不过可以先分享出来，一边接受反馈，一边修改。</p>
+<p>仓库是今天新建的，先写了英文版的README，后来又加了中文版。略微修改了原来程序的接口，使得移植更加方便了。中文版的README一同贴出来：</p>
+<p><strong>注意：此处的README不实时更新，具体请以仓库中的为准！</strong></p>
+<h1 id="Musician"><a href="#Musician" class="headerlink" title="Musician"></a><strong>Musician</strong></h1><h2 id="一个拥有曲库管理功能的命令行音乐播放器"><a href="#一个拥有曲库管理功能的命令行音乐播放器" class="headerlink" title="一个拥有曲库管理功能的命令行音乐播放器"></a><strong>一个拥有曲库管理功能的命令行音乐播放器</strong></h2><p><strong>代码 <em>aaaaa</em></strong></p>
+<p><strong>Musician</strong> 是一个<strong>命令行控制的音乐播放器</strong>，专为<strong>程序员音乐爱好者</strong>设计，支持：</p>
+<ul>
+<li>听歌</li>
+<li>从<strong>酷狗音乐</strong>或<strong>网易云音乐</strong>免费下载歌曲</li>
+<li>建立个人曲库</li>
+<li>记录播放历史</li>
+</ul>
+<p>程序使用 <strong>Python</strong> 编写，播放功能基于 <strong>pygame</strong>。由于作者编程水平有限，可能存在一些 Bug——欢迎反馈，我会尽力修复！</p>
+<hr>
+<h2 id="程序概览"><a href="#程序概览" class="headerlink" title="程序概览"></a><strong>程序概览</strong></h2><p><code>musician</code> 目录包含以下文件：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">musician/</span><br><span class="line">├── history.txt        # 播放历史记录  </span><br><span class="line">├── Icon.ico           # 程序图标  </span><br><span class="line">├── musician.exe       # 可执行文件（用户使用）  </span><br><span class="line">├── musician.py        # 源代码（开发者查看）  </span><br><span class="line">├── README.md          # 说明文档  </span><br><span class="line">└── savedata.txt       # 配置文件  </span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><strong>用户</strong>：修改 <code>savedata.txt</code>（仅首次配置），然后运行 <code>musician.exe</code>。</li>
+<li><strong>开发者</strong>：可查看 <code>musician.py</code> 和 <code>savedata.txt</code>。</li>
+</ul>
+<hr>
+<h2 id="用户指南"><a href="#用户指南" class="headerlink" title="用户指南"></a><strong>用户指南</strong></h2><h3 id="1-配置-savedata-txt"><a href="#1-配置-savedata-txt" class="headerlink" title="1. 配置 savedata.txt"></a><strong>1. 配置 <code>savedata.txt</code></strong></h3><p>该文件定义了路径和设置：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Netease\CloudMusic\Cache\Cache   # 网易云音乐缓存路径  </span><br><span class="line">D:\BGM\Download&amp;Decode                    # 下载/解码目录  </span><br><span class="line">D:\BGM\Download&amp;Decode\temp               # 临时文件存放  </span><br><span class="line">D:\BGM\Lis                                # 播放列表文件夹  </span><br><span class="line">D:\BGM                                    # 主音乐库  </span><br><span class="line">0.4                                       # 默认音量（0–1）  </span><br><span class="line">30                                        # 搜索匹配阈值（%）  </span><br><span class="line">1d4e5b7decbe434048e596ae2d597adb          # 酷狗 token（后32位）  </span><br><span class="line">D:\BGM\Settings\history.txt               # 历史记录文件路径  </span><br></pre></td></tr></table></figure></div>
+
+<h4 id="配置步骤"><a href="#配置步骤" class="headerlink" title="配置步骤"></a><strong>配置步骤</strong></h4><ol>
+<li><p><strong>网易云缓存路径</strong></p>
+<ul>
+<li>打开 <strong>网易云音乐桌面端</strong> → 设置 → 下载 → <strong>复制缓存路径</strong>。</li>
+<li>在路径末尾手动添加 <code>\Cache</code>（如 <code>C:\...\Cache\Cache</code>）。</li>
+</ul>
+</li>
+<li><p><strong>音乐库文件夹</strong><br>创建以下目录（示例名称）：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BGM/  </span><br><span class="line">├── Download&amp;Decode/  # 用于下载/解码  </span><br><span class="line">│   └── temp/         # 临时文件  </span><br><span class="line">└── Lis/              # 播放列表存放  </span><br></pre></td></tr></table></figure></div>
+
+<p>将它们的路径填入 <code>savedata.txt</code> 的第 2–5 行。</p>
+</li>
+<li><p><strong>酷狗 Token（可选）</strong></p>
+<ul>
+<li>登录 酷狗音乐官网。</li>
+<li>播放任意歌曲 → 按 <strong>F12</strong> 打开开发者工具 → <strong>Network（网络）</strong> 标签。</li>
+<li>找到 <code>https://wwwapi.kugou.com/play/songinfo?</code> 的请求。</li>
+<li>复制 <code>token</code> 参数的<strong>最后32位字符</strong>，即在 <code>...5e6de</code>之后的部分（如 <code>55f2409f72970daa21bdc63acee305db</code>）。</li>
+<li>粘贴到 <code>savedata.txt</code> 第 8 行。</li>
+<li><em>如果不需要使用酷狗下载音乐，可跳过此步。</em></li>
+</ul>
+</li>
+<li><p><strong>历史记录文件</strong><br>指定 <code>history.txt</code> 的路径（第 9 行）<strong>并将给出的 <code>history.txt</code> 文件移到指定路径下</strong>，程序会自动管理该文件。</p>
+</li>
+</ol>
+<hr>
+<h3 id="2-命令速查"><a href="#2-命令速查" class="headerlink" title="2. 命令速查"></a><strong>2. 命令速查</strong></h3><p>在 <code>&gt;&gt;</code> 后输入命令（不区分大小写）。</p>
+<h4 id="基础操作"><a href="#基础操作" class="headerlink" title="基础操作"></a><strong>基础操作</strong></h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>quit</code>&#x2F;<code>exit</code>&#x2F;<code>end</code></td>
+<td>退出程序（<em>尽可能不要用右上角的×退出程序</em>）。</td>
+</tr>
+<tr>
+<td><code>help</code></td>
+<td>显示所有命令。</td>
+</tr>
+</tbody></table>
+<h4 id="网易云音乐"><a href="#网易云音乐" class="headerlink" title="网易云音乐"></a><strong>网易云音乐</strong></h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>check163</code></td>
+<td>列出缓存歌曲（若报错，请检查网络连接）。</td>
+</tr>
+<tr>
+<td><code>decode &lt;编号&gt;</code></td>
+<td>解码歌曲（如 <code>decode 3</code> 或 <code>decode 2 5-9 4</code>）。</td>
+</tr>
+<tr>
+<td><code>clear163</code></td>
+<td>清空缓存（<em>先关闭网易云桌面端！</em>）。</td>
+</tr>
+</tbody></table>
+<h4 id="酷狗音乐"><a href="#酷狗音乐" class="headerlink" title="酷狗音乐"></a><strong>酷狗音乐</strong></h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>search &lt;歌名&gt;</code></td>
+<td>搜索（如 <code>search 夏の紫苑</code>）。</td>
+</tr>
+<tr>
+<td><code>download &lt;编号&gt;</code></td>
+<td>下载（<em>VIP 歌曲需先登录酷狗VIP账号</em>）。</td>
+</tr>
+</tbody></table>
+<h4 id="播放控制"><a href="#播放控制" class="headerlink" title="播放控制"></a><strong>播放控制</strong></h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>play</code>&#x2F;<code>pause</code></td>
+<td>播放&#x2F;暂停。</td>
+</tr>
+<tr>
+<td><code>play &lt;编号&gt;</code></td>
+<td>播放指定歌曲（如 <code>play 1-3 5</code>）。</td>
+</tr>
+<tr>
+<td><code>add &lt;编号&gt;</code></td>
+<td>添加到播放列表。</td>
+</tr>
+<tr>
+<td><code>mode &lt;single/cycle/random&gt;</code></td>
+<td>设置播放模式（单曲循环&#x2F;列表循环&#x2F;随机）。</td>
+</tr>
+<tr>
+<td><code>stop</code></td>
+<td>停止播放。</td>
+</tr>
+<tr>
+<td><code>last</code>&#x2F;<code>previous</code></td>
+<td>上一首。</td>
+</tr>
+<tr>
+<td><code>next</code></td>
+<td>下一首。</td>
+</tr>
+<tr>
+<td><code>restart</code>&#x2F;<code>replay</code></td>
+<td>重新播放当前歌曲。</td>
+</tr>
+<tr>
+<td><code>volume &lt;数值&gt;</code></td>
+<td>调整音量（0–100%，如 <code>volume 40</code>）。</td>
+</tr>
+</tbody></table>
+<h4 id="音乐库-历史"><a href="#音乐库-历史" class="headerlink" title="音乐库 &amp; 历史"></a><strong>音乐库 &amp; 历史</strong></h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>savelist</code></td>
+<td>显示已下载歌曲。</td>
+</tr>
+<tr>
+<td><code>save &lt;Lis/BGM&gt;</code></td>
+<td>将歌曲移至 <code>Lis</code>（播放列表）与 <code>BGM</code>（音乐库）&#x2F;仅移至 <code>BGM</code>。</td>
+</tr>
+<tr>
+<td><code>clear</code></td>
+<td>清空下载列表。</td>
+</tr>
+<tr>
+<td><code>library</code></td>
+<td>浏览音乐库。</td>
+</tr>
+<tr>
+<td><code>lookup &lt;歌名&gt;</code></td>
+<td>搜索音乐库。</td>
+</tr>
+<tr>
+<td><code>timelimit &lt;分钟&gt;</code></td>
+<td>设置最长播放时间（如 <code>timelimit 45</code>）。</td>
+</tr>
+<tr>
+<td><code>history</code></td>
+<td>查看播放历史。</td>
+</tr>
+<tr>
+<td><code>?</code></td>
+<td>显示当前播放的歌曲。</td>
+</tr>
+</tbody></table>
+<hr>
+<p><strong>曲库以mp3格式为默认存储格式，其他格式的音频将无法播放。你可以将原本的个人曲库直接迁移到 <code>BGM</code> 和 <code>Lis</code> 列表下。</strong></p>
+<p><strong>请务必在 <code>BGM</code> 和 <code>Lis</code> 列表下分别存放至少1个mp3文件，否则曲库会崩溃！</strong></p>
+<hr>
+<h2 id="开发者说明"><a href="#开发者说明" class="headerlink" title="开发者说明"></a><strong>开发者说明</strong></h2><ol>
+<li>先阅读<strong>用户指南</strong>了解功能逻辑。</li>
+<li>查看 <code>musician.py</code>——代码应该还算易懂（大概）。😊</li>
+<li>在终端用指令 <code>pyinstaller --onefile musician.py -i Icon.ico</code> 来将 <code>.py</code> 文件打包成 <code>.exe</code> 文件。</li>
+</ol>
+<hr>
+<p><strong>祝你在 Musician 的陪伴下享受音乐！</strong> 🎵</p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> Musician音乐播放器</li>
+        <li><strong>作者:</strong> aaaaa</li>
+        <li><strong>创建于
+                :</strong> 2025-05-21 20:00:00</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2026-02-05 17:03:49
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://redefine.ohevan.com/2025/05/21/Musician音乐播放器/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                版权所有 &#169 aaaaa，禁止转载。
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Projects/">#Projects</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2025/05/26/Musician%E6%9B%B4%E6%96%B0%EF%BC%9A%E6%94%AF%E6%8C%81Linux%E9%A3%8E%E6%A0%BC%E6%8C%87%E4%BB%A4%E9%9B%86/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">Musician更新：支持Linux风格指令集</span>
+						<span class="post-nav-item">上一篇</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/05/19/%E7%BD%91%E9%A1%B5%E6%9B%B4%E6%96%B0%EF%BC%9A%E6%B7%BB%E5%8A%A0%E5%8F%8B%E9%93%BE/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">网页更新：添加友链</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">Musician音乐播放器</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Musician"><span class="nav-text">Musician</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E6%8B%A5%E6%9C%89%E6%9B%B2%E5%BA%93%E7%AE%A1%E7%90%86%E5%8A%9F%E8%83%BD%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8"><span class="nav-text">一个拥有曲库管理功能的命令行音乐播放器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E6%A6%82%E8%A7%88"><span class="nav-text">程序概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E6%8C%87%E5%8D%97"><span class="nav-text">用户指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E9%85%8D%E7%BD%AE-savedata-txt"><span class="nav-text">1. 配置 savedata.txt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%91%BD%E4%BB%A4%E9%80%9F%E6%9F%A5"><span class="nav-text">2. 命令速查</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E8%80%85%E8%AF%B4%E6%98%8E"><span class="nav-text">开发者说明</span></a></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2025</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-compact-disc fa-spin"></i>&nbsp;&nbsp;<a href="/">aaaaa</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共撰写了 20 篇文章
+                    </span>
+                    
+                        <span>
+                            共 15.4k 字
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="fa-regular fa-arrow-up"></i>
+		</li>
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="站内搜索您需要的内容..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+	<div id="aplayer"></div>
+
+<script src="/js/build/libs/APlayer.min.js"></script>
+
+
+<script src="/js/build/plugins/aplayer.js"></script>
+
+
+	
+</body>
+
+</html>

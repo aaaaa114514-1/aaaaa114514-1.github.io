@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="aaaaa">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://aaaaa114514-1.github.io/2025/06/30/从零开始的shadertoy生活_01/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零开始的Shadertoy生活_01">
+<meta property="og:url" content="https://aaaaa114514-1.github.io/2025/06/30/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Shadertoy%E7%94%9F%E6%B4%BB_01/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://aaaaa114514-1.github.io/images/redefine-og.webp">
+<meta property="article:published_time" content="2025-06-29T18:30:00.000Z">
+<meta property="article:modified_time" content="2026-02-05T09:05:02.471Z">
+<meta property="article:author" content="aaaaa">
+<meta property="article:tag" content="Shadertoy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://aaaaa114514-1.github.io/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/favicon.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+    <meta name="theme-color" content="#3362d6">
+    <link rel="shortcut icon" href="/images/favicon.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            从零开始的Shadertoy生活_01 | aaaaa online
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+        
+<script src="/js/build/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"aaaaa114514-1.github.io","root":"/","language":"zh-CN","path":"search.json"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"all_rights_reserved"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#3362d6","secondary":"#33b4d6","default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":true,"percentage":false},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":true,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/bgp_light.png","dark":"/images/bgp_dark.png"},"title":"aaaaa online","subtitle":{"text":["World is a Visual Novel, but I'm Stuck on the Common Route...","World is a Visual Novel, Where's My Heroine DLC?","World is a Visual Novel, but the H-Scenes are Censored...","World is a Visual Novel, but Fast Forward Ctrl is banned","World is a Visual Novel, Wonderful Memories To Be Continued..."],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":60,"backing_speed":45,"starting_delay":500,"backing_delay":3000,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/aaaaa114514-1","instagram":null,"zhihu":null,"twitter":null,"email":null,"bilibili":"https://space.bilibili.com/514710526"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"BabyBlue","artist":"柊優花","url":"/music/BabyBlue .mp3","cover":"/images/cover/BabyBlue .jpg","lrc":"/lyrics/BabyBlue .lrc"},{"name":"トリックハート (feat. 重音テト)","artist":"MIMI / 重音テト","url":"/music/トリックハート (feat. 重音テト) .mp3","cover":"/images/cover/トリックハート (feat. 重音テト) .jpg","lrc":"/lyrics/トリックハート (feat. 重音テト) .lrc"},{"name":"bloom","artist":"三木谷奈々","url":"/music/bloom .mp3","cover":"/images/cover/bloom .jpg","lrc":"/lyrics/bloom .lrc"},{"name":"コイノシルシ from Kanon","artist":"東山奈央","url":"/music/コイノシルシ from Kanon .mp3","cover":"/images/cover/コイノシルシ from Kanon .jpg","lrc":"/lyrics/コイノシルシ from Kanon .lrc"},{"name":"モノクローム","artist":"戸松遥","url":"/music/モノクローム .mp3","cover":"/images/cover/モノクローム .jpg","lrc":"/lyrics/モノクローム .lrc"},{"name":"樱花海岸","artist":"琥珀琴师","url":"/music/樱花海岸.mp3","cover":"/images/cover/樱花海岸.jpg","lrc":"/lyrics/樱花海岸.lrc"},{"name":"沐雨","artist":"洛天依/言和","url":"/music/沐雨.mp3","cover":"/images/cover/沐雨.jpg","lrc":"/lyrics/沐雨.lrc"},{"name":"夏の紫苑","artist":"VISUAL ARTS","url":"/music/夏の紫苑.mp3","cover":"/images/cover/夏の紫苑.jpg","lrc":"/lyrics/夏の紫苑.lrc"},{"name":"咸咸的","artist":"uzakin/Soda纯白","url":"/music/咸咸的.mp3","cover":"/images/cover/咸咸的.jpg","lrc":"/lyrics/咸咸的.lrc"},{"name":"HAMELN","artist":"葉月ゆら","url":"/music/HAMELN.mp3","cover":"/images/cover/HAMELN.png","lrc":"/lyrics/HAMELN.lrc"}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#faf097","right":"#0d1e3d","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"categories":{"path":"/categories","icon":"fa-regular fa-folders"},"Friends":{"path":"/friends","icon":"fa-regular fa-link"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":false,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"YYYY-MM-DD","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":10}},"footerStart":"2025/5/17 00:00:00"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        aaaaa online
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({ loop: true })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [20, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
+                easing: "easeOutExpo",
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/favicon.png" class="w-full h-full rounded-xs">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                aaaaa online
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories"
+                                        >
+                                    <i class="fa-regular fa-folders fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/friends"
+                                        >
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    友情链接
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-regular fa-folders fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/friends"
+                        >
+                            <span>
+                                友情链接
+                            </span>
+                            
+                                <i class="fa-regular fa-link fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">9</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">20</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">从零开始的Shadertoy生活_01</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/favicon.png">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">aaaaa</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-06-30 02:30</span>
+        <span class="mobile">2025-06-30 02:30</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-02-05 17:05:02</span>
+            <span class="mobile">2026-02-05 17:05:02</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Shadertoy/">Shadertoy</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Shadertoy/">Shadertoy</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>2.1k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>8 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="01-Shadertoy-与-glsl-语言"><a href="#01-Shadertoy-与-glsl-语言" class="headerlink" title="01 Shadertoy 与 glsl 语言"></a>01 Shadertoy 与 glsl 语言</h1><p>我们从 <strong>Shadertoy</strong> 和 <strong>glsl 语言</strong> 开始谈起。</p>
+<h2 id="Shadertoy"><a href="#Shadertoy" class="headerlink" title="Shadertoy"></a>Shadertoy</h2><p><a class="link"   target="_blank" rel="noopener" href="https://www.shadertoy.com/" >Shadertoy<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 是一个支持编译glsl语言的在线编译器，同时也是一个交流shader（中文翻译：着色器）的黑客社区。这里的学术风气很友好，有不停贡献的萌新，也有热心讲解的大佬。<del>（不过没人来评价我的作品，是太简单了吗）</del>打个广告，欢迎来关注我：<a class="link"   target="_blank" rel="noopener" href="https://www.shadertoy.com/user/aaaaa114514" >aaaaa114514<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p>Shadertoy 社区评判好作品的标准有：画的好看&#x2F;仿真，短代码配惊艳效果。由于只用GPU而不用CPU内存的特性，glsl语言有极其惊艳的压缩能力，可以将几分钟的视频压缩到几kb（几乎全是代码）。因此，很多系统或游戏的开场界面会使用闲置的GPU来运行Shader，渲染好看的微动画商标。</p>
+<h2 id="glsl-语言"><a href="#glsl-语言" class="headerlink" title="glsl 语言"></a>glsl 语言</h2><h3 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h3><p>glsl语言配置环境非常轻松，在这里介绍两种方法：</p>
+<ul>
+<li>访问 <a class="link"   target="_blank" rel="noopener" href="https://www.shadertoy.com/" >Shadertoy<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> ，点击右上角的“<strong>新建</strong>”按钮，写完代码后点击代码区左下角三角形按钮即可编译，然后在左侧的预览框中看到运行效果。</li>
+<li>使用 VSCode。安装插件 <code>Shader Toy (by Adam Stevenson)</code> 和 <code>Shader language support for VS Code (by slevesque)</code> 并重启VSCode，然后新建一个后缀名 <code>.glsl</code> 的文件即可。需要注意的是，编译时需要右键代码区，点击 <strong>Shader Toy: Show GLSL Preview</strong> 或 <strong>Shader Toy: Show Static GLSL Preview</strong> 选项（据说区别是后者不再动态响应代码修改或者键鼠输入，但是实测并没有区别），即可在屏幕右侧或下侧看到运行效果。</li>
+</ul>
+<h3 id="glsl语言与C语言"><a href="#glsl语言与C语言" class="headerlink" title="glsl语言与C语言"></a>glsl语言与C语言</h3><p>glsl语言是一种C语言的变体，继承了很多C的特性，但是你想要的C的好用功能，glsl几乎<strong>都没有</strong>。当然，这得从<strong>glsl完全脱离内存</strong>讲起（这是主线，非常重要）。众所周知，GPU是一堆擅长线性计算的小学生，也就是擅长多次相似的并行计算，而非少量复杂的计算。因此，glsl语言的程序核心，对应C语言里的主函数 <code>main</code>，格式如下：</p>
+<div class="code-container" data-rel="Glsl"><figure class="iseeu highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> mainImage( <span class="keyword">out</span> <span class="type">vec4</span> fragColor, <span class="keyword">in</span> <span class="type">vec2</span> fragCoord )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Normalized pixel coordinates (from 0 to 1)</span></span><br><span class="line">    <span class="type">vec2</span> uv = fragCoord/iResolution.xy;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Time varying pixel color</span></span><br><span class="line">    <span class="type">vec3</span> col = <span class="number">0.5</span> + <span class="number">0.5</span>*<span class="built_in">cos</span>(iTime+uv.xyx+<span class="type">vec3</span>(<span class="number">0</span>,<span class="number">2</span>,<span class="number">4</span>));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Output to screen</span></span><br><span class="line">    fragColor = <span class="type">vec4</span>(col,<span class="number">1.0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>如上代码其实是Shadertoy官网上新建Shader后的示例代码。主函数 <code>mainImage</code> 固定输出 (注意是输出 <code>out</code>, 而非返回 <code>return</code>) 一个四维数组 <code>fragColor</code>表示颜色，读入一个 <code>fragCoord</code>表示坐标。<strong>“像素着色艺术”<strong>这个名字起得名副其实，正如主函数输入</strong>像素</strong>（坐标），输出颜色，你写代码的部分就是<strong>着色</strong>的过程，产出的就是<strong>艺术</strong><del>（能不能欣赏得来见仁见智）</del>。</p>
+<p>回到主线，正因为glsl语言不使用内存而只用显存，所以这个主函数会被每个GPU单元、每一帧运行一次，输出的结果会先存在进程的私有寄存器内，然后等待所有线程结束后，统一将每个线程输出的fragColor存入显存里的帧缓冲区的二维数组中，最后统一传给显示器，或者参与下一帧的计算。</p>
+<p>因为没有内存，所以glsl语言里<strong>没有C语言的类 <code>class</code>（只有 <code>struct</code>，但是是C语言的类，不支持成员函数，另外不支持结构体数组）、地址操作（指针、取地址、解引用，申请内存，引用传参等）、输入输出操作（<code>input</code>&#x2F;<code>printf</code>等）、几乎所有隐式转换（包括任意类型向 <code>bool</code>的转换、<code>int</code>和 <code>float</code>的转换等），更没有 <code>stdio.h</code>&#x2F;<code>stdlib.h</code>中的绝大多数函数，C++的库更是无需多言</strong>。另外，glsl语言还<strong>不支持全局变量（<code>const</code>可以，详情见后）、读取前一帧Image内容（Buffer可以，详情见后）和所有非确定运行次数的代码（如 <code>while(1)-break</code>结构、递归调用、动态大小数组等）</strong>。<del>现在知道C语言的方便之处了吧</del></p>
+<p><em>注：需要注意的是，在不同系统、不同环境中运行glsl语言的代码，可能会产生不同的结果。甚至，连glsl语言本身都有好多套不同的标准<del>，这背后有资本的力量</del>。有些良心系统上支持 <code>while(1)-break</code>等结构，但是这并不是符合所有标准的，因此还是要尽可能避免使用。</em></p>
+<p>听起来是不是极其不方便？确实，glsl上手有一定难度。不过当你逐渐熟悉这些限制之后，你会发现这门语言运行效率之高，领略GPU带来的CPU无法取代的并行计算效率，逐渐被<strong>这门语言的可视化艺术</strong>和<strong>各路高手各显神通创造的神作</strong>所折服。</p>
+<p>差点忘记说了，glsl语言也有自己的语法糖，用起来还算方便。 <del>（还没有从C里面删掉的多）</del></p>
+<ul>
+<li><p>示例代码中的 <code>vec2</code> 和 <code>vec4</code> 就是glsl的<strong>原生数组</strong>，一共有三种: <code>vec2</code>&#x2F;<code>vec3</code>&#x2F;<code>vec4</code> ，每种都默认是float数组，还有变体int数组 <code>ivec3</code> ，无符号整型数组 <code>uvec4</code> 和bool数组 <code>bvec2</code> 各三种。这些数组支持比较方便的构造和访问、修改和运算操作，样例如下：</p>
+<div class="code-container" data-rel="Glsl"><figure class="iseeu highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 构造</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// 1. 直接赋值</span></span><br><span class="line"><span class="type">vec2</span> uv = <span class="type">vec2</span>(<span class="number">0.5</span>, <span class="number">0.5</span>);</span><br><span class="line"><span class="type">vec3</span> color = <span class="type">vec3</span>(<span class="number">0.7</span>, <span class="number">0.4</span>, <span class="number">0.2</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 单值填充</span></span><br><span class="line"><span class="type">vec3</span> gray = <span class="type">vec3</span>(<span class="number">0.5</span>); <span class="comment">// 等效于 (0.5, 0.5, 0.5)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 混合构造</span></span><br><span class="line"><span class="type">vec4</span> transparentRed = <span class="type">vec4</span>(<span class="type">vec3</span>(<span class="number">1.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>), <span class="number">0.5</span>); <span class="comment">// RGB + Alpha</span></span><br><span class="line"><span class="type">vec4</span> rgba = <span class="type">vec4</span>(color, <span class="number">1.0</span>); <span class="comment">// 扩展为 RGBA (等效于vec4(0.7, 0.4, 0.2, 1.0))</span></span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Glsl"><figure class="iseeu highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 访问和修改</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="type">vec4</span> pos = <span class="type">vec4</span>(<span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">4.0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 标准下标（类似C数组）</span></span><br><span class="line"><span class="type">float</span> x = pos[<span class="number">0</span>]; <span class="comment">// x = 1.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 分量别名（支持 .xyzw / .rgba / .stpq ，但不可混用）</span></span><br><span class="line"><span class="type">float</span> y = pos.y;   <span class="comment">// y = 2.0</span></span><br><span class="line"><span class="type">float</span> a = pos.a;   <span class="comment">// Alpha = 4.0</span></span><br><span class="line"><span class="type">float</span> t = pos.t;   <span class="comment">// 纹理坐标 t = 2.0（与 .y 相同）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 链式访问（Swizzling）</span></span><br><span class="line"><span class="type">vec2</span> xy = pos.xy;  <span class="comment">// 提取前两维 (1.0, 2.0)</span></span><br><span class="line"><span class="type">vec3</span> pos_bgr = pos.bgr; <span class="comment">// 反转RGB通道 (3.0, 2.0, 1.0)</span></span><br><span class="line"><span class="type">vec4</span> pos_rara = pos.rara; <span class="comment">// 允许重复提取 (1.0, 4.0, 1.0, 4.0)</span></span><br><span class="line">pos.wx = <span class="type">vec2</span>(<span class="number">5.0</span>, <span class="number">6.0</span>); <span class="comment">// 修改 pos = (6.0, 2.0, 3.0, 5.0)</span></span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Glsl"><figure class="iseeu highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 运算</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="type">vec3</span> a = <span class="type">vec3</span>(<span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>);</span><br><span class="line"><span class="type">vec3</span> b = <span class="type">vec3</span>(<span class="number">0.1</span>, <span class="number">0.2</span>, <span class="number">0.3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 逐分量运算</span></span><br><span class="line"><span class="type">vec3</span> c = a + b;    <span class="comment">// (1.1, 2.2, 3.3)</span></span><br><span class="line"><span class="type">vec3</span> d = a * <span class="number">2.0</span>;  <span class="comment">// 标量乘法 (2.0, 4.0, 6.0)</span></span><br><span class="line"><span class="type">vec3</span> e = a + <span class="number">3.0</span>;  <span class="comment">// 3.0被隐式转换为 vec3(3.0), 运算结果为 (4.0, 5.0, 6.0)</span></span><br><span class="line"><span class="type">float</span> dotProduct = <span class="built_in">dot</span>(a, b); <span class="comment">// 点积</span></span><br><span class="line"><span class="type">vec3</span> crossProduct = <span class="built_in">cross</span>(a, b); <span class="comment">// 叉乘</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 比较运算</span></span><br><span class="line"><span class="type">bvec3</span> isGreater = <span class="built_in">greaterThan</span>(a, b); <span class="comment">// (true, true, true)</span></span><br><span class="line"><span class="type">bool</span> isEqual = (a == b); <span class="comment">// false</span></span><br></pre></td></tr></table></figure></div></li>
+<li><p>glsl语言有<strong>原生矩阵</strong> <code>mat2</code> <code>mat3</code> <code>mat4</code> ，还有 <code>mat2x3</code> 等非方阵：</p>
+<div class="code-container" data-rel="Glsl"><figure class="iseeu highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="type">mat2</span> m2 = <span class="type">mat2</span>(<span class="number">1.0</span>, <span class="number">2.0</span>,   <span class="comment">// 第一 列!!</span></span><br><span class="line">               <span class="number">3.0</span>, <span class="number">4.0</span>);  <span class="comment">// 第二 列!!</span></span><br><span class="line"><span class="comment">// 以上代码画出了矩阵：</span></span><br><span class="line"><span class="comment">// [1.0, 3.0]</span></span><br><span class="line"><span class="comment">// [2.0, 4.0]</span></span><br><span class="line"><span class="comment">// 这是符合数学直觉的，但是有点反人类</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// n个n维向量填充定义</span></span><br><span class="line"><span class="type">vec3</span> col0 = <span class="type">vec3</span>(<span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>); <span class="comment">// 第一列</span></span><br><span class="line"><span class="type">vec3</span> col1 = <span class="type">vec3</span>(<span class="number">4.0</span>, <span class="number">5.0</span>, <span class="number">6.0</span>); <span class="comment">// 第二列</span></span><br><span class="line"><span class="type">vec3</span> col2 = <span class="type">vec3</span>(<span class="number">7.0</span>, <span class="number">8.0</span>, <span class="number">9.0</span>); <span class="comment">// 第三列</span></span><br><span class="line"><span class="type">mat3</span> m3 = <span class="type">mat3</span>(col0, col1, col2); <span class="comment">// 3x3 矩阵</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 也可以向量-标量混合定义</span></span><br><span class="line"><span class="type">mat2</span> m4 = <span class="type">mat2</span>(<span class="number">1.0</span>, <span class="number">2.0</span>,  <span class="comment">// 第一列 (1.0, 2.0)</span></span><br><span class="line">              <span class="type">vec2</span>(<span class="number">3.0</span>)); <span class="comment">// 第二列 (3.0, 0.0)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 但不可以这样！</span></span><br><span class="line"><span class="type">vec2</span> a = <span class="type">vec2</span>(<span class="number">1.0</span>, <span class="number">2.0</span>);</span><br><span class="line"><span class="type">vec2</span> b = <span class="type">vec2</span>(<span class="number">3.0</span>, <span class="number">4.0</span>);</span><br><span class="line"><span class="type">vec2</span> c = <span class="type">vec2</span>(<span class="number">5.0</span>, <span class="number">6.0</span>);</span><br><span class="line"><span class="type">vec3</span> d = <span class="type">vec3</span>(<span class="number">7.0</span>, <span class="number">8.0</span>, <span class="number">9.0</span>);</span><br><span class="line"><span class="type">mat3</span> m = <span class="type">mat3</span>(a, b, c, d); <span class="comment">// 编译错误！参数不匹配</span></span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Glsl"><figure class="iseeu highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 矩阵与矩阵运算</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// 矩阵之间的加、减、乘都符合数学规则，数乘同样符合规则</span></span><br><span class="line"><span class="type">mat2</span> m = <span class="type">mat2</span>(<span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">4.0</span>);</span><br><span class="line"><span class="type">mat2</span> mInv = <span class="built_in">inverse</span>(m); <span class="comment">// 逆矩阵</span></span><br><span class="line"><span class="type">float</span> det = <span class="built_in">determinant</span>(m); <span class="comment">// 行列式 = -2.0</span></span><br><span class="line"><span class="type">mat2</span> mT = <span class="built_in">transpose</span>(m); <span class="comment">// 矩阵的转置</span></span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Glsl"><figure class="iseeu highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 矩阵与向量乘法</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="type">mat4</span> model = <span class="type">mat4</span>(<span class="number">2.0</span>);  <span class="comment">// 这是左上-右下的主对角线填充2.0的对角矩阵</span></span><br><span class="line"><span class="type">vec4</span> pos = <span class="type">vec4</span>(<span class="number">1.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>);  <span class="comment">// vec会被自动认为是列向量</span></span><br><span class="line"><span class="type">vec4</span> transformed = pos * model;       <span class="comment">// 错误！GLSL 默认不支持行向量乘法</span></span><br><span class="line"><span class="type">vec4</span> transformed = pos * <span class="built_in">transpose</span>(model); <span class="comment">// 正确：转为列向量乘法</span></span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<p>时间不早了，今天就先写到这吧。真希望我能够有能力和时间，把这个系列更新到完结撒花。</p>
+<p><strong>欲知后事如何，且听下回分解。</strong></p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> 从零开始的Shadertoy生活_01</li>
+        <li><strong>作者:</strong> aaaaa</li>
+        <li><strong>创建于
+                :</strong> 2025-06-30 02:30:00</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2026-02-05 17:05:02
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://redefine.ohevan.com/2025/06/30/从零开始的Shadertoy生活_01/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                版权所有 &#169 aaaaa，禁止转载。
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Shadertoy/">#Shadertoy</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2025/06/30/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Shadertoy%E7%94%9F%E6%B4%BB_02/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">从零开始的Shadertoy生活_02</span>
+						<span class="post-nav-item">上一篇</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/06/30/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84Shadertoy%E7%94%9F%E6%B4%BB_00/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">从零开始的Shadertoy生活_00</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">从零开始的Shadertoy生活_01</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#01-Shadertoy-%E4%B8%8E-glsl-%E8%AF%AD%E8%A8%80"><span class="nav-text">01 Shadertoy 与 glsl 语言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Shadertoy"><span class="nav-text">Shadertoy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#glsl-%E8%AF%AD%E8%A8%80"><span class="nav-text">glsl 语言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83"><span class="nav-text">配置环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#glsl%E8%AF%AD%E8%A8%80%E4%B8%8EC%E8%AF%AD%E8%A8%80"><span class="nav-text">glsl语言与C语言</span></a></li></ol></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2025</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-compact-disc fa-spin"></i>&nbsp;&nbsp;<a href="/">aaaaa</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共撰写了 20 篇文章
+                    </span>
+                    
+                        <span>
+                            共 15.4k 字
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="fa-regular fa-arrow-up"></i>
+		</li>
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="站内搜索您需要的内容..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+	<div id="aplayer"></div>
+
+<script src="/js/build/libs/APlayer.min.js"></script>
+
+
+<script src="/js/build/plugins/aplayer.js"></script>
+
+
+	
+</body>
+
+</html>
