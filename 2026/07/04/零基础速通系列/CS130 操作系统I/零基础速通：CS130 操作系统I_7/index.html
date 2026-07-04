@@ -123,7 +123,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://aaaaa114514-1.github.io/2026/02/02/零基础速通系列/cs130 操作系统i/零基础速通：cs130 操作系统i_2/"/>
+    <link rel="canonical" href="https://aaaaa114514-1.github.io/2026/07/04/零基础速通系列/cs130 操作系统i/零基础速通：cs130 操作系统i_7/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -133,14 +133,14 @@
         
         <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CS130 操作系统I 理论部分">
-<meta property="og:url" content="https://aaaaa114514-1.github.io/2026/02/02/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%E7%B3%BB%E5%88%97/CS130%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%EF%BC%9ACS130%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI_2/index.html">
+<meta property="og:title" content="CS130 操作系统I Project 4 File Systems | 文件系统">
+<meta property="og:url" content="https://aaaaa114514-1.github.io/2026/07/04/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%E7%B3%BB%E5%88%97/CS130%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%EF%BC%9ACS130%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI_7/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://aaaaa114514-1.github.io/images/redefine-og.webp">
-<meta property="article:published_time" content="2026-02-02T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-02-05T12:26:47.751Z">
+<meta property="article:published_time" content="2026-07-04T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-07-04T13:11:46.522Z">
 <meta property="article:author" content="aaaaa">
 <meta property="article:tag" content="0_Start_Learning">
 <meta name="twitter:card" content="summary">
@@ -156,7 +156,7 @@
     
     <title>
         
-            CS130 操作系统I 理论部分 | aaaaa online
+            CS130 操作系统I Project 4 File Systems | 文件系统 | aaaaa online
         
     </title>
 
@@ -583,7 +583,7 @@
 		<div class="article-title relative w-full">
 			
 			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">CS130 操作系统I 理论部分</h1>
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">CS130 操作系统I Project 4 File Systems | 文件系统</h1>
 			</div>
 			
 		</div>
@@ -604,15 +604,15 @@
 					<div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2026-02-02 23:00</span>
-        <span class="mobile">2026-02-02 23:00</span>
+        <span class="desktop">2026-07-04 23:00</span>
+        <span class="mobile">2026-07-04 23:00</span>
         <span class="hover-info">创建</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2026-02-05 20:26:47</span>
-            <span class="mobile">2026-02-05 20:26:47</span>
+            <span class="desktop">2026-07-04 21:11:46</span>
+            <span class="mobile">2026-07-04 21:11:46</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -660,12 +660,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>10 字</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>985 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>1 分钟</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>3 分钟</span>
         </span>
     
     
@@ -684,7 +684,74 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<p>[还没上课，暂略]</p>
+			<p>恭喜你来到了 Pintos 整个项目的最后一关！在 Project 2 和 3 中，我们一直在“白嫖”现有的文件系统，而这一次，我们要亲手重写它。Project 4 是整个 Pintos 项目代码量最大的部分。</p>
+<p>Project 4 File Systems 的核心目标是将那个“简陋”的文件系统（只能创建固定大小文件、没有子目录、磁盘访问极慢）改造成一个类 Unix 的现代文件系统。</p>
+<p>根据官方建议，可以基于 Project 2 的代码开始，但是如果你对自己的 Project 3 较为自信，也可以基于 Proj 3，但调试难度较大。（笔者的队友是基于笔者写的 Project 3 开始的，似乎也没有发生什么问题）</p>
+<p>先下载<a class="link"   target="_blank" rel="noopener" href="http://web.stanford.edu/~ouster/cgi-bin/cs140-spring20/pintos/filesys.tmpl" >设计文档模板<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。</p>
+<hr>
+<h1 id="文件介绍"><a href="#文件介绍" class="headerlink" title="文件介绍"></a>文件介绍</h1><h2 id="filesys-目录下的重要文件"><a href="#filesys-目录下的重要文件" class="headerlink" title="filesys 目录下的重要文件"></a>filesys 目录下的重要文件</h2><ul>
+<li><code>inode.c</code> &#x2F; <code>inode.h</code><ul>
+<li>管理文件在磁盘上的布局。你需要将原来的“连续分配”改为“索引分配”（类似 Linux 的 Ext2）。</li>
+</ul>
+</li>
+<li><code>directory.c</code> &#x2F; <code>directory.h</code><ul>
+<li>将文件名映射到 Inode。你需要将其改为支持层级结构（子目录）。</li>
+</ul>
+</li>
+<li><code>filesys.c</code> &#x2F; <code>filesys.h</code><ul>
+<li>文件系统的顶层接口。</li>
+</ul>
+</li>
+<li><code>cache.c</code> &#x2F; <code>cache.h</code> (需新建)<ul>
+<li>块缓存 (Buffer Cache)：为了减少磁盘 I&#x2F;O，你需要实现一个 64 扇区限制的内存缓存。</li>
+</ul>
+</li>
+<li><code>free-map.c</code> &#x2F; <code>free-map.h</code><ul>
+<li>管理磁盘空闲块（位图）。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="任务要求"><a href="#任务要求" class="headerlink" title="任务要求"></a>任务要求</h1><h2 id="1-Buffer-Cache-块缓存"><a href="#1-Buffer-Cache-块缓存" class="headerlink" title="1. Buffer Cache (块缓存)"></a>1. Buffer Cache (块缓存)</h2><p>目前的 Pintos 每次读写文件都直接操作磁盘，效率极低。</p>
+<ul>
+<li><strong>64 扇区限制</strong>：你最多只能在内存里缓存 64 个扇区的代码。</li>
+<li><strong>置换算法</strong>：实现类似 Clock 或 LRU 的算法。</li>
+<li><strong>Write-behind</strong>：修改数据先写到缓存，稍后再异步写回磁盘（或是进程结束时写回）。</li>
+<li><strong>Read-ahead</strong>：预读下一个块。</li>
+</ul>
+<h2 id="2-Indexed-and-Extensible-Files-索引与可扩展文件"><a href="#2-Indexed-and-Extensible-Files-索引与可扩展文件" class="headerlink" title="2. Indexed and Extensible Files (索引与可扩展文件)"></a>2. Indexed and Extensible Files (索引与可扩展文件)</h2><p>原来的文件系统是“连续存储”的，容易产生碎片，且文件大小在创建时就固定了。</p>
+<ul>
+<li><strong>Inode 改造</strong>：实现直接块、一级间接块和<strong>二级间接块</strong>，支持最大 8MB 的文件。</li>
+<li><strong>动态增长</strong>：文件最初大小为 0，随着 <code>write</code> 自动增长。</li>
+<li><strong>空洞文件 (Sparse Files)</strong>：支持 <code>seek</code> 到文件末尾之后再写入。</li>
+</ul>
+<h2 id="3-Subdirectories-多级子目录"><a href="#3-Subdirectories-多级子目录" class="headerlink" title="3. Subdirectories (多级子目录)"></a>3. Subdirectories (多级子目录)</h2><p>现在所有文件都挤在根目录下，这显然不行。</p>
+<ul>
+<li><strong>路径解析</strong>：支持 <code>/a/b/c</code> 这种绝对路径和 <code>../../d</code> 这种相对路径。</li>
+<li><strong>CWD (当前工作目录)</strong>：每个进程需要记录自己当前在哪。</li>
+<li><strong>特殊目录</strong>：支持 <code>.</code> (当前) 和 <code>..</code> (父目录)。</li>
+<li><strong>新系统调用</strong>：<code>chdir</code>, <code>mkdir</code>, <code>readdir</code>, <code>isdir</code>, <code>inumber</code>。</li>
+</ul>
+<h2 id="4-Fine-grained-Synchronization-细粒度同步"><a href="#4-Fine-grained-Synchronization-细粒度同步" class="headerlink" title="4. Fine-grained Synchronization (细粒度同步)"></a>4. Fine-grained Synchronization (细粒度同步)</h2><p>原来的文件系统是用一个大锁一把抓的。</p>
+<ul>
+<li><strong>并发访问</strong>：要求支持多个进程同时读取同一个文件。</li>
+<li><strong>独立操作</strong>：对不同文件的操作不应该互相阻塞。</li>
+</ul>
+<hr>
+<h1 id="执行建议"><a href="#执行建议" class="headerlink" title="执行建议"></a>执行建议</h1><p>由于 Project 4 的测试极其依赖 <code>tar</code> 工具的稳定性，建议按照以下顺序：</p>
+<ol>
+<li>Buffer Cache：首先实现它并集成。完成后，Project 2 的测试应该依然全部 Pass。</li>
+<li>Inode 索引化：修改 <code>inode.c</code> 以支持不连续存储和文件增长。这是最硬的骨头。</li>
+<li>子目录基础：修改 <code>directory.c</code>，让目录项可以指向另一个目录。</li>
+<li>路径解析与 Syscalls：在 <code>syscall.c</code> 中实现 <code>chdir</code>, <code>mkdir</code> 等。</li>
+<li>同步与持久性优化：处理并发 Bug，确保 <code>pintos poweroff</code> 后数据能正确写入磁盘。</li>
+</ol>
+<hr>
+<h1 id="代码量参考值"><a href="#代码量参考值" class="headerlink" title="代码量参考值"></a>代码量参考值</h1><p>这是官方参考实现的 diffstat。由于需要实现缓存和复杂的索引结构，代码量再次刷新记录（约 2700 行）：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">filesys/cache.c      |  473 +++++++++++++++++++++++++</span><br><span class="line">filesys/directory.c  |   99 ++++-</span><br><span class="line">filesys/filesys.c    |  194 +++++++++-</span><br><span class="line">filesys/inode.c      |  444 ++++++++++++++++++-----</span><br><span class="line">userprog/process.c   |  332 +++++++++++++----</span><br><span class="line">userprog/syscall.c   |  582 ++++++++++++++++++++++++++++++-</span><br><span class="line">...</span><br><span class="line">30 files changed, 2721 insertions(+), 286 deletions(-)</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<p>到这里，恭喜你完成了整个 Pintos 系列 Project！你对操作系统的理解已经进入了一个新的等级了！</p>
 <hr>
 <p><a href="https://aaaaa114514-1.github.io/categories/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A/CS130-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI/">回到目录</a></p>
 
@@ -694,18 +761,18 @@
 		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
 			<div class="article-copyright-info-container">
     <ul>
-        <li><strong>标题:</strong> CS130 操作系统I 理论部分</li>
+        <li><strong>标题:</strong> CS130 操作系统I Project 4 File Systems | 文件系统</li>
         <li><strong>作者:</strong> aaaaa</li>
         <li><strong>创建于
-                :</strong> 2026-02-02 23:00:00</li>
+                :</strong> 2026-07-04 23:00:00</li>
         
             <li>
                 <strong>更新于
-                    :</strong> 2026-02-05 20:26:47
+                    :</strong> 2026-07-04 21:11:46
             </li>
         
         <li>
-            <strong>链接:</strong> https://redefine.ohevan.com/2026/02/02/零基础速通系列/CS130 操作系统I/零基础速通：CS130 操作系统I_2/
+            <strong>链接:</strong> https://redefine.ohevan.com/2026/07/04/零基础速通系列/CS130 操作系统I/零基础速通：CS130 操作系统I_7/
         </li>
         <li>
             <strong>
@@ -738,23 +805,11 @@
 		
 		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
 			
-			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="prev" rel="prev" href="/2026/02/04/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%E7%B3%BB%E5%88%97/CS130%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%EF%BC%9ACS130%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI_3/">
-					<span class="left arrow-icon flex justify-center items-center">
-						<i class="fa-solid fa-chevron-left"></i>
-					</span>
-					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">CS130 操作系统I Project 0 准备工作</span>
-						<span class="post-nav-item">上一篇</span>
-					</span>
-				</a>
-			</div>
-			
 			
 			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="next" rel="next" href="/2026/02/02/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%E7%B3%BB%E5%88%97/CS130%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%EF%BC%9ACS130%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI_1/">
+				<a class="next" rel="next" href="/2026/07/04/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%E7%B3%BB%E5%88%97/CS130%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%EF%BC%9ACS130%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI_6/">
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">CS130 操作系统I 课程介绍</span>
+						<span class="post-nav-title-item truncate max-w-48">CS130 操作系统I Project 3 Virtual Memory | 虚拟内存</span>
 						<span class="post-nav-item">下一篇</span>
 					</span>
 					<span class="right arrow-icon flex justify-center items-center">
@@ -775,8 +830,8 @@
 		<div class="post-toc-wrap">
 	<div class="post-toc">
 		<div class="toc-title">目录</div>
-		<div class="page-title">CS130 操作系统I 理论部分</div>
-		
+		<div class="page-title">CS130 操作系统I Project 4 File Systems | 文件系统</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%BB%8B%E7%BB%8D"><span class="nav-text">文件介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#filesys-%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E9%87%8D%E8%A6%81%E6%96%87%E4%BB%B6"><span class="nav-text">filesys 目录下的重要文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E8%A6%81%E6%B1%82"><span class="nav-text">任务要求</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Buffer-Cache-%E5%9D%97%E7%BC%93%E5%AD%98"><span class="nav-text">1. Buffer Cache (块缓存)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Indexed-and-Extensible-Files-%E7%B4%A2%E5%BC%95%E4%B8%8E%E5%8F%AF%E6%89%A9%E5%B1%95%E6%96%87%E4%BB%B6"><span class="nav-text">2. Indexed and Extensible Files (索引与可扩展文件)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Subdirectories-%E5%A4%9A%E7%BA%A7%E5%AD%90%E7%9B%AE%E5%BD%95"><span class="nav-text">3. Subdirectories (多级子目录)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Fine-grained-Synchronization-%E7%BB%86%E7%B2%92%E5%BA%A6%E5%90%8C%E6%AD%A5"><span class="nav-text">4. Fine-grained Synchronization (细粒度同步)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%BB%BA%E8%AE%AE"><span class="nav-text">执行建议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E9%87%8F%E5%8F%82%E8%80%83%E5%80%BC"><span class="nav-text">代码量参考值</span></a></li></ol>
 
 	</div>
 </div>
