@@ -123,7 +123,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://aaaaa114514-1.github.io/2026/02/20/零基础速通：cs130 操作系统i_5/"/>
+    <link rel="canonical" href="https://aaaaa114514-1.github.io/2026/02/02/零基础速通系列/cs130 操作系统i/零基础速通：cs130 操作系统i_1/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -133,14 +133,14 @@
         
         <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CS130 操作系统I Project 2 User Programs | 用户程序">
-<meta property="og:url" content="https://aaaaa114514-1.github.io/2026/02/20/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%EF%BC%9ACS130%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI_5/index.html">
+<meta property="og:title" content="CS130 操作系统I 课程介绍">
+<meta property="og:url" content="https://aaaaa114514-1.github.io/2026/02/02/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%E7%B3%BB%E5%88%97/CS130%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%EF%BC%9ACS130%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI_1/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://aaaaa114514-1.github.io/images/redefine-og.webp">
-<meta property="article:published_time" content="2026-02-20T07:00:00.000Z">
-<meta property="article:modified_time" content="2026-02-20T07:02:23.379Z">
+<meta property="article:published_time" content="2026-02-02T14:00:00.000Z">
+<meta property="article:modified_time" content="2026-02-20T06:16:32.003Z">
 <meta property="article:author" content="aaaaa">
 <meta property="article:tag" content="0_Start_Learning">
 <meta name="twitter:card" content="summary">
@@ -156,7 +156,7 @@
     
     <title>
         
-            CS130 操作系统I Project 2 User Programs | 用户程序 | aaaaa online
+            CS130 操作系统I 课程介绍 | aaaaa online
         
     </title>
 
@@ -583,7 +583,7 @@
 		<div class="article-title relative w-full">
 			
 			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">CS130 操作系统I Project 2 User Programs | 用户程序</h1>
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">CS130 操作系统I 课程介绍</h1>
 			</div>
 			
 		</div>
@@ -604,15 +604,15 @@
 					<div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2026-02-20 15:00</span>
-        <span class="mobile">2026-02-20 15:00</span>
+        <span class="desktop">2026-02-02 22:00</span>
+        <span class="mobile">2026-02-02 22:00</span>
         <span class="hover-info">创建</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2026-02-20 15:02:23</span>
-            <span class="mobile">2026-02-20 15:02:23</span>
+            <span class="desktop">2026-02-20 14:16:32</span>
+            <span class="mobile">2026-02-20 14:16:32</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -660,12 +660,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.2k 字</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>180 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>4 分钟</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>1 分钟</span>
         </span>
     
     
@@ -684,104 +684,12 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<p>经过上一个项目，我们已经对内核有了一定的了解，而现在我们来处理关于用户程序的内容。</p>
-<p>还是一样，先<strong>下载</strong><a class="link"   target="_blank" rel="noopener" href="http://web.stanford.edu/~ouster/cgi-bin/cs140-spring20/pintos/userprog.tmpl" >设计文档模板<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>，按照模板填写。如果你不知道怎么填，可以参考<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/appendix/project-documentation" >这个<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。</p>
-<p>接下来我们正式开始代码工作！注意从<code>main</code>分支复制以新建一个分支来存储！</p>
-<hr>
-<h1 id="文件介绍"><a href="#文件介绍" class="headerlink" title="文件介绍"></a>文件介绍</h1><h2 id="userprog目录下的文件"><a href="#userprog目录下的文件" class="headerlink" title="userprog目录下的文件"></a>userprog目录下的文件</h2><p><code>pintos/src/userprog</code>路径下的12个代码文件（除去<code>.gitignore</code> <code>Makefile</code> <code>Make.vars</code>等仓库和作业配置文件）是这个项目的工作重心，在此一一介绍：</p>
-<ul>
-<li><code>process.c</code> <code>process.h</code><ul>
-<li>加载<code>ELF</code>可执行文件。</li>
-<li>创建并执行用户进程。</li>
-<li>需要<strong>完全看懂</strong>，需要<strong>大量修改</strong>。</li>
-</ul>
-</li>
-<li><code>pagedir.c</code> <code>pagedir.h</code><ul>
-<li>将虚拟地址映射到物理内存地址。</li>
-<li>操作页目录，启动页表。</li>
-<li>可能会<strong>调用其中的函数</strong>，不要修改。</li>
-</ul>
-</li>
-<li><code>syscall.c</code> <code>syscall.h</code><ul>
-<li>每当一个用户进程想要访问某些内核功能时，它都会调用一个系统调用；而这是对于**系统调用(System Call)**的处理器。</li>
-<li>需要完全<strong>看懂</strong>，需要<strong>大量修改</strong>。</li>
-</ul>
-</li>
-<li><code>exception.c</code> <code>exception.h</code><ul>
-<li>用户程序的异常处理器。</li>
-<li>需要<strong>看懂</strong>，需要<strong>修改</strong>。</li>
-</ul>
-</li>
-<li><code>gdt.c</code> <code>gdt.h</code><ul>
-<li>全局描述符表(Global Descriptor Table)，定义内核段、用户段，并设置段权限。</li>
-<li>不用看懂，不要修改。</li>
-</ul>
-</li>
-<li><code>tss.c</code> <code>tss.h</code><ul>
-<li>任务状态段(Task State Segment)，在用户进程进入中断处理程序时切换栈。</li>
-<li>不用看懂，不要修改。</li>
-</ul>
-</li>
-</ul>
-<p><em>更详细的内容请参阅：<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/project-description/lab2-user-programs/background" >Background | Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></em></p>
-<hr>
-<h1 id="任务要求与执行建议"><a href="#任务要求与执行建议" class="headerlink" title="任务要求与执行建议"></a>任务要求与执行建议</h1><h2 id="任务要求"><a href="#任务要求" class="headerlink" title="任务要求"></a>任务要求</h2><ol>
-<li>实现用户进程退出机制：在进程终止时打印 <code>&quot;%s: exit(%d)\n&quot;</code> 格式的信息，并实现参数传递，正确构造用户栈以支持 <code>argc</code> 和 <code>argv</code>。</li>
-<li>实现安全的用户内存访问机制：支持在系统调用中安全读取和写入用户虚拟地址空间，正确处理非法指针、越界访问和 <code>page fault</code> ，确保内核稳定且无资源泄漏。</li>
-<li>在 <code>userprog/syscall.c</code> 中实现系统调用框架，并完成 13 个系统调用（进程控制与文件系统相关），包括 <code>exec</code>&#x2F;<code>wait</code> 的父子进程同步、文件描述符管理、文件系统加锁及进程资源释放。</li>
-<li>实现对正在执行的可执行文件的写保护机制，在进程运行期间调用 <code>file_deny_write()</code> 禁止写入，进程结束时恢复写权限。</li>
-</ol>
-<p><em>详细要求请参考：<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/project-description/lab2-user-programs/your-tasks" >Your Tasks | Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></em></p>
-<h2 id="执行建议"><a href="#执行建议" class="headerlink" title="执行建议"></a>执行建议</h2><h3 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h3><ul>
-<li>先跑测试，结果应该是 <strong>fail 80&#x2F;80</strong>。<del>似乎没有跑的意义</del></li>
-</ul>
-<ul>
-<li>完成<strong>任务1：进程退出信息打印与参数传递</strong>；<ul>
-<li>涉及修改的文件：<code>userprog/process.c</code> <code>threads/thread.h</code>（必要时增加字段）</li>
-<li>主要完成：打印 <code>exit</code> 信息、拆分命令行参数、构造用户栈。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<ul>
-<li>完成<strong>任务2：用户内存安全访问机制</strong>；<ul>
-<li>涉及修改的文件：<code>userprog/syscall.c</code> <code>userprog/exception.c</code> <code>userprog/pagedir.c</code>（可能）</li>
-<li>主要完成：安全读取用户栈中的 <code>syscall</code> 参数，处理非法指针与 <code>page fault</code>。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<ul>
-<li>完成<strong>任务3：系统调用框架与 13 个系统调用实现</strong>；<ul>
-<li>涉及修改的文件：<code>userprog/syscall.c</code> <code>userprog/process.c</code> <code>threads/thread.h</code> <code>threads/thread.c</code></li>
-<li>主要完成：实现 <code>halt/exit/exec/wait</code> 及文件系统相关调用，维护父子关系、<code>exit status</code>、文件描述符表，并对文件系统加锁。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<ul>
-<li>完成<strong>任务4：可执行文件写保护机制</strong>；<ul>
-<li>涉及修改的文件：<code>userprog/process.c</code></li>
-<li>主要完成：对正在执行的 <code>executable</code> 调用 <code>file_deny_write()</code>，在进程结束时恢复写权限。</li>
-</ul>
-</li>
-</ul>
-<p><em>也可以参考：<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/project-description/lab2-user-programs/suggestions" >Suggestions | Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></em></p>
-<h3 id="代码量参考值"><a href="#代码量参考值" class="headerlink" title="代码量参考值"></a>代码量参考值</h3><p>这是官方给出的参考值，单位是行。由于代码不同，这显然不能代表唯一正确答案。在这次的<strong>Project 2</strong>中，很有可能出现修改其它文件或者并未修改其中几个文件，而运行结果仍然正确的情况。修改越少越精致！</p>
-<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">threads/thread.c     |   13 </span><br><span class="line">threads/thread.h     |   26 +</span><br><span class="line">userprog/exception.c |    8 </span><br><span class="line">userprog/process.c   |  247 ++++++++++++++--</span><br><span class="line">userprog/syscall.c   |  468 ++++++++++++++++++++++++++++++-</span><br><span class="line">userprog/syscall.h   |    1 </span><br><span class="line">6 files changed, 725 insertions(+), 38 deletions(-)</span><br></pre></td></tr></table></figure></div>
-
-<p>如果你也想测试一下，可以在pintos容器内（或Windows的<code>pintos</code>目录下）依次按照以下执行：</p>
-<ul>
-<li><p>安装<code>diffstat</code>：</p>
-  <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install diffstat</span><br><span class="line">diffstat --version</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>版本比较：</p>
-  <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/pintos</span><br><span class="line">git diff | diffstat</span><br></pre></td></tr></table></figure></div></li>
-</ul>
-<p><em>笔者写的代码比官方的标准版本修改多很多，说明笔者代码效率不高。</em></p>
-<h3 id="需要注意的内容"><a href="#需要注意的内容" class="headerlink" title="需要注意的内容"></a>需要注意的内容</h3><ul>
-<li>PintOS支持多进程操作，但<strong>不支持</strong>一个进程有多个线程。</li>
-<li>耐心调试，有看不懂的<del>不想看的</del>可以问AI，这个项目代码应该大部分主流LLM都熟悉。</li>
+			<p>对于完全没有操作系统经验的笔者而言，这节课确实零基础开始。根据前人留下的珍贵数据资料，这节课的双人Project占总Workload占比极大，因此从寒假开始先做起来。在此特别感谢向我提供教程的同学，以及编写和改编教程的所有程序员和工程师们。</p>
+<h2 id="参考教程"><a href="#参考教程" class="headerlink" title="参考教程"></a>参考教程</h2><ul>
+<li>校内课程要求：<a class="link"   target="_blank" rel="noopener" href="https://lion.sist.shanghaitech.edu.cn/Course/CS130/23f/" >CS130 - Operating Systems<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> （需要校内VPN访问）</li>
+<li>Pintos北大教程：<a class="link"   target="_blank" rel="noopener" href="https://echostone.gitbook.io/pintos/getting-started/environment-setup" >Pintos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li>Pintos Stanford官方教程：<a class="link"   target="_blank" rel="noopener" href="http://web.stanford.edu/~ouster/cgi-bin/cs140-spring20/pintos/pintos.html#SEC_Top" >Pintos Projects: Table of Contents<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> （和北大教程几乎没有内容区别，但是北大教程格式更方便查阅）</li>
+<li>一份<strong>关键的</strong>非官方代码教程：<a class="link"   target="_blank" rel="noopener" href="https://static1.squarespace.com/static/5b18aa0955b02c1de94e4412/t/5b85fad2f950b7b16b7a2ed6/1535507195196/Pintos+Guide" >Pintos+Guide<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
 </ul>
 <hr>
 <p><a href="https://aaaaa114514-1.github.io/categories/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A/CS130-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI/">回到目录</a></p>
@@ -792,18 +700,18 @@
 		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
 			<div class="article-copyright-info-container">
     <ul>
-        <li><strong>标题:</strong> CS130 操作系统I Project 2 User Programs | 用户程序</li>
+        <li><strong>标题:</strong> CS130 操作系统I 课程介绍</li>
         <li><strong>作者:</strong> aaaaa</li>
         <li><strong>创建于
-                :</strong> 2026-02-20 15:00:00</li>
+                :</strong> 2026-02-02 22:00:00</li>
         
             <li>
                 <strong>更新于
-                    :</strong> 2026-02-20 15:02:23
+                    :</strong> 2026-02-20 14:16:32
             </li>
         
         <li>
-            <strong>链接:</strong> https://redefine.ohevan.com/2026/02/20/零基础速通：CS130 操作系统I_5/
+            <strong>链接:</strong> https://redefine.ohevan.com/2026/02/02/零基础速通系列/CS130 操作系统I/零基础速通：CS130 操作系统I_1/
         </li>
         <li>
             <strong>
@@ -837,12 +745,12 @@
 		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
 			
 			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="prev" rel="prev" href="/2026/03/15/Musician%20for%20Android%EF%BC%9AAndroid%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/">
+				<a class="prev" rel="prev" href="/2026/02/02/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%E7%B3%BB%E5%88%97/CS130%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%EF%BC%9ACS130%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FI_2/">
 					<span class="left arrow-icon flex justify-center items-center">
 						<i class="fa-solid fa-chevron-left"></i>
 					</span>
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">Musician for Android：Android音乐播放器</span>
+						<span class="post-nav-title-item truncate max-w-48">CS130 操作系统I 理论部分</span>
 						<span class="post-nav-item">上一篇</span>
 					</span>
 				</a>
@@ -850,9 +758,9 @@
 			
 			
 			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="next" rel="next" href="/2026/02/12/%E7%BD%91%E9%A1%B5%E6%9B%B4%E6%96%B0%EF%BC%9A%E8%84%9A%E6%9C%AC%E6%8F%90%E4%BA%A4/">
+				<a class="next" rel="next" href="/2026/01/26/BetterBlackBoard%EF%BC%9Abb%E7%BE%8E%E5%8C%96%E5%B7%A5%E7%A8%8B/">
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">网页更新：脚本提交</span>
+						<span class="post-nav-title-item truncate max-w-48">BetterBlackBoard：bb美化工程</span>
 						<span class="post-nav-item">下一篇</span>
 					</span>
 					<span class="right arrow-icon flex justify-center items-center">
@@ -873,8 +781,8 @@
 		<div class="post-toc-wrap">
 	<div class="post-toc">
 		<div class="toc-title">目录</div>
-		<div class="page-title">CS130 操作系统I Project 2 User Programs | 用户程序</div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%BB%8B%E7%BB%8D"><span class="nav-text">文件介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#userprog%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6"><span class="nav-text">userprog目录下的文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E8%A6%81%E6%B1%82%E4%B8%8E%E6%89%A7%E8%A1%8C%E5%BB%BA%E8%AE%AE"><span class="nav-text">任务要求与执行建议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E8%A6%81%E6%B1%82"><span class="nav-text">任务要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%BB%BA%E8%AE%AE"><span class="nav-text">执行建议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="nav-text">执行顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E9%87%8F%E5%8F%82%E8%80%83%E5%80%BC"><span class="nav-text">代码量参考值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E5%86%85%E5%AE%B9"><span class="nav-text">需要注意的内容</span></a></li></ol></li></ol></li></ol>
+		<div class="page-title">CS130 操作系统I 课程介绍</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%95%99%E7%A8%8B"><span class="nav-text">参考教程</span></a></li></ol>
 
 	</div>
 </div>
