@@ -140,7 +140,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://aaaaa114514-1.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2026-07-08T02:00:00.000Z">
-<meta property="article:modified_time" content="2026-07-08T01:57:32.733Z">
+<meta property="article:modified_time" content="2026-07-08T02:03:08.883Z">
 <meta property="article:author" content="aaaaa">
 <meta property="article:tag" content="0_Start_Learning">
 <meta name="twitter:card" content="summary">
@@ -611,8 +611,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2026-07-08 09:57:32</span>
-            <span class="mobile">2026-07-08 09:57:32</span>
+            <span class="desktop">2026-07-08 10:03:08</span>
+            <span class="mobile">2026-07-08 10:03:08</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -716,25 +716,25 @@
 <li>1 nibble: 4 bit</li>
 <li>1 byte字节: 8 bit</li>
 <li>1 word: 32 bit</li>
-<li>在C&#x2F;C++中，<code>unsigned int</code> 使用32 bit存储，即表示 $$0\sim 2^{32}-1$$ 的数</li>
+<li>在C&#x2F;C++中，<code>unsigned int</code> 使用32 bit存储，即表示 $0\sim 2^{32}-1$ 的数</li>
 </ul>
 <h3 id="有符号整数表示法"><a href="#有符号整数表示法" class="headerlink" title="有符号整数表示法"></a>有符号整数表示法</h3><h4 id="sign-magnitude"><a href="#sign-magnitude" class="headerlink" title="sign-magnitude"></a>sign-magnitude</h4><ul>
-<li>首位为符号位（0正1负），其余 $$n-1$$ 位为数字位</li>
-<li>最多表示 $$0 \sim 2^{n-1}-1$$ 和 $$-0 \sim -2^{n-1}+1$$ 的数</li>
+<li>首位为符号位（0正1负），其余 $n-1$ 位为数字位</li>
+<li>最多表示 $0 \sim 2^{n-1}-1$ 和 $-0 \sim -2^{n-1}+1$ 的数</li>
 <li>计算起来不方便，故较少使用</li>
 </ul>
 <h4 id="One’s-complement-representation"><a href="#One’s-complement-representation" class="headerlink" title="One’s-complement representation"></a>One’s-complement representation</h4><ul>
-<li>首位为符号位（0正1负），其余 $$n-1$$ 位为数字位</li>
+<li>首位为符号位（0正1负），其余 $n-1$ 位为数字位</li>
 <li>负数所有数字位取反（称为<strong>反码</strong>）</li>
-<li>最多表示 $$0 \sim 2^{n-1}-1$$ 和 $$-0 \sim -2^{n-1}+1$$ 的数</li>
+<li>最多表示 $0 \sim 2^{n-1}-1$ 和 $-0 \sim -2^{n-1}+1$ 的数</li>
 <li>计算起来仍然不方便，故较少使用</li>
 </ul>
 <h4 id="Two’s-complement-representation"><a href="#Two’s-complement-representation" class="headerlink" title="Two’s-complement representation"></a>Two’s-complement representation</h4><ul>
-<li>首位为符号位（0正1负），其余 $$n-1$$ 位为数字位</li>
+<li>首位为符号位（0正1负），其余 $n-1$ 位为数字位</li>
 <li>负数所有数字位取反，然后加1（称为<strong>补码</strong>）</li>
 <li><code>0</code> 被认为是正数，表示为类似于 <code>0000 0000</code> 的形式</li>
 <li>思考来源：从<em>One’s-complement representation</em>思考，发现其存在按数字直接相加时 <code>A + (-A) = 0 - 1</code> 的性质，故调整负数的表示方法上加1，以符合 <code>A + (-A) = 0</code> 的性质</li>
-<li>最多表示 $$-2^{n-1} \sim 2^{n-1}-1$$ 的数</li>
+<li>最多表示 $-2^{n-1} \sim 2^{n-1}-1$ 的数</li>
 <li>计算方便，是计算机内使用的表示方法</li>
 </ul>
 <h5 id="符号拓展性质"><a href="#符号拓展性质" class="headerlink" title="符号拓展性质"></a>符号拓展性质</h5><ul>
@@ -751,7 +751,7 @@
 </ul>
 <h3 id="小数表示法"><a href="#小数表示法" class="headerlink" title="小数表示法"></a>小数表示法</h3><h4 id="定点数-Fixed-point-numbers"><a href="#定点数-Fixed-point-numbers" class="headerlink" title="定点数 Fixed-point numbers"></a>定点数 Fixed-point numbers</h4><ul>
 <li>表示为 <code>P.Q</code> 的形式，表示小数点前 <code>P</code> 位，小数点后 <code>Q</code> 位的小数</li>
-<li>例：<code>0010.1010</code> 的十进制为 $$1 \times 2^1 + 1 \times 2^{-1} + 1 \times 2^{-3}$$，即 <code>2.625</code> </li>
+<li>例：<code>0010.1010</code> 的十进制为 $1 \times 2^1 + 1 \times 2^{-1} + 1 \times 2^{-3}$，即 <code>2.625</code> </li>
 <li>加减法方便，乘法需要小数点移位</li>
 <li>表示较大的数与更高精度的数不方便调整</li>
 <li>在定制化系统中较多采用</li>
@@ -761,36 +761,36 @@
 <li>基于 <em>IEEE 754 standard</em> 规定的标准</li>
 </ul>
 <h5 id="32位单精度浮点数-FP32"><a href="#32位单精度浮点数-FP32" class="headerlink" title="32位单精度浮点数(FP32)"></a>32位单精度浮点数(FP32)</h5><ul>
-<li>1位符号位 <code>Sign</code> (0正1负) + 8位指数位 <code>Exponent</code> (无符号，带 <code>-127</code> 的偏置bias，$$-126 \sim 127$$，<code>0000 0000</code>(E &#x3D; -127) 或 <code>1111 1111</code>(E &#x3D; 128) 是特殊规则处理的) + 23位尾数 <code>Mantissa</code>（省略小数点前的1）</li>
-<li>实际符号为 $$S &#x3D; (-1)^{Sign}$$ </li>
-<li>实际指数为 $$E &#x3D; Exponent_2 - 127_{10}$$ </li>
-<li>实际小数位为 $$M &#x3D; 1.Mantissa$$ </li>
-<li>实际数值为 $$Value &#x3D; S \times 2^{E} \times M$$</li>
+<li>1位符号位 <code>Sign</code> (0正1负) + 8位指数位 <code>Exponent</code> (无符号，带 <code>-127</code> 的偏置bias，$-126 \sim 127$，<code>0000 0000</code>(E &#x3D; -127) 或 <code>1111 1111</code>(E &#x3D; 128) 是特殊规则处理的) + 23位尾数 <code>Mantissa</code>（省略小数点前的1）</li>
+<li>实际符号为 $S &#x3D; (-1)^{Sign}$ </li>
+<li>实际指数为 $E &#x3D; Exponent_2 - 127_{10}$ </li>
+<li>实际小数位为 $M &#x3D; 1.Mantissa$ </li>
+<li>实际数值为 $Value &#x3D; S \times 2^{E} \times M$</li>
 </ul>
 <h6 id="例：32-bit单精度浮点数-0-0111-1011-110-0000-0000-0000-0000-0000-转换为十进制"><a href="#例：32-bit单精度浮点数-0-0111-1011-110-0000-0000-0000-0000-0000-转换为十进制" class="headerlink" title="例：32-bit单精度浮点数 0 0111 1011 110 0000 0000 0000 0000 0000 转换为十进制"></a>例：32-bit单精度浮点数 <code>0 0111 1011 110 0000 0000 0000 0000 0000</code> 转换为十进制</h6><ul>
-<li>符号位为 <code>0</code>, 表示正数，$$S &#x3D; 1$$ </li>
-<li>指数位为 <code>0111 1011</code>，表示 $$E &#x3D; -4$$ </li>
-<li>尾数为 <code>110 0000 0000 0000 0000 0000</code>, 表示小数位 $$M &#x3D; (1.110 0000 0000 0000 0000 0000)<em>2 &#x3D; (1.75)</em>{10}$$ </li>
-<li>故原数为 $$Value &#x3D; S \times 2^{E} \times M &#x3D; 0.109375$$</li>
+<li>符号位为 <code>0</code>, 表示正数，$S &#x3D; 1$ </li>
+<li>指数位为 <code>0111 1011</code>，表示 $E &#x3D; -4$ </li>
+<li>尾数为 <code>110 0000 0000 0000 0000 0000</code>, 表示小数位 $M &#x3D; (1.110 0000 0000 0000 0000 0000)<em>2 &#x3D; (1.75)</em>{10}$ </li>
+<li>故原数为 $Value &#x3D; S \times 2^{E} \times M &#x3D; 0.109375$</li>
 </ul>
 <h6 id="例：0-09375-转换为32-bit单精度浮点数"><a href="#例：0-09375-转换为32-bit单精度浮点数" class="headerlink" title="例：0.09375 转换为32-bit单精度浮点数"></a>例：<code>0.09375</code> 转换为32-bit单精度浮点数</h6><ul>
 <li><code>0.09375</code> 是正数，故符号位 <code>Sign</code> 为 <code>0</code> </li>
-<li><code>0.09375</code> 转换为二进制为 $$(0.00011)_2$$ （每步取小数部分乘2，依次取首位为小数点后第1,2,3,4,5位）</li>
-<li>转换为二进制科学计数法表示：$$(0.00011)_2 &#x3D; 1.1_2 \times 2^{-4}$$ </li>
-<li>确定偏移后指数位 <code>Exponent</code>：$$-4_{10} + 127_{10} &#x3D; 123_{10} &#x3D; 01111011_2$$ </li>
+<li><code>0.09375</code> 转换为二进制为 $(0.00011)_2$ （每步取小数部分乘2，依次取首位为小数点后第1,2,3,4,5位）</li>
+<li>转换为二进制科学计数法表示：$(0.00011)_2 &#x3D; 1.1_2 \times 2^{-4}$ </li>
+<li>确定偏移后指数位 <code>Exponent</code>：$-4_{10} + 127_{10} &#x3D; 123_{10} &#x3D; 01111011_2$ </li>
 <li>确定去掉小数点前的1后的尾数：<code>Mantissa = 100 0000 0000 0000 0000 0000</code> （末尾补0）</li>
 <li>故浮点数表示为 <code>0 0111 1011 100 0000 0000 0000 0000 0000</code></li>
 </ul>
-<h6 id="特殊规则：-infty"><a href="#特殊规则：-infty" class="headerlink" title="特殊规则：$$\infty$$"></a>特殊规则：$$\infty$$</h6><ul>
+<h6 id="特殊规则：-infty"><a href="#特殊规则：-infty" class="headerlink" title="特殊规则：$\infty$"></a>特殊规则：$\infty$</h6><ul>
 <li>拓展绝对值极大的数域</li>
-<li>规定 $$ \pm\infty$$ 的表达为：<code>0/1 1111 1111 000 0000 0000 0000 0000 0000</code> </li>
+<li>规定 $ \pm\infty$ 的表达为：<code>0/1 1111 1111 000 0000 0000 0000 0000 0000</code> </li>
 <li>符号位 <code>Sign</code> 表示正(0)负(1) </li>
 <li>指数位 <code>Exponent</code> 为 <code>1111 1111</code> </li>
 <li>尾数 <code>Mantissa</code> 为 <code>000 0000 0000 0000 0000 0000</code> </li>
-<li>可能由 $$\infty$$ 计算而来，也可能由空间压缩的类型转换、除以0、0取对数、数值上溢 Overflow 得到</li>
+<li>可能由 $\infty$ 计算而来，也可能由空间压缩的类型转换、除以0、0取对数、数值上溢 Overflow 得到</li>
 </ul>
 <h6 id="特殊规则：0"><a href="#特殊规则：0" class="headerlink" title="特殊规则：0"></a>特殊规则：0</h6><ul>
-<li>规定 $$\pm0$$ 的表达为：<code>0/1 0000 0000 000 0000 0000 0000 0000 0000</code> </li>
+<li>规定 $\pm0$ 的表达为：<code>0/1 0000 0000 000 0000 0000 0000 0000 0000</code> </li>
 <li>符号位 <code>S</code> 表示正负</li>
 <li>指数位 <code>E</code> 为 <code>0000 0000</code> </li>
 <li>尾数 <code>Mantissa</code> 为 <code>000 0000 0000 0000 0000 0000</code></li>
@@ -799,11 +799,11 @@
 <li>拓展绝对值极小的数域</li>
 <li>规定指数位 <code>E</code> 为 <code>0000 0000</code>，而尾数 <code>Mantissa</code> 不全为 0</li>
 <li>默认指数位 <code>E</code> 表示 <code>-126</code>，小数位 <code>M = Mantissa</code> 而不再添加首位 1 （<code>0.Mantissa</code>）</li>
-<li>可拓展表示出 $$2^{-149} \sim 2^{-126} - 2^{-149}$$ 和 $$-2^{-149} \sim -2^{-126} + 2^{-149}$$</li>
+<li>可拓展表示出 $2^{-149} \sim 2^{-126} - 2^{-149}$ 和 $-2^{-149} \sim -2^{-126} + 2^{-149}$</li>
 </ul>
 <h6 id="非数字：NaN-Not-a-Number"><a href="#非数字：NaN-Not-a-Number" class="headerlink" title="非数字：NaN (Not a Number)"></a>非数字：NaN (Not a Number)</h6><ul>
 <li>指数位 <code>E</code> 为 <code>1111 1111</code> , 而尾数 <code>Mantissa</code> 不全为 0</li>
-<li>由 <code>NaN</code> 计算而来（这被称为<strong>quiet invalid operations</strong>），或由非法运算计算而来（$$0 \times \infty$$, $$\sqrt n$$ for $$n &lt; 0$$, $$\frac{0}{0}$$, $$\frac{\infty}{\infty}$$）</li>
+<li>由 <code>NaN</code> 计算而来（这被称为<strong>quiet invalid operations</strong>），或由非法运算计算而来（$0 \times \infty$, $\sqrt n$ for $n &lt; 0$, $\frac{0}{0}$, $\frac{\infty}{\infty}$）</li>
 </ul>
 <h5 id="浮点数计算"><a href="#浮点数计算" class="headerlink" title="浮点数计算"></a>浮点数计算</h5><h6 id="舍入"><a href="#舍入" class="headerlink" title="舍入"></a>舍入</h6><ul>
 <li>默认采取<strong>四舍六入五成双</strong>规则</li>
@@ -834,8 +834,8 @@
 </ul>
 <h3 id="C语言是如何工作的"><a href="#C语言是如何工作的" class="headerlink" title="C语言是如何工作的"></a>C语言是如何工作的</h3><h4 id="执行全过程"><a href="#执行全过程" class="headerlink" title="执行全过程"></a>执行全过程</h4><ul>
 <li>高级语言：例如C语言</li>
-<li>编译 $$\rightarrow$$ 汇编语言：例如RISC-V（指令文本）</li>
-<li>汇编器 $$\rightarrow$$ 机器语言：RISC-V（二进制命令）</li>
+<li>编译 $\rightarrow$ 汇编语言：例如RISC-V（指令文本）</li>
+<li>汇编器 $\rightarrow$ 机器语言：RISC-V（二进制命令）</li>
 <li>CPU通过机器解释(Machine Interpretation)来执行二进制命令</li>
 <li>架构实现：逻辑电路描述(Logic Circuit Description)</li>
 </ul>
@@ -1302,7 +1302,7 @@
 <li><code>.globl sym</code> 把一个符号 <code>sym</code> 声明为全局的，让其它文件也可引用</li>
 <li><code>.asciiz str</code> 存储字符串 <code>str</code> 并自动加空终止符 <code>\0</code></li>
 <li><code>.word</code> 在连续的内存字里存储32位的整数</li>
-<li><code>.align[int]</code> 将数据&#x2F;代码对齐到 $$2^{int}$$ 整数倍的地址</li>
+<li><code>.align[int]</code> 将数据&#x2F;代码对齐到 $2^{int}$ 整数倍的地址</li>
 <li><code>.option</code> 指定汇编选项</li>
 </ul>
 <h4 id="伪指令-Pseudo-instruction"><a href="#伪指令-Pseudo-instruction" class="headerlink" title="伪指令 Pseudo-instruction"></a>伪指令 Pseudo-instruction</h4><ul>
@@ -1483,10 +1483,10 @@
 </ul>
 <h4 id="布尔逻辑运算-Boolean-Algebra"><a href="#布尔逻辑运算-Boolean-Algebra" class="headerlink" title="布尔逻辑运算 Boolean Algebra"></a>布尔逻辑运算 Boolean Algebra</h4><ul>
 <li>用 + 代替或</li>
-<li>用 $$\cdot$$ （或省略）代替与</li>
-<li>用 $$\bar{a}$$ 代替非</li>
+<li>用 $\cdot$ （或省略）代替与</li>
+<li>用 $\bar{a}$ 代替非</li>
 </ul>
-<p>例如 $$ab + a + \hat c$$ 代表 (a AND b) OR a OR (NOT c)</p>
+<p>例如 $ab + a + \hat c$ 代表 (a AND b) OR a OR (NOT c)</p>
 <h4 id="最小项之和-sum-of-minterm"><a href="#最小项之和-sum-of-minterm" class="headerlink" title="最小项之和 sum-of-minterm"></a>最小项之和 sum-of-minterm</h4><p>可以等效代替卡诺图 Karnaugh Map，卡诺图在本课程不作要求</p>
 <ol>
 <li><p>画出所需逻辑的真值表</p>
@@ -1498,7 +1498,7 @@
                 ></p>
 </li>
 <li><p>找出所有输出为1的行，把它们的计算式相加</p>
-<p>$$\bar{A}B + A\bar{B}$$ </p>
+<p>$\bar{A}B + A\bar{B}$ </p>
 </li>
 <li><p>使用布尔运算法则 Laws of Boolean algebra 来化简</p>
 <p><img  
@@ -1646,10 +1646,10 @@
                       alt="Snipaste_2026-04-07_08-53-37"
                 ></p>
 <ul>
-<li>$$t_{clk-to-Q} + t_{comb} \leq min_clock_period - setup_time$$ </li>
+<li>$t_{clk-to-Q} + t_{comb} \leq min_clock_period - setup_time$ </li>
 <li>最大时钟频率 <code>maximum clock frequency</code> 为最小时钟周期 <code>min clock period</code> 的倒数</li>
-<li>对于多步这样的通路 Path，延迟 $$t_{clk-to-Q} + t_{comb}$$ 最大的通路决定最大工作频率，这个通路被称为关键通路 critical path</li>
-<li>一般同型号寄存器的 $$t_{clk-to-Q}$$ 相同，而不同计算电路的 $$t_{comb}$$ 取决于电路元件数量、元件延迟</li>
+<li>对于多步这样的通路 Path，延迟 $t_{clk-to-Q} + t_{comb}$ 最大的通路决定最大工作频率，这个通路被称为关键通路 critical path</li>
+<li>一般同型号寄存器的 $t_{clk-to-Q}$ 相同，而不同计算电路的 $t_{comb}$ 取决于电路元件数量、元件延迟</li>
 </ul>
 <h4 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h4><p><img  
                      lazyload
@@ -1660,7 +1660,7 @@
 <ul>
 <li>红色标出的为关键通路 critical path</li>
 <li>总共经过1个寄存器（1 Clock to Q）、3个与门（3 AND delay）、1个建立时间（1 Setup time），共计5ns</li>
-<li>故最大时钟频率为 $$200 MHz$$ ，选 <code>C</code></li>
+<li>故最大时钟频率为 $200 MHz$ ，选 <code>C</code></li>
 </ul>
 <hr>
 <h2 id="Lec11-数据通路-Datapath"><a href="#Lec11-数据通路-Datapath" class="headerlink" title="Lec11 数据通路 Datapath"></a>Lec11 数据通路 Datapath</h2><h3 id="控制器与数据通路-Controller-Datapath"><a href="#控制器与数据通路-Controller-Datapath" class="headerlink" title="控制器与数据通路 Controller &amp; Datapath"></a>控制器与数据通路 Controller &amp; Datapath</h3><ul>
@@ -1776,7 +1776,7 @@
 </li>
 </ul>
 <h3 id="延时分析-Timing-analysis"><a href="#延时分析-Timing-analysis" class="headerlink" title="延时分析 Timing analysis"></a>延时分析 Timing analysis</h3><ul>
-<li>最小时钟周期 $$&#x3D;t_{clk-to-q} + t_{comb} + t_{setup}$$ </li>
+<li>最小时钟周期 $&#x3D;t_{clk-to-q} + t_{comb} + t_{setup}$ </li>
 <li><code>R-type</code> 数据通路的延迟：（蓝色黄色取max，一般认为蓝色更长）</li>
 </ul>
 <p><img  
@@ -1785,7 +1785,7 @@
                      data-src="/images/CS110/Snipaste_2026-04-14_08-30-18.png"
                       alt="Snipaste_2026-04-14_08-30-18"
                 ></p>
-<p>（蓝色：$$t_{IF}$$ 读取指令 Instruction Fetch + $$t_{DEC}$$ 解码 Decode + $$t_{EX}$$ 执行 Execute + $$t_{WB}$$ 写回 Write Back）</p>
+<p>（蓝色：$t_{IF}$ 读取指令 Instruction Fetch + $t_{DEC}$ 解码 Decode + $t_{EX}$ 执行 Execute + $t_{WB}$ 写回 Write Back）</p>
 <ul>
 <li><code>I-type</code> 数据通路的延迟：（三条路径延迟取max，一般认为蓝色两个更长）</li>
 </ul>
@@ -1804,7 +1804,7 @@
                      data-src="/images/CS110/Snipaste_2026-04-14_08-36-28.png"
                       alt="Snipaste_2026-04-14_08-36-28"
                 ></p>
-<p>（蓝色：$$t_{MEM}$$ 从Data Memory中取数据的延迟）</p>
+<p>（蓝色：$t_{MEM}$ 从Data Memory中取数据的延迟）</p>
 <ul>
 <li><code>S-type</code> 数据通路的延迟：</li>
 </ul>
@@ -1835,7 +1835,7 @@
 </li>
 <li><p>CISC 每条指令执行时间更长，但每个程序的平均指令数更少</p>
 </li>
-<li><p>我们之前简化认为每条指令执行1个CPU周期，但现代计算机一般 $$CPI \neq 1$$</p>
+<li><p>我们之前简化认为每条指令执行1个CPU周期，但现代计算机一般 $CPI \neq 1$</p>
 </li>
 </ul>
 <h3 id="流水线-Pipeline"><a href="#流水线-Pipeline" class="headerlink" title="流水线 Pipeline"></a>流水线 Pipeline</h3><ul>
@@ -1854,8 +1854,8 @@
                       alt="Snipaste_2026-04-14_09-24-33"
                 ></p>
 <ul>
-<li>对于单周期处理器，最小时钟周期 $$&#x3D; t_{IF} + t_{ID} + t_{EX} + t_{MEM} + t_{WB}$$ </li>
-<li>对于流水线CPU，最小时钟周期 $$ &#x3D; max{t_{IF}, t_{ID}, t_{EX}, t_{MEM}, t_{WB}}$$ </li>
+<li>对于单周期处理器，最小时钟周期 $&#x3D; t_{IF} + t_{ID} + t_{EX} + t_{MEM} + t_{WB}$ </li>
+<li>对于流水线CPU，最小时钟周期 $ &#x3D; max{t_{IF}, t_{ID}, t_{EX}, t_{MEM}, t_{WB}}$ </li>
 <li>在每两个阶段之间，放一个寄存器，被称为流水线寄存器 Pipeline Registers</li>
 </ul>
 <p><img  
@@ -2038,7 +2038,7 @@
 <h4 id="硬盘（二级存储-Secodary-Memory）"><a href="#硬盘（二级存储-Secodary-Memory）" class="headerlink" title="硬盘（二级存储 Secodary Memory）"></a>硬盘（二级存储 Secodary Memory）</h4><ul>
 <li>非易失性 non-volatile 存储器</li>
 <li>硬盘 Hard Disk Drive, HDD：更便宜，更慢（5ms ~ 10ms）</li>
-<li>固态硬盘 Solid-State Drive, SSD：更贵，更快（$$40\mu s \sim 100\mu s$$）</li>
+<li>固态硬盘 Solid-State Drive, SSD：更贵，更快（$40\mu s \sim 100\mu s$）</li>
 </ul>
 <h4 id="缓存-Cache"><a href="#缓存-Cache" class="headerlink" title="缓存 Cache"></a>缓存 Cache</h4><ul>
 <li>用于存储数据的拷贝</li>
@@ -2065,9 +2065,9 @@
 </ul>
 <h4 id="缓存结构"><a href="#缓存结构" class="headerlink" title="缓存结构"></a>缓存结构</h4><ul>
 <li>缓存以缓存块 cache block&#x2F;line 为单位存储数据</li>
-<li>缓存块大小 cache block&#x2F;line size：每个缓存块能存储的字节 <code>byte</code> 数（按字节数计，$$C_B &#x3D; 2^b$$，$$b$$ 为偏移量 offset 位数） </li>
-<li>缓存容量 Capacity：整个缓存能够存储的字节 <code>byte</code> 数 （按字节数计，$$C$$） </li>
-<li>缓存标签 Cache Tag：内存地址高几位，优化后长度为 $$t &#x3D; w - b$$ （$$w$$ 为地址位数）</li>
+<li>缓存块大小 cache block&#x2F;line size：每个缓存块能存储的字节 <code>byte</code> 数（按字节数计，$C_B &#x3D; 2^b$，$b$ 为偏移量 offset 位数） </li>
+<li>缓存容量 Capacity：整个缓存能够存储的字节 <code>byte</code> 数 （按字节数计，$C$） </li>
+<li>缓存标签 Cache Tag：内存地址高几位，优化后长度为 $t &#x3D; w - b$ （$w$ 为地址位数）</li>
 <li>优化：由于块对齐 block alignment，对于16位地址，只需要存储高14位即可（低2位固定为0）</li>
 <li>优化：对于更大的缓存块（如 <code>8 byte</code>），每个缓存块可以存储多个数据（如两个 word <code>4 byte * 2</code>），每个缓存块的标签 Tag 对应多个连续地址，地址低位可以进一步压缩（省略低3位）</li>
 <li>合法位 Valid bit：标记缓存块内容对于当前程序是否可访问；如果地址匹配后发现合法位是 <code>0</code>，则直接判断 cache miss</li>
@@ -2124,8 +2124,8 @@
 <li>对于每一条数据，都有唯一的缓存行与之对应</li>
 <li>一条内存地址被分为3部分：<ul>
 <li>Tag：长度为剩余的长度</li>
-<li>Index：和唯一的缓存行对应，长度为 $$log_2缓存行的数量$$ </li>
-<li>Offset：表示同一缓存行的第几个数据，长度为 $$log_2缓存行存储数据的字节数$$</li>
+<li>Index：和唯一的缓存行对应，长度为 $log_2缓存行的数量$ </li>
+<li>Offset：表示同一缓存行的第几个数据，长度为 $log_2缓存行存储数据的字节数$</li>
 </ul>
 </li>
 </ul>
@@ -2201,9 +2201,9 @@
 </li>
 <li><p>偏移位宽 Bit width of offset bits：<code>o</code> </p>
 </li>
-<li><p>缓存块（行）大小 Cache block size：$$C_B &#x3D; 2^{o}$$ </p>
+<li><p>缓存块（行）大小 Cache block size：$C_B &#x3D; 2^{o}$ </p>
 </li>
-<li><p>缓存块数量 Number of cache blocks：$$M &#x3D; \frac C{C_B}$$ </p>
+<li><p>缓存块数量 Number of cache blocks：$M &#x3D; \frac C{C_B}$ </p>
 </li>
 <li><p>内存地址位宽 Bit width of memory address：<code>w</code> </p>
 </li>
@@ -2211,11 +2211,11 @@
 </li>
 <li><p>索引位宽 Bit width of index：<code>i</code> </p>
 </li>
-<li><p>组数量 #set &#x2F; associativity：$$\frac MN &#x3D; 2^i$$ （必为2的指数幂）</p>
+<li><p>组数量 #set &#x2F; associativity：$\frac MN &#x3D; 2^i$ （必为2的指数幂）</p>
 </li>
 <li><p>标签位宽 Bit width of Tag：<code>t = w - o - i</code> </p>
 </li>
-<li><p>$$C &#x3D; M \times C_B &#x3D; 2^o \times 2^i \times N$$</p>
+<li><p>$C &#x3D; M \times C_B &#x3D; 2^o \times 2^i \times N$</p>
 </li>
 </ul>
 <h3 id="缓存指标与性能-Cache-Metrics-Performance"><a href="#缓存指标与性能-Cache-Metrics-Performance" class="headerlink" title="缓存指标与性能 Cache Metrics &amp; Performance"></a>缓存指标与性能 Cache Metrics &amp; Performance</h3><h4 id="缓存指标-Cache-Metrics"><a href="#缓存指标-Cache-Metrics" class="headerlink" title="缓存指标 Cache Metrics"></a>缓存指标 Cache Metrics</h4><p><img  
@@ -2241,9 +2241,9 @@
 <li><p>多级缓存未命中率</p>
 <ul>
 <li><p>全局未命中率 Global Miss rate（假设两级缓存）</p>
-<p>$$&#x3D;\frac{L2,Misses}{Total,Accesses} &#x3D; Local, Miss,rate ,of, L_1 \times Local, Miss,rate ,of, L_2$$ </p>
+<p>$&#x3D;\frac{L2,Misses}{Total,Accesses} &#x3D; Local, Miss,rate ,of, L_1 \times Local, Miss,rate ,of, L_2$ </p>
 </li>
-<li><p>局部未命中率 Local Miss rate：$$Local, Miss,rate ,of, L_2 &#x3D; \frac{L2,Misses}{L1,Misses}$$</p>
+<li><p>局部未命中率 Local Miss rate：$Local, Miss,rate ,of, L_2 &#x3D; \frac{L2,Misses}{L1,Misses}$</p>
 </li>
 </ul>
 </li>
@@ -2296,9 +2296,9 @@
 </li>
 </ul>
 <h3 id="阿姆达尔定律-Amdahl’s-Law"><a href="#阿姆达尔定律-Amdahl’s-Law" class="headerlink" title="阿姆达尔定律 Amdahl’s Law"></a>阿姆达尔定律 Amdahl’s Law</h3><ul>
-<li><p>加速比 $$Speed_up &#x3D; \frac{Original_execution_time}{Execution_time_after_improvement} &#x3D; \frac{1}{(1-F) + \frac FS}$$ </p>
+<li><p>加速比 $Speed_up &#x3D; \frac{Original_execution_time}{Execution_time_after_improvement} &#x3D; \frac{1}{(1-F) + \frac FS}$ </p>
 </li>
-<li><p>其中 $$F$$ 为受改进部分（可并行部分）占比，$$S$$ 为受改进部分的加速比</p>
+<li><p>其中 $F$ 为受改进部分（可并行部分）占比，$S$ 为受改进部分的加速比</p>
 </li>
 <li><p>强扩展性 Strong Scaling：问题总规模保持不变，但增加处理器的数量，以缩短同一任务时间</p>
 </li>
@@ -2400,12 +2400,12 @@
 <li><p>并行操作的操作应该相同，且没有互相依赖关系</p>
 </li>
 <li><p>对于矩阵乘法，存在以下并行机会：对应元素相乘；结果不同位置值的计算，例如：</p>
-<p>目标：$$A_{2\times2} \times B_{2\times2} &#x3D; C_{2\times2}$$ </p>
+<p>目标：$A_{2\times2} \times B_{2\times2} &#x3D; C_{2\times2}$ </p>
 <p>并行：同时并行2个计算</p>
 <ul>
-<li>并行计算 $$A_{1,1}B_{1,1}$$ 和 $$A_{2,1}B_{1,1}$$ </li>
-<li>并行计算 $$A_{1,2}B_{2,1}$$ 和 $$A_{2,2}B_{2,1}$$ </li>
-<li>并行计算 $$A_{1,1}B_{1,1}+A_{1,2}B_{2,1}$$ 和 $$A_{2,1}B_{1,1}+A_{2,2}B_{2,1}$$</li>
+<li>并行计算 $A_{1,1}B_{1,1}$ 和 $A_{2,1}B_{1,1}$ </li>
+<li>并行计算 $A_{1,2}B_{2,1}$ 和 $A_{2,2}B_{2,1}$ </li>
+<li>并行计算 $A_{1,1}B_{1,1}+A_{1,2}B_{2,1}$ 和 $A_{2,1}B_{1,1}+A_{2,2}B_{2,1}$</li>
 </ul>
 <p><img  
                      lazyload
@@ -3055,7 +3055,7 @@
                       alt="Snipaste_2026-06-11_08-42-18"
                 ></p>
 <h4 id="能量使用效率-Power-Usage-Effectiveness-PUE"><a href="#能量使用效率-Power-Usage-Effectiveness-PUE" class="headerlink" title="能量使用效率 Power Usage Effectiveness, PUE"></a>能量使用效率 Power Usage Effectiveness, PUE</h4><ul>
-<li>$$PUE &#x3D; \frac{Total_Building_Power}{IT_Equipment_Power}$$</li>
+<li>$PUE &#x3D; \frac{Total_Building_Power}{IT_Equipment_Power}$</li>
 </ul>
 <p><img  
                      lazyload
@@ -3088,7 +3088,7 @@
 <li>映射过程 Map：可同步执行的部分</li>
 <li>归约过程 Reduce：异步执行的部分</li>
 </ul>
-<h4 id="例：计算-sum-i-1-4-n-2"><a href="#例：计算-sum-i-1-4-n-2" class="headerlink" title="例：计算 $$\sum_{i&#x3D;1}^4 n^2$$"></a>例：计算 $$\sum_{i&#x3D;1}^4 n^2$$</h4><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> reduce</span><br><span class="line">A = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">square</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> x * x</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sum</span>(<span class="params">x, y</span>):</span><br><span class="line">    <span class="keyword">return</span> x + y</span><br><span class="line">reduce(<span class="built_in">sum</span>, <span class="built_in">map</span>(square, A))</span><br></pre></td></tr></table></figure></div>
+<h4 id="例：计算-sum-i-1-4-n-2"><a href="#例：计算-sum-i-1-4-n-2" class="headerlink" title="例：计算 $\sum_{i&#x3D;1}^4 n^2$"></a>例：计算 $\sum_{i&#x3D;1}^4 n^2$</h4><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> reduce</span><br><span class="line">A = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">square</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> x * x</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sum</span>(<span class="params">x, y</span>):</span><br><span class="line">    <span class="keyword">return</span> x + y</span><br><span class="line">reduce(<span class="built_in">sum</span>, <span class="built_in">map</span>(square, A))</span><br></pre></td></tr></table></figure></div>
 
 <h4 id="例：计算-1-4-内奇数的平方和"><a href="#例：计算-1-4-内奇数的平方和" class="headerlink" title="例：计算 1~4 内奇数的平方和"></a>例：计算 1~4 内奇数的平方和</h4><p>对每个数，返回一个键值对 <code>num -&gt; (key, value)</code>：<code>1 -&gt; (1,1)</code>，<code>2 -&gt; (0,4)</code>，… 对于不同的键 key，在计算后分配到不同的服务器进行汇总运算</p>
 <h4 id="例：字数统计"><a href="#例：字数统计" class="headerlink" title="例：字数统计"></a>例：字数统计</h4><p><img  
@@ -3138,9 +3138,9 @@
 </li>
 <li><p>使用 9 的数量来描述可用性：</p>
 <ul>
-<li>1 nine：$$\geq 90%$$ Availability</li>
-<li>2 nines：$$\geq 99 %$$ Availability</li>
-<li>3 nines: $$\geq99.9%$$ Availability</li>
+<li>1 nine：$\geq 90%$ Availability</li>
+<li>2 nines：$\geq 99 %$ Availability</li>
+<li>3 nines: $\geq99.9%$ Availability</li>
 <li>…</li>
 </ul>
 </li>
@@ -3158,7 +3158,7 @@
 </li>
 <li><p>汉明距离 Hamming distance：两个（长度相同的）数据之间不同的比特数量</p>
 </li>
-<li><p>对于 n-error dectection，$$|Parity_bit| \geq n+1$$；对于 n-error correction，$$|Parity_bit| \geq 2n+1$$</p>
+<li><p>对于 n-error dectection，$|Parity_bit| \geq n+1$；对于 n-error correction，$|Parity_bit| \geq 2n+1$</p>
 </li>
 </ul>
 <h4 id="奇偶校验"><a href="#奇偶校验" class="headerlink" title="奇偶校验"></a>奇偶校验</h4><ul>
@@ -3174,7 +3174,7 @@
 <h4 id="汉明纠错码-Hamming-ECC"><a href="#汉明纠错码-Hamming-ECC" class="headerlink" title="汉明纠错码 Hamming ECC"></a>汉明纠错码 Hamming ECC</h4><ul>
 <li><p>内存中常使用单错误纠正、双错误检验的机制 Single error correction, double error detection, SEC&#x2F;DED，被称为汉明纠错码 Hamming ECC</p>
 </li>
-<li><p>在 codeword 第 $$1,2,4,8,\cdots$$ 位上设置 parity bit，剩余位置填充 dataword</p>
+<li><p>在 codeword 第 $1,2,4,8,\cdots$ 位上设置 parity bit，剩余位置填充 dataword</p>
 </li>
 <li><p>从左往右，parity bit 1 保证 codeword 的第 <code>模2余1</code> 位上 <code>1</code> 的总数为偶数</p>
 </li>
@@ -3365,7 +3365,7 @@
         
             <li>
                 <strong>更新于
-                    :</strong> 2026-07-08 09:57:32
+                    :</strong> 2026-07-08 10:03:08
             </li>
         
         <li>
