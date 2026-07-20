@@ -133,14 +133,14 @@
         
         <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CS110 计算机体系结构 3">
+<meta property="og:title" content="CS110 计算机体系结构 3 RISC-V">
 <meta property="og:url" content="https://aaaaa114514-1.github.io/2026/07/20/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%E7%B3%BB%E5%88%97/CS110%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%EF%BC%9ACS110_%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84_3/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://aaaaa114514-1.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2026-07-20T09:00:00.000Z">
-<meta property="article:modified_time" content="2026-07-20T06:29:24.782Z">
+<meta property="article:modified_time" content="2026-07-20T06:30:38.209Z">
 <meta property="article:author" content="aaaaa">
 <meta property="article:tag" content="0_Start_Learning">
 <meta name="twitter:card" content="summary">
@@ -156,7 +156,7 @@
     
     <title>
         
-            CS110 计算机体系结构 3 | aaaaa online
+            CS110 计算机体系结构 3 RISC-V | aaaaa online
         
     </title>
 
@@ -695,7 +695,7 @@ mjx-container[display="true"] + br {
 		<div class="article-title relative w-full">
 			
 			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">CS110 计算机体系结构 3</h1>
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">CS110 计算机体系结构 3 RISC-V</h1>
 			</div>
 			
 		</div>
@@ -723,8 +723,8 @@ mjx-container[display="true"] + br {
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2026-07-20 14:29:24</span>
-            <span class="mobile">2026-07-20 14:29:24</span>
+            <span class="desktop">2026-07-20 14:30:38</span>
+            <span class="mobile">2026-07-20 14:30:38</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -772,12 +772,12 @@ mjx-container[display="true"] + br {
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.7k 字</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>4 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>6 分钟</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>1 分钟</span>
         </span>
     
     
@@ -796,70 +796,7 @@ mjx-container[display="true"] + br {
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<p>CS110 这门课本身讲述顺序相当合理，我将会大致沿用上课的顺序进行介绍，即和我的笔记大概一致。</p>
-<hr>
-<h2 id="Great-ideas-in-CA"><a href="#Great-ideas-in-CA" class="headerlink" title="Great ideas in CA"></a>Great ideas in CA</h2><p>本来想着把这个标题翻译成“计算机体系结构中的伟大思想”，但是又觉得有点画风突变的感觉，我不希望把 CA 做成像文科一样的课程。总之，如果你现在不理解以下这些内容也没关系——等到学完整个课程，你一定会有全新的认识。</p>
-<ul>
-<li>Abstraction (Layers of Representation / Interpretation) —— 抽象（表示/解释的分层）</li>
-<li>Moore’s Law (designing through trends) —— 摩尔定律（通过趋势进行设计）</li>
-<li>Make the common case fast (Amdahl’s Law) —— 让常见情况变快（阿姆达尔定律）</li>
-<li>Principle of locality (memory hierarchy) —— 局部性原理（内存层次结构）</li>
-<li>Parallelism (pipeline as special case) —— 并行性（流水线作为特例）</li>
-<li>Performance measurement and improvement —— 性能测量与提升</li>
-<li>Dependability via redundancy —— 通过冗余实现可靠性</li>
-</ul>
-<p>顺带说一句，<strong>考试的时候会可能会涉及以上内容</strong>，请读者<strong>务必抄到 Cheatsheet 上</strong>。</p>
-<p>这是整个课程梦开始的地方，最后我们会再回到这里的。会的。</p>
-<hr>
-<h2 id="C-语言"><a href="#C-语言" class="headerlink" title="C 语言"></a>C 语言</h2><p>从哪里开始讲呢？我们按照从上至下的顺序，也就是从我们使用的高级程序设计语言之一：C语言，开始讲。</p>
-<p>相信各位读者对于 C 语言的语法都很了解（否则请参考<a class="link" target="_blank" rel="noopener" href="https://www.runoob.com/cprogramming/c-tutorial.html">C 语言教程 | 菜鸟教程<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>，不过这门课其实对 C 代码没有过高的要求，能看懂、区分出各类 UB，CE 和 RTE 即可）。作为几乎在所有平台上都能使用的语言，C 语言有更完整的变量类型定义、更好的内存管理，需要经过编译过程执行。接下来我们先简单复习一下 C 语言的内存管理相关内容。这些内容可能看上去有些碎片化，不过还请读者挑选其中记不熟的内容抄到 Cheatsheet 上。</p>
-<h3 id="C-语言的一些基础知识"><a href="#C-语言的一些基础知识" class="headerlink" title="C 语言的一些基础知识"></a>C 语言的一些基础知识</h3><p>严格来说，C 语言的指针类型大小是和系统有关的，但是方便起见，我们在本课程中统一指针大小为 <code>4 byte</code>，即 32 位——这就是我们常说的“32位计算机”里的“32位”的来源——32 bit 长度的地址。一般的计算机是 byte addressing 的，即每个确定的地址（如 <code>0x1145DCBC</code>）对应内存里的一个确定的字节。</p>
-<p>一般来说，C 语言中的数组和指针是等效的（如 <code>ar[2]</code> 等效于 <code>*(ar+2)</code>），但是也有例外：</p>
-<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> string1[] = <span class="string">"abc"</span>;	<span class="comment">// 可以修改</span></span><br><span class="line"><span class="type">char</span> *string2 = <span class="string">"abc"</span>;	<span class="comment">// 不能修改</span></span><br></pre></td></tr></table></figure></div>
-
-<p>在字符串中，存储时一般会在字符串尾部添加 <code>\0</code> 来标记字符串长度，但是也有特例：</p>
-<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> s[] = <span class="string">"abc"</span>, t[<span class="number">3</span>] = <span class="string">"abc"</span>;</span><br><span class="line"><span class="comment">// 等价于</span></span><br><span class="line"><span class="type">char</span> s[] = {<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'\0'</span>},</span><br><span class="line">	 t[] = {<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>};</span><br></pre></td></tr></table></figure></div>
-
-<p>回到数组，主函数传参时，采用参数数量 + 参数数组的格式传入：</p>
-<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span><br></pre></td></tr></table></figure></div>
-
-<p>其中 <code>argc</code> 表示参数数量 Argument Count（即命令行上空格隔开字符串的数量），<code>argv</code> Argument Vector 为一个指向这些字符串指针的数组。例如：</p>
-<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">% clang -ansi test001.c -o test001.out</span><br></pre></td></tr></table></figure></div>
-
-<p>此时 <code>argc = 5</code>，<code>argv = ["clang", "-ansi", "test001.c", "-o", "test001.out"]</code> </p>
-<p>这启发我们设计数组作为参数传入函数时，<strong>务必</strong>同时传入数组长度，否则如果发生越界访问，会极难发现。</p>
-<p>在涉及指针运算时，存在<strong>内存对齐</strong>问题。在内存读取时，是每个 byte 作为独立单位读取的（即我们前面讲到的 byte addressing 导致的），因此数据需要对齐 Alignment。</p>
-<ul>
-<li>对于整型 <code>int</code> 数据(<code>4 byte</code>)，要求存储时需要最低位存储在 <code>4 byte</code> 的整倍数的内存地址上；</li>
-<li>对于短整型 <code>short</code> 数据(<code>2 byte</code>)，要求存储时需要最低位存储在 <code>2 byte</code> 的整倍数的内存地址上。</li>
-</ul>
-<p>对于指针的运算，C 语言只定义了如下运算：</p>
-<ul>
-<li>加减整数</li>
-<li>指针作差</li>
-<li>指针比较</li>
-<li>和 <code>NULL</code> 比较</li>
-</ul>
-<p>其它运算均为不合法运算。</p>
-<p>另外，C 语言定义数组越界1位处必为合法地址，但是对这个地址解引用是非法的。这是为了方便检查访问越界，同时不破坏存储的其它数据。</p>
-<h3 id="C-语言的内存管理"><a href="#C-语言的内存管理" class="headerlink" title="C 语言的内存管理"></a>C 语言的内存管理</h3><p>C 语言程序在运行时的内存分为 4 个区域：栈区 stack，堆区 heap，静态数据区域 static data，代码区 code。这四个区域各有各的用处和特性：</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="/images/CS110/Snipaste_2026-03-22_10-22-09.png" alt="Snipaste_2026-03-22_10-22-09"></p>
-<ul>
-<li>栈区 stack：存放连续地址的栈帧（包含函数的返回地址（调用者）、函数参数、函数内部定义的局部变量）；函数被调用时入栈，函数终止时弹栈。栈区一般从高地址向低地址生长。</li>
-<li>堆区 heap：运行时不连续分配的内存区域，由 <code>malloc()</code> <code>calloc()</code> <code>realloc()</code> <code>free()</code> 手动管理空间；一般比栈区空间更大（但是也要记得释放空间，防止内存泄漏）。堆区一般从低地址向高地址生长。（不用担心栈区和堆区撞在一起，后续<em>内存分页</em>会解决这个问题）</li>
-<li>静态数据区域 static data：存储全局/静态变量，其中又分为三个区域：<ul>
-<li>.<strong>ro</strong>data 区：是只读的 <strong>r</strong>ead-<strong>o</strong>nly，存储<strong>字符串字面量</strong>、（被自动/手动初始化的）<strong>const</strong> 修饰的<strong>全局/静态变量</strong>。</li>
-<li>.data 区：存储<strong>非零初始化</strong>的<strong>全局变量/静态变量</strong>。</li>
-<li>.bss 区：<strong>B</strong>lock <strong>s</strong>tarted by <strong>s</strong>ymbol，存储<strong>未初始化</strong>或<strong>显式初始化为 0</strong> 的<strong>全局/静态变量</strong>。</li>
-</ul>
-</li>
-<li>代码区 code：存储代码，运行时一般只读。</li>
-</ul>
-<p>记不住没关系，看一眼下面的程序，你就能理解了。</p>
-<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> g_data = <span class="number">1</span>			<span class="comment">// 非零初始化的全局变量 g_data，放在 .data 区</span></span><br><span class="line"><span class="type">int</span> g_bss;             	<span class="comment">// 未初始化的全局变量 g_bss 自动初始化为 0，放在 .bss 区</span></span><br><span class="line"><span class="type">const</span> <span class="type">char</span> *ro_str = <span class="string">"RO"</span>;         <span class="comment">// "RO" 放在 .rodata 区, 而 ro_str 放在 .data 区</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 这个函数 demo() 放在 code 区</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">demo</span><span class="params">(<span class="type">int</span> stack_arg)</span> {         <span class="comment">// 这个参数 stack_arg 放在栈区</span></span><br><span class="line">    <span class="type">int</span> stack_var = <span class="number">2</span>;             <span class="comment">// 局部变量 stack_var 放在栈区</span></span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> s_data = <span class="number">3</span>;         <span class="comment">// 静态变量 s_data 放在 .data 区</span></span><br><span class="line">    <span class="type">void</span> *heap = <span class="built_in">malloc</span>(<span class="number">8</span>);        <span class="comment">// 指针 heap 是栈区的局部变量，而 heap 指向的区域在堆区</span></span><br><span class="line">    <span class="built_in">free</span>(heap);                    <span class="comment">// 释放堆区空间</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> {</span><br><span class="line">    demo(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<p>至此，关于 C 语言的基本知识就介绍得差不多了。对于有 C 语言基础的读者，这部分应该只是复习性质的；对于没有基础的读者，请完全理解这一章的内容，然后你的水平就和其他人站在同一起跑线上了。</p>
-<hr>
+			<hr>
 <p><a href="https://aaaaa114514-1.github.io/categories/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A/CS110-%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">回到目录</a></p>
 
 		</div>
@@ -868,14 +805,14 @@ mjx-container[display="true"] + br {
 		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
 			<div class="article-copyright-info-container">
     <ul>
-        <li><strong>标题:</strong> CS110 计算机体系结构 3</li>
+        <li><strong>标题:</strong> CS110 计算机体系结构 3 RISC-V</li>
         <li><strong>作者:</strong> aaaaa</li>
         <li><strong>创建于
                 :</strong> 2026-07-20 17:00:00</li>
         
             <li>
                 <strong>更新于
-                    :</strong> 2026-07-20 14:29:24
+                    :</strong> 2026-07-20 14:30:38
             </li>
         
         <li>
@@ -937,8 +874,8 @@ mjx-container[display="true"] + br {
 		<div class="post-toc-wrap">
 	<div class="post-toc">
 		<div class="toc-title">目录</div>
-		<div class="page-title">CS110 计算机体系结构 3</div>
-		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Great-ideas-in-CA"><span class="nav-text">Great ideas in CA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-%E8%AF%AD%E8%A8%80"><span class="nav-text">C 语言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#C-%E8%AF%AD%E8%A8%80%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-text">C 语言的一些基础知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-%E8%AF%AD%E8%A8%80%E7%9A%84%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-text">C 语言的内存管理</span></a></li></ol></li></ol>
+		<div class="page-title">CS110 计算机体系结构 3 RISC-V</div>
+		
 
 	</div>
 </div>
@@ -969,7 +906,7 @@ mjx-container[display="true"] + br {
                     </span>
                     
                         <span>
-                            共 74.3k 字
+                            共 72.6k 字
                         </span>
                     
                 </p>
