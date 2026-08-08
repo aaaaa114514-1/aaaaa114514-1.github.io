@@ -140,7 +140,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://aaaaa114514-1.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2026-08-03T09:00:00.000Z">
-<meta property="article:modified_time" content="2026-08-03T14:06:26.252Z">
+<meta property="article:modified_time" content="2026-08-08T07:21:19.936Z">
 <meta property="article:author" content="aaaaa">
 <meta property="article:tag" content="0_Start_Learning">
 <meta name="twitter:card" content="summary">
@@ -672,7 +672,7 @@ mjx-container[display="true"] + br {
         <div class="label text-third-text-color text-sm">分类</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">36</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">37</div>
         <div class="label text-third-text-color text-sm">文章</div>
     </a>
 </div>
@@ -723,8 +723,8 @@ mjx-container[display="true"] + br {
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2026-08-03 22:06:26</span>
-            <span class="mobile">2026-08-03 22:06:26</span>
+            <span class="desktop">2026-08-08 15:21:19</span>
+            <span class="mobile">2026-08-08 15:21:19</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -804,6 +804,7 @@ mjx-container[display="true"] + br {
 <hr>
 <h2 id="RISC-V-基础语法"><a href="#RISC-V-基础语法" class="headerlink" title="RISC-V 基础语法"></a>RISC-V 基础语法</h2><p>作为计算机汇编语言的一种，RISC-V 代码的所有指令都是面向指令、内存或寄存器的，会清晰、具体地告诉计算机，应该把哪个值从哪里取出来、做什么处理、再存到哪里去。注意，区别于常用的高级语言（如 C，C++，Python 等），RISC-V 是没有变量的概念的，一切数据如果不存储下来，就会被丢弃。其实高级语言的变量就是一种对于寄存器存储的封装，而汇编语言就是解决封装内部问题的地方。</p>
 <p>RISC-V 每一行都是一条指令，使用 <code>#</code> 开头来标记注释——这一点和 Python 很像，但是鉴于 RISC-V 灾难般的可读性，只有写注释才能保证明天你还能看懂今天写的代码。</p>
+<p>除了指令之外，RISC-V 代码还可以在行首顶格写一些标签，用处类似于 C/C++ 中的 <code>goto</code> 的目标标签。</p>
 <p>在“没收”了变量这一工具后，RISC-V 提供了 32 个可供使用的寄存器（本质上是虚拟寄存器，一对多地映射到部分物理寄存器上），分别命名为 <code>x0</code> <code>x1</code> … <code>x31</code>。其中，<code>x0</code> 寄存器是不可修改的，它的值始终为 0。在这些寄存器之外，有一个特殊的寄存器 PC（程序计数器 Program Counter），记录了程序执行到位置的首地址。</p>
 <p>RISC-V RV32I 的语句根据功能和编码分为 6 个类别：R-Type, I-Type, S-Type, B-Type, U-Type, J-Type。我们一类类来看。</p>
 <h3 id="R-Type"><a href="#R-Type" class="headerlink" title="R-Type"></a>R-Type</h3><p>R-Type 其中的 R 指的是 Register，即 R-Type 指令是对寄存器直接操作的指令。一般的寄存器计算都属于 R-Type 指令。</p>
@@ -895,7 +896,7 @@ mjx-container[display="true"] + br {
 </li>
 </ul>
 <p>另外，在规范上讲，强烈建议（但是语法不强制要求）存储对齐：字保存在 <code>4 byte</code> 的整数倍地址上，半字保存在 <code>2 byte</code> 的整数倍地址上。这样，在内存搜索时，数据会更快、更方便地被找到（为什么更快？学完缓存你就明白了）。</p>
-<h3 id="B-Type"><a href="#B-Type" class="headerlink" title="B-Type"></a>B-Type</h3><p>B-Type 相比于前几种面向数据的指令不同，B 指的是 Branch，也就是分支。B-Type 指令可以在代码中实现逻辑判断和分支循环。</p>
+<h3 id="B-Type（也作-SB-Type）"><a href="#B-Type（也作-SB-Type）" class="headerlink" title="B-Type（也作 SB-Type）"></a>B-Type（也作 SB-Type）</h3><p>B-Type 相比于前几种面向数据的指令不同，B 指的是 Branch，也就是分支。B-Type 指令可以在代码中实现逻辑判断和分支循环。</p>
 <ul>
 <li>取等跳转：<code>beq/bne rs1, rs2, label</code> (branch if equal/not equal)<ul>
 <li><code>beq x1, x2, loop</code> 如果 <code>x1 == x2</code>，则跳转到标签 <code>loop</code> 处</li>
@@ -918,7 +919,7 @@ mjx-container[display="true"] + br {
 </ul>
 </li>
 </ul>
-<h3 id="J-Type"><a href="#J-Type" class="headerlink" title="J-Type"></a>J-Type</h3><p>J-Type 中的 J 指的是 Jump，也就是说 J-Type 指令负责代码跳转和链接，它只有一种指令：</p>
+<h3 id="J-Type（也作-UJ-Type）"><a href="#J-Type（也作-UJ-Type）" class="headerlink" title="J-Type（也作 UJ-Type）"></a>J-Type（也作 UJ-Type）</h3><p>J-Type 中的 J 指的是 Jump，也就是说 J-Type 指令负责代码跳转和链接，它只有一种指令：</p>
 <ul>
 <li><p>跳转与链接 <code>jal rd, label</code> (jump and link)</p>
 <ul>
@@ -1018,7 +1019,8 @@ mjx-container[display="true"] + br {
 <p>这个 C 函数直接写成 RISC-V 是这样的：</p>
 <div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Leaf:</span><br><span class="line">    addi sp, sp, -4 	# adjust stack for 1 items, callee saved s1</span><br><span class="line">    sw s1, 0(sp) 		# save callee saved s1 to stack</span><br><span class="line">    add s1, a0, a1 		# s1 = g + h</span><br><span class="line">    add a2, a2, a3 		# j = i + j</span><br><span class="line">    sub a0, s1, a2 		# calculate result (g + h) – (i + j)</span><br><span class="line">    # return value (g + h) – (i + j)</span><br><span class="line">    lw s1, 0(sp) 		# restore register s1 for caller</span><br><span class="line">    addi sp, sp, 4 		# adjust stack to delete 1 items</span><br><span class="line">    jr ra 				# jump back to caller (pseudo-assembly:ret)</span><br></pre></td></tr></table></figure></div>
 
-<p>由于一个 <code>int</code> 是 4 byte 大小，所以我们在函数调用开头（一般被称为“前言” Prologue）把栈指针 <code>sp</code> 向下挪 4（栈是从高地址向低地址生长的），并把 <code>s1</code> 存放在新开辟的地址处。为了方便起见，我们也可以使用 Caller-saved 寄存器 <code>t1</code> 来代替 Callee-saved 寄存器 <code>s1</code>，以省去复杂的压栈弹栈过程：</p>
+<p>由于一个 <code>int</code> 是 4 byte 大小，所以我们在函数调用开头（一般被称为“前言” Prologue）把栈指针 <code>sp</code> 向下挪 4（栈是从高地址向低地址生长的），并把 <code>s1</code> 存放在新开辟的地址处。<strong>有时候会有栈生长必须是 16 的整数倍这个规矩，在考试时注意留心是否提及。</strong> </p>
+<p>为了方便起见，我们也可以使用 Caller-saved 寄存器 <code>t1</code> 来代替 Callee-saved 寄存器 <code>s1</code>，以省去复杂的压栈弹栈过程：</p>
 <div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Leaf:</span><br><span class="line">	add t1, a0, a1		# s1 = g + h</span><br><span class="line">	add a2, a2, a3		# j = i + j</span><br><span class="line">	sub a0, t1, a2		# calculate result (g + h) - (i + j)</span><br><span class="line">	# return value (g + h) – (i + j)</span><br><span class="line">	jr ra				# jump back to caller (pseudo-assembly:ret)</span><br></pre></td></tr></table></figure></div>
 
 <p>至此，我们的 RISC-V 就已经完成一大半了。具体地说，我们已经手动地模拟了编译器的工作——把 C 代码翻译为 RISC-V 汇编代码。剩下的部分，也就是下一节，我们会模拟汇编器的工作——把 RISC-V 汇编代码汇编为二进制文件。电影里经常给黑客的电脑配上一个一大串01的背景，学完下一章，我们就也能手动地把一段代码翻译为二进制01串了！</p>
@@ -1038,7 +1040,7 @@ mjx-container[display="true"] + br {
         
             <li>
                 <strong>更新于
-                    :</strong> 2026-08-03 22:06:26
+                    :</strong> 2026-08-08 15:21:19
             </li>
         
         <li>
@@ -1076,12 +1078,12 @@ mjx-container[display="true"] + br {
 		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
 			
 			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="prev" rel="prev" href="/2026/08/03/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%E7%B3%BB%E5%88%97/CS110%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%EF%BC%9ACS110_%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84_4/">
+				<a class="prev" rel="prev" href="/2026/08/03/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%E7%B3%BB%E5%88%97/CS181%20%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BDI/CS181%20%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BDI%20%E7%AC%94%E8%AE%B0/">
 					<span class="left arrow-icon flex justify-center items-center">
 						<i class="fa-solid fa-chevron-left"></i>
 					</span>
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">CS110 计算机体系结构 3 RISC-V (下)</span>
+						<span class="post-nav-title-item truncate max-w-48">CS181 人工智能I 笔记</span>
 						<span class="post-nav-item">上一篇</span>
 					</span>
 				</a>
@@ -1113,7 +1115,7 @@ mjx-container[display="true"] + br {
 	<div class="post-toc">
 		<div class="toc-title">目录</div>
 		<div class="page-title">CS110 计算机体系结构 3 RISC-V (上)</div>
-		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#RISC-V-%E8%AF%AD%E8%A8%80%E7%AE%80%E4%BB%8B"><span class="nav-text">RISC-V 语言简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RISC-V-%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95"><span class="nav-text">RISC-V 基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#R-Type"><span class="nav-text">R-Type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#I-Type"><span class="nav-text">I-Type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#S-Type"><span class="nav-text">S-Type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-Type"><span class="nav-text">B-Type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#U-Type"><span class="nav-text">U-Type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#J-Type"><span class="nav-text">J-Type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%AA%E6%8C%87%E4%BB%A4-Pseudo-instruction"><span class="nav-text">伪指令 Pseudo-instruction</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E8%A7%84%E8%8C%83-Calling-Convention"><span class="nav-text">调用规范 Calling Convention</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-text">寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-text">调用函数</span></a></li></ol></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#RISC-V-%E8%AF%AD%E8%A8%80%E7%AE%80%E4%BB%8B"><span class="nav-text">RISC-V 语言简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RISC-V-%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95"><span class="nav-text">RISC-V 基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#R-Type"><span class="nav-text">R-Type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#I-Type"><span class="nav-text">I-Type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#S-Type"><span class="nav-text">S-Type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-Type%EF%BC%88%E4%B9%9F%E4%BD%9C-SB-Type%EF%BC%89"><span class="nav-text">B-Type（也作 SB-Type）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#U-Type"><span class="nav-text">U-Type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#J-Type%EF%BC%88%E4%B9%9F%E4%BD%9C-UJ-Type%EF%BC%89"><span class="nav-text">J-Type（也作 UJ-Type）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%AA%E6%8C%87%E4%BB%A4-Pseudo-instruction"><span class="nav-text">伪指令 Pseudo-instruction</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E8%A7%84%E8%8C%83-Calling-Convention"><span class="nav-text">调用规范 Calling Convention</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-text">寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-text">调用函数</span></a></li></ol></li></ol>
 
 	</div>
 </div>
@@ -1140,11 +1142,11 @@ mjx-container[display="true"] + br {
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        共撰写了 36 篇文章
+                        共撰写了 37 篇文章
                     </span>
                     
                         <span>
-                            共 88.9k 字
+                            共 91.4k 字
                         </span>
                     
                 </p>
