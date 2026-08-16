@@ -140,7 +140,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://aaaaa114514-1.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2026-08-16T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-08-16T15:18:28.097Z">
+<meta property="article:modified_time" content="2026-08-16T15:25:12.452Z">
 <meta property="article:author" content="aaaaa">
 <meta property="article:tag" content="0_Start_Learning">
 <meta name="twitter:card" content="summary">
@@ -723,8 +723,8 @@ mjx-container[display="true"] + br {
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2026-08-16 23:18:28</span>
-            <span class="mobile">2026-08-16 23:18:28</span>
+            <span class="desktop">2026-08-16 23:25:12</span>
+            <span class="mobile">2026-08-16 23:25:12</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -798,8 +798,8 @@ mjx-container[display="true"] + br {
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
 			<p>从这一章开始，我们来聊聊计算机的硬件部分——数字电路与系统。相对于前面讲 RISC-V 时按照 C.A.L.L 的顺序自上而下，这里我们自下而上，从最基础的元器件开始说。</p>
 <hr>
-<h2 id="基础电路：NMOS-PMOS"><a href="#基础电路：NMOS-PMOS" class="headerlink" title="基础电路：NMOS &amp; PMOS"></a>基础电路：NMOS &amp; PMOS</h2><p><img lazyload="" src="/images/loading.svg" data-src="/images/CS110/Snipaste_2026-03-31_08-28-32.png" alt="Snipaste_2026-03-31_08-28-32"></p>
-<p>简单放一张图，这里左边的是 NMOS 管，右边是 PMOS 管。这里，“MOS”指的是金属氧化物半导体 Metal-Oxide-Semiconductor，N 指的是 negative，也就是带负电的载流子，P 则是 positive。由于种种物化原理，总之 NMOS 管在栅极（“Gate”）（相对于源极（“Source”））低电平时高阻抗（近似不导通），PMOS 管在栅极（相对于漏极（“Drain”））低电平时低阻抗（近似导通）。又由于“低电平”可以低到是绝对的 0（接地），而“高电平”却有一个物理上限，而 MOS 管本身的电阻会产生压降，因此二者都只在低电平时准确传递信号，高电平时信号传递存在误差。（这只是一个大概的解释，如果读者有兴趣继续钻研，可以参考相关百科）一言以蔽之，<strong>NMOS 低电平不导通，PMOS 管低电平导通；二者高电平时状态近似相反，但都存在误差。</strong> </p>
+<h2 id="NMOS-PMOS"><a href="#NMOS-PMOS" class="headerlink" title="NMOS &amp; PMOS"></a>NMOS &amp; PMOS</h2><p><img lazyload="" src="/images/loading.svg" data-src="/images/CS110/Snipaste_2026-03-31_08-28-32.png" alt="Snipaste_2026-03-31_08-28-32"></p>
+<p>简单放一张图，这里左边的是 NMOS 管，右边是 PMOS 管。这里，“MOS”指的是金属氧化物半导体 Metal-Oxide-Semiconductor，N 指的是 negative，也就是带负电的载流子，P 则是 positive。由于种种物化原理（我也不懂），总之 NMOS 管在栅极（“Gate”）（相对于源极（“Source”））低电平时高阻抗（近似不导通），PMOS 管在栅极（相对于漏极（“Drain”））低电平时低阻抗（近似导通）。又由于“低电平”可以低到是绝对的 0（接地），而“高电平”却有一个物理上限，而 MOS 管本身的电阻会产生压降，因此二者都只在低电平时准确传递信号，高电平时信号传递存在误差。（这只是一个大概的解释，如果读者有兴趣继续钻研，可以参考相关百科）一言以蔽之，<strong>NMOS 低电平不导通，PMOS 管低电平导通；二者高电平时状态近似相反，但都存在误差。</strong> </p>
 <p>因此，我们希望把二者稳定的部分结合起来，形成一个互补的系统——这就是 CMOS 管：Complementary Metal-Oxide-Semiconductor 互补金属氧化物半导体。注意，这里的 CMOS 管不是一种电路的名称，而是互补地使用 NMOS、PMOS 管搭建电路的方法以及电路本身的模式。总之，我们所熟知的与或非门电路就可以用 CMOS 管实现。以下是它们的实现电路：</p>
 <h3 id="非门"><a href="#非门" class="headerlink" title="非门"></a>非门</h3><p><img lazyload="" src="/images/loading.svg" data-src="/images/CS110/Snipaste_2026-03-31_08-41-12.png" alt="Snipaste_2026-03-31_08-41-12"></p>
 <h3 id="与门"><a href="#与门" class="headerlink" title="与门"></a>与门</h3><p><img lazyload="" src="/images/loading.svg" data-src="/images/CS110/Snipaste_2026-03-31_08-44-04.png" alt="Snipaste_2026-03-31_08-44-04"></p>
@@ -826,7 +826,7 @@ mjx-container[display="true"] + br {
         
             <li>
                 <strong>更新于
-                    :</strong> 2026-08-16 23:18:28
+                    :</strong> 2026-08-16 23:25:12
             </li>
         
         <li>
@@ -889,7 +889,7 @@ mjx-container[display="true"] + br {
 	<div class="post-toc">
 		<div class="toc-title">目录</div>
 		<div class="page-title">CS110 计算机体系结构 6 数字电路与系统</div>
-		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%94%B5%E8%B7%AF%EF%BC%9ANMOS-PMOS"><span class="nav-text">基础电路：NMOS &amp; PMOS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E9%97%A8"><span class="nav-text">非门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8E%E9%97%A8"><span class="nav-text">与门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%96%E9%97%A8"><span class="nav-text">或门</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E5%90%88%E7%94%B5%E8%B7%AF"><span class="nav-text">组合电路</span></a></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#NMOS-PMOS"><span class="nav-text">NMOS &amp; PMOS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E9%97%A8"><span class="nav-text">非门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8E%E9%97%A8"><span class="nav-text">与门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%96%E9%97%A8"><span class="nav-text">或门</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E5%90%88%E7%94%B5%E8%B7%AF"><span class="nav-text">组合电路</span></a></li></ol>
 
 	</div>
 </div>
