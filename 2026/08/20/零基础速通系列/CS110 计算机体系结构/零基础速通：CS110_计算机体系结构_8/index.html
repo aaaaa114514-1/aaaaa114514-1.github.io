@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="aaaaa">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://aaaaa114514-1.github.io/2026/08/20/零基础速通系列/cs110 计算机体系结构/零基础速通：cs110_计算机体系结构_8/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS110 计算机体系结构 8 搭建一个 CPU">
+<meta property="og:url" content="https://aaaaa114514-1.github.io/2026/08/20/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%E7%B3%BB%E5%88%97/CS110%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%EF%BC%9ACS110_%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84_8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://aaaaa114514-1.github.io/images/redefine-og.webp">
+<meta property="article:published_time" content="2026-08-20T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-08-20T14:57:50.569Z">
+<meta property="article:author" content="aaaaa">
+<meta property="article:tag" content="0_Start_Learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://aaaaa114514-1.github.io/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/favicon.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+    <meta name="theme-color" content="#3362d6">
+    <link rel="shortcut icon" href="/images/favicon.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            CS110 计算机体系结构 8 搭建一个 CPU | aaaaa online
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+        
+<script src="/js/build/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"aaaaa114514-1.github.io","root":"/","language":"zh-CN","path":"search.json"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"all_rights_reserved"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#3362d6","secondary":"#33b4d6","default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":true,"percentage":false},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":true,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/bgp_light.png","dark":"/images/bgp_dark_dusk.png"},"title":"aaaaa online","subtitle":{"text":["World is a Visual Novel, but I'm Stuck on the Common Route...","World is a Visual Novel, Where's My Heroine DLC?","World is a Visual Novel, but the H-Scenes are Censored...","World is a Visual Novel, but Fast Forward Ctrl is banned","World is a Visual Novel, Wonderful Memories To Be Continued..."],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":60,"backing_speed":45,"starting_delay":500,"backing_delay":3000,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/aaaaa114514-1","instagram":null,"zhihu":null,"twitter":null,"email":"2207521945@qq.com","bilibili":"https://space.bilibili.com/514710526"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"passage","artist":"fripSide","url":"/music/passage .mp3","cover":"/images/cover/passage.jpg","lrc":"/lyrics/passage.lrc"},{"name":"Sayonara Precious","artist":"なついろ","url":"/music/Sayonara Precious .mp3","cover":"/images/cover/Sayonara Precious.jpg","lrc":"/lyrics/Sayonara Precious.lrc"},{"name":"クライングハート -パトリシア＆ルーシア＆ユウラシア-","artist":"大地葉 / 大橋歩夕 / 高森奈津美","url":"/music/クライングハート -パトリシア＆ルーシア＆ユウラシア- .mp3","cover":"/images/cover/クライングハート -パトリシア＆ルーシア＆ユウラシア-.jpg","lrc":"/lyrics/クライングハート -パトリシア＆ルーシア＆ユウラシア-.lrc"},{"name":"コイノシルシ from Shiori","artist":"花澤香菜","url":"/music/コイノシルシ from Shiori .mp3","cover":"/images/cover/コイノシルシ from Shiori.jpg","lrc":"/lyrics/コイノシルシ from Shiori.lrc"},{"name":"ミラクル☆フィールフリー","artist":"Kicco","url":"/music/ミラクル☆フィールフリー .mp3","cover":"/images/cover/ミラクル☆フィールフリー.jpg","lrc":"/lyrics/ミラクル☆フィールフリー.lrc"},{"name":"再见了，遥远的离人","artist":"爱乐汇轻音乐团","url":"/music/再见了，遥远的离人 .mp3","cover":"/images/cover/再见了，遥远的离人.jpg","lrc":"/lyrics/再见了，遥远的离人.lrc"},{"name":"大地に咲く旋律","artist":"幽閉サテライト","url":"/music/大地に咲く旋律 .mp3","cover":"/images/cover/大地に咲く旋律.jpg","lrc":"/lyrics/大地に咲く旋律.lrc"},{"name":"季節を抱きしめて","artist":"安野希世乃","url":"/music/季節を抱きしめて .mp3","cover":"/images/cover/季節を抱きしめて.jpg","lrc":"/lyrics/季節を抱きしめて.lrc"},{"name":"恋しちゃってもいいですか_","artist":"花たん / プリコ / ヲタみん / ChouCho / 転少女","url":"/music/恋しちゃってもいいですか_ .mp3","cover":"/images/cover/恋しちゃってもいいですか_.jpg","lrc":"/lyrics/恋しちゃってもいいですか_.lrc"},{"name":"悲しくて lulululu -ハーサカ Ver.-","artist":"花守ゆみり","url":"/music/悲しくて lulululu -ハーサカ Ver.- .mp3","cover":"/images/cover/悲しくて lulululu -ハーサカ Ver.jpg","lrc":"/lyrics/悲しくて lulululu -ハーサカ Ver.lrc"},{"name":"昔へ送る言葉","artist":"楓 / 宮舞モカ","url":"/music/昔へ送る言葉 .mp3","cover":"/images/cover/昔へ送る言葉.jpg","lrc":"/lyrics/昔へ送る言葉.lrc"},{"name":"昔へ送る言葉_楓","artist":"楓","url":"/music/昔へ送る言葉_楓 .mp3","cover":"/images/cover/昔へ送る言葉_楓.jpg","lrc":"/lyrics/昔へ送る言葉_楓.lrc"},{"name":"桜、みんなで食べた","artist":"HKT48","url":"/music/桜、みんなで食べた .mp3","cover":"/images/cover/桜、みんなで食べた.jpg","lrc":"/lyrics/桜、みんなで食べた.lrc"},{"name":"野良猫ハート(ヒロイン4人コーラスVer.)","artist":"遥そら / 高森奈津美 / 浅川悠 / 種崎敦美","url":"/music/野良猫ハート(ヒロイン4人コーラスVer.).mp3","cover":"/images/cover/野良猫ハート(ヒロイン4人コーラスVer.).jpg","lrc":"/lyrics/野良猫ハート(ヒロイン4人コーラスVer.).lrc"}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#faf097","right":"#0d1e3d","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"categories":{"path":"/categories","icon":"fa-regular fa-folders"},"Friends":{"path":"/friends","icon":"fa-regular fa-link"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":false,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"YYYY-MM-DD","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":10}},"footerStart":"2025/5/17 00:00:00"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        aaaaa online
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({ loop: true })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [20, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
+                easing: "easeOutExpo",
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/favicon.png" class="w-full h-full rounded-xs">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                aaaaa online
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories"
+                                        >
+                                    <i class="fa-regular fa-folders fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/friends"
+                                        >
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    友情链接
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-regular fa-folders fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/friends"
+                        >
+                            <span>
+                                友情链接
+                            </span>
+                            
+                                <i class="fa-regular fa-link fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">11</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">42</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">CS110 计算机体系结构 8 搭建一个 CPU</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/favicon.png">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">aaaaa</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2026-08-20 23:00</span>
+        <span class="mobile">2026-08-20 23:00</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-08-20 22:57:50</span>
+            <span class="mobile">2026-08-20 22:57:50</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A/">零基础速通</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A/CS110-%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">CS110 计算机体系结构</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/0-Start-Learning/">0_Start_Learning</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>3k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>10 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p>前两章介绍了关于计算机硬件的底层内容，但是本质上还是电路的基础知识，和计算机本身关系不太大。这一章我们将把计算机的 CPU 拆开来讲，从头开始搭建一个 CPU。</p>
+<hr>
+<h2 id="数据通路"><a href="#数据通路" class="headerlink" title="数据通路"></a>数据通路</h2><p>数据通路，就是数据处理和存储的流程。而 CPU 的设计，大致会按照数据通路分成以下部分：程序计数器（Program Counter，简称 PC）、寄存器组（Register File）、算术逻辑单元（Arithmetic &amp; Logic Unit，简称 ALU）。这些数据通路是数据流动的路径，然而具体如何操控这些数据的流动，则需要一个控制器（Controller）来管理。这样，整个 CPU 的几个部分就一目了然了，如下图：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/images/CS110/Snipaste_2026-04-07_09-21-34.png" alt="Snipaste_2026-04-07_09-21-34"></p>
+<p><strong>由于课程项目会要求使用相关模拟软件来手搓一个 CPU，请读者务必熟悉各个部分的作用和逻辑结构</strong>。接下来我们逐一介绍这些部分。</p>
+<h3 id="PC-寄存器"><a href="#PC-寄存器" class="headerlink" title="PC 寄存器"></a>PC 寄存器</h3><p>程序计数器 PC 本质上是一个寄存器，存储了当前程序执行到的代码语句的内存地址，后续解码器通过读入 PC 寄存器的值，然后在指令内存（Instruction memory, Imem）中查询指定指令，解码后传给控制器，指导 CPU 工作。</p>
+<p>因此，PC 寄存器本质上需要实现的功能有 3 个：+4、跳转到后 x 字节的相对地址处、跳转到 x 字节（绝对地址）处。显然，这分别对应着 RISC-V 中的常规代码执行（每句语句 32 bit = 4 byte）、相对距离跳转（B-Type 跳转，<code>jal</code> 跳转等）和绝对地址跳转（<code>jalr</code> 跳转等）三个功能。我们先尝试实现一个最简单的、只会每个周期 +4 的寄存器作为我们的 PC：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/images/CS110/Snipaste_2026-04-07_09-54-43.png" alt="Snipaste_2026-04-07_09-54-43"></p>
+<p>剩下的两种跳转等我们实现完整的 CPU 时再具体实现。</p>
+<h3 id="寄存器组-Register-File"><a href="#寄存器组-Register-File" class="headerlink" title="寄存器组 Register File"></a>寄存器组 Register File</h3><p>1 个 32 位的寄存器只能同时存储 1 个 32 位二进制数，这显然不符合 RISC-V 的要求——我们需要 32 个 32 位寄存器来存储我们的中间值。因此，我们会设计 32 个寄存器合并为一组，供 CPU 电路选择待操作的寄存器，这个整体被称为寄存器组。</p>
+<p>从功能上，寄存器组需要完成的功能是：接收一个需要写入的寄存器编号、需要写入的值和一个需要读出的寄存器编号，然后根据编号找到正确的寄存器，做正确的操作后输出正确的值。</p>
+<p>这里补充一个我们在设计硬件电路时很常用的思路：电路不像程序，电路是写死的，不能根据程序而灵活变化物理结构，因此对于一些只在某些特定情况下需要输出的结果，我们一般会留出输出的接口，在不需要使用时忽略这些输出结果。这样的做法本质上不会影响执行速度——这只是让应该空闲的电路跑起来得到无效的值，本质上和有效的电路是并行的，并不会影响执行的效率。在这里，不是每次寄存器操作都会同时涉及读和写，此时不涉及的那部分电路也会有输出（而不是不让它输出），只是我们选择忽略这部分输出罢了。</p>
+<h3 id="算术逻辑单元-ALU"><a href="#算术逻辑单元-ALU" class="headerlink" title="算术逻辑单元 ALU"></a>算术逻辑单元 ALU</h3><p>ALU 是 CPU 中执行“计算”功能的关键单元，正是它支持了所有的算术与逻辑操作，包括 <code>ADD</code> <code>SUB</code> <code>SLL</code> <code>SLT</code> <code>SLTU</code> <code>XOR</code> <code>SRL</code> <code>SRA</code> <code>OR</code> <code>AND</code> <code>ADDI</code> <code>SLTI</code> <code>SLTIU</code> <code>XORI</code> <code>ORI</code> <code>ANDI</code> 等。当然，相信读者已经发现，这里部分操作，如 <code>ADD</code> 和 <code>ADDI</code> 本质上没有区别——事实上，实现这部分电路时，我们会在输入处使用多路选择器（Multiplexer, MUX）来选择输入来源，然后对于本质相同的运算，会使用相同的组合电路来实现。因为 ALU 本质上就是一个巨大的组合电路，其中并不存在时钟或寄存器，因此，每一条标准 RISC-V RV32I 指令在 ALU 中的运算都能在 1 个时间周期内完成。</p>
+<hr>
+<h2 id="不同类型指令的数据通路"><a href="#不同类型指令的数据通路" class="headerlink" title="不同类型指令的数据通路"></a>不同类型指令的数据通路</h2><p>CPU 需要支持 RISC-V 的各类指令，而各种指令会共用以上各个部分，把它们混杂在一起不方便读者理解，因此我们将指令按照类型分开，分别讨论每个类型的指令的正常执行需要什么样的数据通路。</p>
+<h3 id="R-Type"><a href="#R-Type" class="headerlink" title="R-Type"></a>R-Type</h3><p><img lazyload="" src="/images/loading.svg" data-src="/images/CS110/Snipaste_2026-04-09_08-29-50.png" alt="Snipaste_2026-04-09_08-29-50"></p>
+<p>整个处理过程是线性的：在最左上角是 PC，程序从 PC 中读取执行到的指令的地址，然后从 Instruction Memory 中找到对应的指令，并从中按位提取出需要操作的寄存器编号 <code>rd</code> <code>rs1</code> <code>rs2</code> 传入寄存器组 Reg.file；寄存器组读出指定寄存器里储存的值 <code>x[rs1]</code> 和 <code>x[rs2]</code>，传入 ALU。ALU 的内部详细结构画在左下角：两个输入分别传入 10 种不同的运算，算出结果后，取其中需要的结果输出。ALU 输出的结果传回寄存器组，并保存在编号为 <code>rd</code> 的寄存器中。</p>
+<p>我们不妨统计一下执行完一条 R-Type 指令的延迟：从 PC 中读出指令地址传入指令内存 Imem，并读出对应的指令需要一定的延迟，于此同时，PC 的值更新成下一条指令的地址；寄存器组处理读出的值需要一定的时间；ALU 本身存在延迟；把 ALU 输出的值写回寄存器组存在延迟。我们把这些延迟分别计算出来并相加，就是 R-Type 指令的执行延迟：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/images/CS110/Snipaste_2026-04-14_08-30-18.png" alt="Snipaste_2026-04-14_08-30-18"></p>
+<p>本质上，这里黄色的循环和蓝色的循环是同时进行的，因此延迟会取最大值，也就是蓝色的循环：<mjx-container class="MathJax" jax="SVG" overflow="overflow"><svg style="vertical-align: -0.341ex;" xmlns="http://www.w3.org/2000/svg" width="3.001ex" height="1.757ex" role="img" focusable="false" viewBox="0 -626 1326.5 776.7"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math" data-latex="t_{IF}"><g data-mml-node="msub" data-latex="t_{IF}"><g data-mml-node="mi" data-latex="t"><path data-c="1D461" d="M330 419C330 428 320 433 299 433L218 433C244 537 257 591 257 595C257 616 246 626 225 626C202 626 188 613 182 587L145 433L56 433C34 433 23 432 23 411C23 400 33 395 54 395L135 395C86 200 62 97 62 84C62 28 100-11 156-11C194-11 227 6 256 41C280 70 297 98 308 125C312 136 314 142 314 145C314 154 309 159 299 159C291 159 285 154 281 143C247 60 206 19 157 19C140 19 131 33 131 60C131 75 133 91 137 107L208 395L297 395C323 395 330 397 330 419Z"></path></g><g data-mml-node="TeXAtom" transform="translate(394,-150) scale(0.707)" data-latex="{I F}" data-mjx-texclass="ORD"><g data-mml-node="mi" data-latex="I"><path data-c="1D43C" d="M497 667C497 678 491 683 478 683L349 680L218 683C202 684 194 676 194 659C194 649 205 644 226 644C269 644 290 639 290 630C290 625 289 620 288 615L155 82C150 60 140 47 125 42C118 40 100 39 69 39C44 39 34 38 34 15C34 5 40 0 53 0L181 3L313 0C329-1 337 7 337 23C337 39 325 39 303 39C264 39 240 37 240 53C240 58 241 65 244 75L376 602C381 623 391 636 406 641C413 643 431 644 462 644C486 644 497 645 497 667Z"></path></g><g data-mml-node="mi" data-latex="F" transform="translate(497,0)"><path data-c="1D439" d="M199 656C199 646 210 641 231 641C271 641 291 637 291 628C291 625 289 618 286 605L156 82C150 60 140 47 126 42C119 40 101 39 70 39C48 39 38 37 38 16C38 5 44 0 57 0L187 3L335 0C351 0 359 8 359 23C359 40 348 39 322 39C278 39 253 41 247 46C244 47 243 51 243 56L307 321L400 321C446 321 478 319 478 281C478 268 476 252 471 233C470 230 469 226 468 222C468 211 473 206 484 206C489 207 496 214 503 229L557 444C559 452 560 458 560 461C557 470 551 475 544 475C536 475 530 467 526 452C516 414 502 390 486 378C470 366 442 360 402 360L317 360L379 606C387 640 387 641 429 641L559 641C656 641 700 626 700 537C700 517 699 499 697 484C696 473 695 467 695 466C695 455 700 450 710 450C720 450 726 459 728 478L748 649C751 677 744 680 717 680L233 680C210 680 199 679 199 656Z"></path></g></g></g></g></g></svg></mjx-container> 读取指令 Instruction Fetch + <mjx-container class="MathJax" jax="SVG" overflow="overflow"><svg style="vertical-align: -0.375ex;" xmlns="http://www.w3.org/2000/svg" width="4.77ex" height="1.791ex" role="img" focusable="false" viewBox="0 -626 2108.5 791.6"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math" data-latex="t_{DEC}"><g data-mml-node="msub" data-latex="t_{DEC}"><g data-mml-node="mi" data-latex="t"><path data-c="1D461" d="M330 419C330 428 320 433 299 433L218 433C244 537 257 591 257 595C257 616 246 626 225 626C202 626 188 613 182 587L145 433L56 433C34 433 23 432 23 411C23 400 33 395 54 395L135 395C86 200 62 97 62 84C62 28 100-11 156-11C194-11 227 6 256 41C280 70 297 98 308 125C312 136 314 142 314 145C314 154 309 159 299 159C291 159 285 154 281 143C247 60 206 19 157 19C140 19 131 33 131 60C131 75 133 91 137 107L208 395L297 395C323 395 330 397 330 419Z"></path></g><g data-mml-node="TeXAtom" transform="translate(394,-150) scale(0.707)" data-latex="{D E C}" data-mjx-texclass="ORD"><g data-mml-node="mi" data-latex="D"><path data-c="1D437" d="M567 683L235 683C212 683 201 682 201 660C201 649 212 644 234 644C254 644 294 647 294 631C294 629 293 623 290 613L158 82C153 60 143 47 128 42C121 40 103 39 72 39C50 39 40 37 40 16C40 5 51 0 72 0L399 0C467 0 532 20 595 61C702 130 804 265 804 429C804 577 713 683 567 683M710 466C710 353 659 216 607 149C550 76 475 39 381 39L270 39C259 39 252 39 248 40C242 40 239 42 239 45C239 47 241 54 244 67L379 610C388 643 387 644 429 644L535 644C647 644 710 578 710 466Z"></path></g><g data-mml-node="mi" data-latex="E" transform="translate(828,0)"><path data-c="1D438" d="M199 656C199 646 210 641 231 641C271 641 291 637 291 628C291 625 289 618 286 605L156 82C151 60 141 47 126 42C119 40 101 39 70 39C48 39 38 37 38 16C38 5 49 0 70 0L583 0C607 0 609 2 617 19L657 109C684 171 703 217 714 248C712 257 709 263 698 263C691 263 685 258 681 249C656 190 632 145 608 113C568 59 509 39 415 39L270 39C260 39 253 39 249 40C243 40 240 42 240 45C240 47 242 54 245 67L311 334L406 334C453 334 478 328 483 315C485 310 486 303 486 293C486 280 484 264 479 245C477 240 476 236 476 233C476 223 482 218 493 218C502 218 508 226 512 241L568 473C568 483 563 488 552 488C544 488 538 481 535 467C525 428 512 403 495 391C478 379 450 373 409 373L321 373L379 606C387 640 387 641 429 641L568 641C619 641 654 636 673 626C701 611 715 581 715 536C715 519 714 501 711 484C711 482 711 479 710 475L710 466C710 455 715 450 725 450C735 450 741 459 743 478L763 649C766 677 759 680 732 680L233 680C210 680 199 679 199 656Z"></path></g><g data-mml-node="mi" data-latex="C" transform="translate(1594,0)"><path data-c="1D436" d="M148 218C148 346 204 476 267 548C318 607 406 666 505 666C609 666 660 587 660 479C660 470 657 438 657 429C657 420 663 415 676 415C681 415 685 416 688 417C693 424 696 431 698 438L760 691C760 700 755 705 745 705C741 705 735 701 727 692L662 619C623 676 568 705 497 705C442 705 388 692 333 667C222 615 141 533 89 421C63 366 50 310 50 253C50 173 75 108 126 56C177 4 242-22 322-22C401-22 473 7 538 64C565 87 588 115 607 146C634 191 648 222 648 241C648 250 643 255 632 255C623 255 618 251 616 242C595 177 562 125 517 88C460 41 400 17 338 17C218 17 148 98 148 218Z"></path></g></g></g></g></g></svg></mjx-container> 解码 Decode + <mjx-container class="MathJax" jax="SVG" overflow="overflow"><svg style="vertical-align: -0.339ex;" xmlns="http://www.w3.org/2000/svg" width="3.591ex" height="1.756ex" role="img" focusable="false" viewBox="0 -626 1587.4 776"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math" data-latex="t_{EX}"><g data-mml-node="msub" data-latex="t_{EX}"><g data-mml-node="mi" data-latex="t"><path data-c="1D461" d="M330 419C330 428 320 433 299 433L218 433C244 537 257 591 257 595C257 616 246 626 225 626C202 626 188 613 182 587L145 433L56 433C34 433 23 432 23 411C23 400 33 395 54 395L135 395C86 200 62 97 62 84C62 28 100-11 156-11C194-11 227 6 256 41C280 70 297 98 308 125C312 136 314 142 314 145C314 154 309 159 299 159C291 159 285 154 281 143C247 60 206 19 157 19C140 19 131 33 131 60C131 75 133 91 137 107L208 395L297 395C323 395 330 397 330 419Z"></path></g><g data-mml-node="TeXAtom" transform="translate(394,-150) scale(0.707)" data-latex="{E X}" data-mjx-texclass="ORD"><g data-mml-node="mi" data-latex="E"><path data-c="1D438" d="M199 656C199 646 210 641 231 641C271 641 291 637 291 628C291 625 289 618 286 605L156 82C151 60 141 47 126 42C119 40 101 39 70 39C48 39 38 37 38 16C38 5 49 0 70 0L583 0C607 0 609 2 617 19L657 109C684 171 703 217 714 248C712 257 709 263 698 263C691 263 685 258 681 249C656 190 632 145 608 113C568 59 509 39 415 39L270 39C260 39 253 39 249 40C243 40 240 42 240 45C240 47 242 54 245 67L311 334L406 334C453 334 478 328 483 315C485 310 486 303 486 293C486 280 484 264 479 245C477 240 476 236 476 233C476 223 482 218 493 218C502 218 508 226 512 241L568 473C568 483 563 488 552 488C544 488 538 481 535 467C525 428 512 403 495 391C478 379 450 373 409 373L321 373L379 606C387 640 387 641 429 641L568 641C619 641 654 636 673 626C701 611 715 581 715 536C715 519 714 501 711 484C711 482 711 479 710 475L710 466C710 455 715 450 725 450C735 450 741 459 743 478L763 649C766 677 759 680 732 680L233 680C210 680 199 679 199 656Z"></path></g><g data-mml-node="mi" data-latex="X" transform="translate(766,0)"><path data-c="1D44B" d="M834 683C817 683 758 680 741 680C721 680 651 683 631 683C616 683 608 675 608 659C608 650 613 645 624 644C648 641 660 633 660 618C660 609 654 598 642 585L486 417C457 485 429 552 400 620C401 622 402 624 405 626C414 636 431 642 455 644C471 646 479 654 479 667C479 678 473 683 460 683C436 683 359 680 335 680C314 680 245 683 224 683C209 683 202 675 202 659C202 649 211 644 229 644C274 644 288 644 300 615L416 342L208 119C205 116 201 112 196 109C155 66 108 42 53 39C36 38 27 29 27 14C30 5 31 0 44 0C61 0 120 3 137 3C158 3 227 0 248 0C263 0 270 8 270 24C270 33 265 38 254 39C230 41 218 50 218 65C218 75 227 89 244 107C306 173 369 239 430 306C464 225 499 145 532 63C531 61 530 59 527 56C518 47 502 42 478 39C463 37 455 29 455 16C455 5 461 0 474 0L599 3C620 3 690 0 708 0C723 0 731 8 731 23C731 33 724 38 709 39C678 39 658 40 651 44C644 48 636 60 628 80L501 383C569 455 620 509 653 546C677 571 693 588 702 595C739 626 780 642 825 644C846 645 851 650 851 669C848 678 847 683 834 683Z"></path></g></g></g></g></g></svg></mjx-container> 执行 Execute + <mjx-container class="MathJax" jax="SVG" overflow="overflow"><svg style="vertical-align: -0.375ex;" xmlns="http://www.w3.org/2000/svg" width="3.895ex" height="1.791ex" role="img" focusable="false" viewBox="0 -626 1721.7 791.6"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math" data-latex="t_{WB}"><g data-mml-node="msub" data-latex="t_{WB}"><g data-mml-node="mi" data-latex="t"><path data-c="1D461" d="M330 419C330 428 320 433 299 433L218 433C244 537 257 591 257 595C257 616 246 626 225 626C202 626 188 613 182 587L145 433L56 433C34 433 23 432 23 411C23 400 33 395 54 395L135 395C86 200 62 97 62 84C62 28 100-11 156-11C194-11 227 6 256 41C280 70 297 98 308 125C312 136 314 142 314 145C314 154 309 159 299 159C291 159 285 154 281 143C247 60 206 19 157 19C140 19 131 33 131 60C131 75 133 91 137 107L208 395L297 395C323 395 330 397 330 419Z"></path></g><g data-mml-node="TeXAtom" transform="translate(394,-150) scale(0.707)" data-latex="{W B}" data-mjx-texclass="ORD"><g data-mml-node="mi" data-latex="W"><path data-c="1D44A" d="M956 680C937 680 872 683 853 683C838 683 830 675 830 660C830 650 836 645 848 644C885 643 903 632 903 610C903 604 899 594 891 579L629 125L594 602C590 638 614 644 659 644C680 644 690 652 690 668C690 678 684 683 671 683C649 683 572 680 550 680C531 680 465 683 446 683C431 683 423 675 423 659C423 649 432 644 451 644C482 644 498 637 499 623L505 548L261 125L225 613C222 638 264 644 296 644C313 644 321 652 321 668C321 678 315 683 303 683C281 683 203 680 181 680C162 680 96 683 77 683C62 683 55 675 55 660C55 649 65 644 84 644C126 644 130 642 132 612L177 7C178-12 185-22 197-22C210-20 215-17 223-2C224-1 224 0 224 1L509 494L545 7C546-12 553-22 565-22C575-22 584-15 592-1L918 562C945 611 964 639 1025 644C1043 646 1048 651 1048 668C1048 678 1043 683 1032 683C1018 683 970 680 956 680Z"></path></g><g data-mml-node="mi" data-latex="B" transform="translate(1048,0)"><path data-c="1D435" d="M756 543C756 634 666 683 568 683L236 683C213 683 203 682 203 659C203 643 223 644 235 644C265 643 283 641 288 640C293 639 295 636 295 631C295 629 294 623 291 613L159 82C154 60 144 47 129 42C122 40 104 39 73 39C52 39 42 31 42 15C42 5 52 0 73 0L426 0C491 0 551 20 608 59C671 102 703 155 703 217C703 296 638 344 567 358C655 379 756 446 756 543M554 644C623 644 658 612 658 547C658 496 638 454 596 420C554 386 507 370 456 370L317 370L377 610C385 644 385 644 427 644M582 299C596 276 603 253 603 228C603 176 583 131 542 94C501 57 455 39 402 39L267 39C257 39 250 39 246 40C240 40 237 42 237 45C237 46 237 49 238 53C269 180 293 276 309 340L493 340C536 340 565 326 582 299Z"></path></g></g></g></g></g></svg></mjx-container> 写回 Write Back。</p>
+<h3 id="I-Type-运算部分"><a href="#I-Type-运算部分" class="headerlink" title="I-Type 运算部分"></a>I-Type 运算部分</h3><p><img lazyload="" src="/images/loading.svg" data-src="/images/CS110/Snipaste_2026-04-09_08-34-44.png" alt="Snipaste_2026-04-09_08-34-44"></p>
+<p>这里和 R-Type 的总体结构几乎是一致的，唯一的区别在于指令提取以及立即数生成器 imm.Gen。在这个部分中，立即数生成器会把指令中的立即数提取出来，进行符号位拓展后，作为第二个运算数参与 ALU 中的运算。为了兼容前面 R-Type 的电路结构，ALU 的第二个运算数需要使用一个多路选择器 MUX 进行选择。</p>
+<p>照例，我们计算一下 I-Type 指令（运算）的延迟：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/images/CS110/Snipaste_2026-04-14_08-34-36.png" alt="Snipaste_2026-04-14_08-34-36"></p>
+<p>由于立即数生成本质上是重新接线的问题，MUX 的延迟也较小，而寄存器中读出值需要经过多层组合电路，因此后者延迟往往更大，整个过程和 R-Type 指令的关键路径是相同的，因此延迟的表达式也是一致的。</p>
+<h3 id="I-Type-加载部分"><a href="#I-Type-加载部分" class="headerlink" title="I-Type 加载部分"></a>I-Type 加载部分</h3><p><img lazyload="" src="/images/loading.svg" data-src="/images/CS110/Snipaste_2026-04-09_08-51-29.png" alt="Snipaste_2026-04-09_08-51-29"></p>
+<p>I-Type 指令（加载）的结构与前两种结构最大的不同在于增加了一个数据内存 Data memory, Dmem。其实，Dmem 和 Imem 在物理上是同一块内存的不同部分，在设计上把它分开，是为了方便同时读写指令内存和数据内存（为什么要同时读写？在下一章你就会理解了！）在这里，I-Type 指令（加载）需要从（数据）内存的指定地址处读取数据，并将它写回寄存器。因此，写回的部分也需要加一个 MUX，用于选择到底是把从 Dmem 中读取的值写回，还是把 ALU 的运算结果直接写回。</p>
+<p>同理，我们计算 I-Type 指令（加载）的延迟：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/images/CS110/Snipaste_2026-04-14_08-36-28.png" alt="Snipaste_2026-04-14_08-36-28"></p>
+<p>你会发现，这个循环有一个比前两种指令都更长的延迟，因为这里多经过了一个 Dmem，因此多一个 <mjx-container class="MathJax" jax="SVG" overflow="overflow"><svg style="vertical-align: -0.339ex;" xmlns="http://www.w3.org/2000/svg" width="5.57ex" height="1.756ex" role="img" focusable="false" viewBox="0 -626 2462.1 776"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math" data-latex="t_{MEM}"><g data-mml-node="msub" data-latex="t_{MEM}"><g data-mml-node="mi" data-latex="t"><path data-c="1D461" d="M330 419C330 428 320 433 299 433L218 433C244 537 257 591 257 595C257 616 246 626 225 626C202 626 188 613 182 587L145 433L56 433C34 433 23 432 23 411C23 400 33 395 54 395L135 395C86 200 62 97 62 84C62 28 100-11 156-11C194-11 227 6 256 41C280 70 297 98 308 125C312 136 314 142 314 145C314 154 309 159 299 159C291 159 285 154 281 143C247 60 206 19 157 19C140 19 131 33 131 60C131 75 133 91 137 107L208 395L297 395C323 395 330 397 330 419Z"></path></g><g data-mml-node="TeXAtom" transform="translate(394,-150) scale(0.707)" data-latex="{M E M}" data-mjx-texclass="ORD"><g data-mml-node="mi" data-latex="M"><path data-c="1D440" d="M594 16C594 5 600 0 613 0L736 3C759 4 840 0 859 0C874 0 882 8 882 24C882 34 872 39 851 39C810 39 790 43 790 52C790 55 792 62 795 75L927 602C932 623 942 636 955 641C961 643 979 644 1008 644C1033 644 1044 645 1044 668C1044 678 1034 683 1013 683L882 683C853 683 853 681 840 662L484 108L408 657C404 682 402 683 373 683L237 683C215 683 204 682 204 660C204 649 215 644 236 644C256 644 297 647 297 631C297 629 296 623 293 613L167 110C158 72 135 49 100 42C75 39 42 43 42 16C42 5 48 0 60 0C78 0 141 3 159 3C178 3 242 0 261 0C276 0 283 8 283 24C283 33 276 38 261 39C219 39 198 52 198 78C198 82 199 89 202 100L332 621L415 26C418 9 424 0 434 0C442 0 450 7 459 20L848 627L712 82C706 60 696 47 681 42C675 40 656 39 625 39C604 39 594 37 594 16Z"></path></g><g data-mml-node="mi" data-latex="E" transform="translate(1044,0)"><path data-c="1D438" d="M199 656C199 646 210 641 231 641C271 641 291 637 291 628C291 625 289 618 286 605L156 82C151 60 141 47 126 42C119 40 101 39 70 39C48 39 38 37 38 16C38 5 49 0 70 0L583 0C607 0 609 2 617 19L657 109C684 171 703 217 714 248C712 257 709 263 698 263C691 263 685 258 681 249C656 190 632 145 608 113C568 59 509 39 415 39L270 39C260 39 253 39 249 40C243 40 240 42 240 45C240 47 242 54 245 67L311 334L406 334C453 334 478 328 483 315C485 310 486 303 486 293C486 280 484 264 479 245C477 240 476 236 476 233C476 223 482 218 493 218C502 218 508 226 512 241L568 473C568 483 563 488 552 488C544 488 538 481 535 467C525 428 512 403 495 391C478 379 450 373 409 373L321 373L379 606C387 640 387 641 429 641L568 641C619 641 654 636 673 626C701 611 715 581 715 536C715 519 714 501 711 484C711 482 711 479 710 475L710 466C710 455 715 450 725 450C735 450 741 459 743 478L763 649C766 677 759 680 732 680L233 680C210 680 199 679 199 656Z"></path></g><g data-mml-node="mi" data-latex="M" transform="translate(1810,0)"><path data-c="1D440" d="M594 16C594 5 600 0 613 0L736 3C759 4 840 0 859 0C874 0 882 8 882 24C882 34 872 39 851 39C810 39 790 43 790 52C790 55 792 62 795 75L927 602C932 623 942 636 955 641C961 643 979 644 1008 644C1033 644 1044 645 1044 668C1044 678 1034 683 1013 683L882 683C853 683 853 681 840 662L484 108L408 657C404 682 402 683 373 683L237 683C215 683 204 682 204 660C204 649 215 644 236 644C256 644 297 647 297 631C297 629 296 623 293 613L167 110C158 72 135 49 100 42C75 39 42 43 42 16C42 5 48 0 60 0C78 0 141 3 159 3C178 3 242 0 261 0C276 0 283 8 283 24C283 33 276 38 261 39C219 39 198 52 198 78C198 82 199 89 202 100L332 621L415 26C418 9 424 0 434 0C442 0 450 7 459 20L848 627L712 82C706 60 696 47 681 42C675 40 656 39 625 39C604 39 594 37 594 16Z"></path></g></g></g></g></g></svg></mjx-container> 也很正常。</p>
+<h3 id="S-Type"><a href="#S-Type" class="headerlink" title="S-Type"></a>S-Type</h3><p><img lazyload="" src="/images/loading.svg" data-src="/images/CS110/Snipaste_2026-04-09_08-59-16.png" alt="Snipaste_2026-04-09_08-59-16"></p>
+<p>S-Type 指令多了向数据内存 Dmem 中写入数据的需求，因此需要给 Dmem 多开一个写入口——这样又多了一路控制信号，负责控制 Dmem 的操作到底是读出值还是写入值。因此，我们在前面的基础上加上这一结构，并继续计算其中的延迟：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/images/CS110/Snipaste_2026-04-14_08-40-34.png" alt="Snipaste_2026-04-14_08-40-34"></p>
+<p>由于把数据存储进 Dmem 就万事大吉了，这个指令不需要写回，所以与前几种指令相比，延迟少了最后一段 <mjx-container class="MathJax" jax="SVG" overflow="overflow"><svg style="vertical-align: -0.375ex;" xmlns="http://www.w3.org/2000/svg" width="3.895ex" height="1.791ex" role="img" focusable="false" viewBox="0 -626 1721.7 791.6"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math" data-latex="t_{WB}"><g data-mml-node="msub" data-latex="t_{WB}"><g data-mml-node="mi" data-latex="t"><path data-c="1D461" d="M330 419C330 428 320 433 299 433L218 433C244 537 257 591 257 595C257 616 246 626 225 626C202 626 188 613 182 587L145 433L56 433C34 433 23 432 23 411C23 400 33 395 54 395L135 395C86 200 62 97 62 84C62 28 100-11 156-11C194-11 227 6 256 41C280 70 297 98 308 125C312 136 314 142 314 145C314 154 309 159 299 159C291 159 285 154 281 143C247 60 206 19 157 19C140 19 131 33 131 60C131 75 133 91 137 107L208 395L297 395C323 395 330 397 330 419Z"></path></g><g data-mml-node="TeXAtom" transform="translate(394,-150) scale(0.707)" data-latex="{W B}" data-mjx-texclass="ORD"><g data-mml-node="mi" data-latex="W"><path data-c="1D44A" d="M956 680C937 680 872 683 853 683C838 683 830 675 830 660C830 650 836 645 848 644C885 643 903 632 903 610C903 604 899 594 891 579L629 125L594 602C590 638 614 644 659 644C680 644 690 652 690 668C690 678 684 683 671 683C649 683 572 680 550 680C531 680 465 683 446 683C431 683 423 675 423 659C423 649 432 644 451 644C482 644 498 637 499 623L505 548L261 125L225 613C222 638 264 644 296 644C313 644 321 652 321 668C321 678 315 683 303 683C281 683 203 680 181 680C162 680 96 683 77 683C62 683 55 675 55 660C55 649 65 644 84 644C126 644 130 642 132 612L177 7C178-12 185-22 197-22C210-20 215-17 223-2C224-1 224 0 224 1L509 494L545 7C546-12 553-22 565-22C575-22 584-15 592-1L918 562C945 611 964 639 1025 644C1043 646 1048 651 1048 668C1048 678 1043 683 1032 683C1018 683 970 680 956 680Z"></path></g><g data-mml-node="mi" data-latex="B" transform="translate(1048,0)"><path data-c="1D435" d="M756 543C756 634 666 683 568 683L236 683C213 683 203 682 203 659C203 643 223 644 235 644C265 643 283 641 288 640C293 639 295 636 295 631C295 629 294 623 291 613L159 82C154 60 144 47 129 42C122 40 104 39 73 39C52 39 42 31 42 15C42 5 52 0 73 0L426 0C491 0 551 20 608 59C671 102 703 155 703 217C703 296 638 344 567 358C655 379 756 446 756 543M554 644C623 644 658 612 658 547C658 496 638 454 596 420C554 386 507 370 456 370L317 370L377 610C385 644 385 644 427 644M582 299C596 276 603 253 603 228C603 176 583 131 542 94C501 57 455 39 402 39L267 39C257 39 250 39 246 40C240 40 237 42 237 45C237 46 237 49 238 53C269 180 293 276 309 340L493 340C536 340 565 326 582 299Z"></path></g></g></g></g></g></svg></mjx-container>。</p>
+<h3 id="B-Type"><a href="#B-Type" class="headerlink" title="B-Type"></a>B-Type</h3><p><img lazyload="" src="/images/loading.svg" data-src="/images/CS110/Snipaste_2026-04-09_09-25-41.png" alt="Snipaste_2026-04-09_09-25-41"></p>
+<p>B-Type 是相对特殊的一类指令：它会涉及到 PC 值的改变，因此需要从 ALU 接回一路信号来判断是否需要跳转。本质上，这类指令在 ALU 中实际执行的计算是减法，通过判断条件中的值之差是否等于 <code>0</code> / 小于 <code>0</code> 来决定 <code>beq</code> 或 <code>blt</code> 等指令的跳转与否。</p>
+<p>如果读者在这里还记得属于 I-Type 指令的 <code>jalr</code> 指令，你会发现我们还没有实现这条指令——我们可以把它和 B-Type 使用相似的方式实现，即在 PC 前面加法器后增加一个 MUX，设计一个独立的加法器，用于计算 <code>rs1 + imm</code> 的值并把 PC 直接改为这个值（当然，也可以在加法器连接 PC 的输入处增加一个 MUX，允许选择是 <code>pc</code> 还是 <code>rs1</code> 来输入，具体有很多种等价实现方式）。</p>
+<p>言归正传，以下是 B-Type 指令的延迟分析：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/images/CS110/Snipaste_2026-04-14_08-43-27.png" alt="Snipaste_2026-04-14_08-43-27"></p>
+<p>这里上面的表达式计算的是是否需要跳转的延迟，下面的表达式计算的是修改 PC 的延迟，一般认为前者的延迟更大，是关键路径，因此 B-Type 指令的延迟和 R-Type、I-Type（运算）是一致的。</p>
+<hr>
+<h2 id="控制器-Controller"><a href="#控制器-Controller" class="headerlink" title="控制器 Controller"></a>控制器 Controller</h2><p><img lazyload="" src="/images/loading.svg" data-src="/images/CS110/Snipaste_2026-04-09_09-43-44.png" alt="Snipaste_2026-04-09_09-43-44"></p>
+<p>上图中展示了一个相对完整的 RISC-V CPU 的数据通路，其实就是我们刚才不同类型指令的数据通路组合起来拼成的。我们发现，这条数据通路中有很多<strong>控制信号</strong>没有处理（上图中紫色的字段），而这些就是控制器负责的范畴。控制器会读入 Imem 中的读出的指令，根据 <code>opcode</code> 将其解析为不同类型的指令，然后按照各类型的语法，分别解析出指令内容以及寄存器编号，最后计算出不同控制信号的值并分别输出给数据通路的各个部分，指导它们正常工作。</p>
+<p>在上图的数据通路实现中，这些控制信号的含义如下：</p>
+<ul>
+<li><code>reg_en</code> Register Enable，是否允许寄存器组进行更新</li>
+<li><code>re</code> Read Enable，是否允许从数据寄存器 Data memory 读取数据</li>
+<li><code>we</code> Write Enable，是否允许写入数据寄存器 Data memory</li>
+<li><code>alu_ctrl</code> ALU Control，决定ALU执行哪种算术或逻辑运算</li>
+<li><code>imm_ctrl</code> Immediate Control，控制立即数生成器 imm.Gen （对于不同指令类型）如何拓展立即数</li>
+<li><code>wb_src</code> Write-Back Source Select，决定最终写入寄存器的数据来自ALU计算还是数据寄存器</li>
+<li><code>op2_src</code> Operand 2 Source Select，决定ALU的第二个操作数来自寄存器组还是立即数</li>
+<li><code>is_beq_instruction</code> 决定是否为 <code>beq</code> 指令（相等则分支）</li>
+</ul>
+<p>显然，即使是完全相同功能的 CPU，还能有无数种不同的实现方法，因此控制信号不一定局限于以上几种，还需读者根据实际数据通路的实现方式自行判断。</p>
+<p>通过以上步骤，我们就可以手动搭建一个 CPU 的核心电路了。在 26 Spring 的 CS110 课程项目中，我们使用的是 <em>Logisim</em> 或者 <em>SpinalHDL</em> 来在计算机中仿真电路，有兴趣的读者可以自行搭建。下一章我们将在已经实现的 CPU 上做一些改进，以大幅提高 CPU 执行指令的效率。</p>
+<hr>
+<p><a href="https://aaaaa114514-1.github.io/categories/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A/CS110-%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">回到目录</a> </p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> CS110 计算机体系结构 8 搭建一个 CPU</li>
+        <li><strong>作者:</strong> aaaaa</li>
+        <li><strong>创建于
+                :</strong> 2026-08-20 23:00:00</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2026-08-20 22:57:50
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://redefine.ohevan.com/2026/08/20/零基础速通系列/CS110 计算机体系结构/零基础速通：CS110_计算机体系结构_8/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                版权所有 &#169 aaaaa，禁止转载。
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/0-Start-Learning/">#0_Start_Learning</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2026/08/17/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%E7%B3%BB%E5%88%97/CS110%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E9%9B%B6%E5%9F%BA%E7%A1%80%E9%80%9F%E9%80%9A%EF%BC%9ACS110_%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84_7/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">CS110 计算机体系结构 7 时序电路与有限状态机</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">CS110 计算机体系结构 8 搭建一个 CPU</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%80%9A%E8%B7%AF"><span class="nav-text">数据通路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PC-%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-text">PC 寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E7%BB%84-Register-File"><span class="nav-text">寄存器组 Register File</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E9%80%BB%E8%BE%91%E5%8D%95%E5%85%83-ALU"><span class="nav-text">算术逻辑单元 ALU</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E7%B1%BB%E5%9E%8B%E6%8C%87%E4%BB%A4%E7%9A%84%E6%95%B0%E6%8D%AE%E9%80%9A%E8%B7%AF"><span class="nav-text">不同类型指令的数据通路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#R-Type"><span class="nav-text">R-Type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#I-Type-%E8%BF%90%E7%AE%97%E9%83%A8%E5%88%86"><span class="nav-text">I-Type 运算部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#I-Type-%E5%8A%A0%E8%BD%BD%E9%83%A8%E5%88%86"><span class="nav-text">I-Type 加载部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#S-Type"><span class="nav-text">S-Type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-Type"><span class="nav-text">B-Type</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E5%99%A8-Controller"><span class="nav-text">控制器 Controller</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2025</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-compact-disc fa-spin"></i>&nbsp;&nbsp;<a href="/">aaaaa</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共撰写了 42 篇文章
+                    </span>
+                    
+                        <span>
+                            共 100.6k 字
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="fa-regular fa-arrow-up"></i>
+		</li>
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="站内搜索您需要的内容..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+	<div id="aplayer"></div>
+
+<script src="/js/build/libs/APlayer.min.js"></script>
+
+
+<script src="/js/build/plugins/aplayer.js"></script>
+
+
+	
+</body>
+
+</html>
